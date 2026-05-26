@@ -1,6 +1,6 @@
 # OpenCloud on Debian 13 — Core deployment (no Collabora/WOPI)
 
-**OpenCloud:** https://cloud.km0.amvara.de · **Web:** https://km0.amvara.de · **OS:** Debian 13 (Trixie)
+**OpenCloud:** https://cloud.km0digital.com · **Web:** https://km0.amvara.de · **OS:** Debian 13 (Trixie)
 
 > A developer-oriented overview of the full stack. Read [`docs/runbook.md`](docs/runbook.md) for day-to-day operations.
 
@@ -10,14 +10,14 @@
 
 ```
 Browser → https://km0.amvara.de     → Nginx (km0)      → 127.0.0.1:9180  (web corporativa)
-Browser → https://cloud.km0.amvara.de → Nginx (opencloud) → 127.0.0.1:9200  (OpenCloud)
+Browser → https://cloud.km0digital.com → Nginx (opencloud) → 127.0.0.1:9200  (OpenCloud)
 ```
 
 OpenCloud path in detail:
 
 ```
 Browser
-   │  HTTPS :443  cloud.km0.amvara.de (Let's Encrypt)
+   │  HTTPS :443  cloud.km0digital.com (Let's Encrypt)
    ▼
 Nginx  (/etc/nginx/sites-available/opencloud)
    │  HTTP  http://127.0.0.1:9200  (loopback only)
@@ -57,7 +57,7 @@ UFW enforces: **22, 80, 443** open to the Internet. Port **9200 is loopback-only
 | `/etc/nginx/sites-available/opencloud` | Active Nginx vhost (TLS termination + reverse proxy). |
 | `/etc/nginx/sites-available/km0` | Web corporativa (`km0.amvara.de` → :9180) |
 | `/etc/letsencrypt/live/km0.amvara.de/` | Certificado web |
-| `/etc/letsencrypt/live/cloud.km0.amvara.de/` | Certificado OpenCloud |
+| `/etc/letsencrypt/live/cloud.km0digital.com/` | Certificado OpenCloud |
 | `/var/www/certbot` | ACME HTTP-01 webroot for certificate renewal |
 | `/etc/docker/daemon.json` | Docker log rotation policy (`json-file`, max 10 MB × 3 files). |
 | `/var/lib/docker/volumes/opencloud_opencloud-data/` | All user data (files, search index, NATS state, IDM database). |
@@ -198,10 +198,25 @@ ufw status verbose
 
 ---
 
+## autoagents (Cursor agent loop)
+
+Automated workflow for GitHub issues and task files under [`autoagents/`](autoagents/). Uses **cursor-agent** (no Ollama).
+
+```bash
+cp autoagents/.env.example autoagents/.env   # optional: GH_TOKEN
+./scripts/setup-autoagents-gh.sh             # authenticate gh as Luipy56
+./autoagents/autoagents-loop.sh 001          # single step
+./autoagents/autoagents-loop.sh              # full loop
+```
+
+See [`docs/agent-loop.md`](docs/agent-loop.md) and [`.cursor/skills/autoagents/SKILL.md`](.cursor/skills/autoagents/SKILL.md).
+
+---
+
 ## Current deployment notes
 
 - **Web:** https://km0.amvara.de (Nginx `km0` → puerto 9180)
-- **OpenCloud:** https://cloud.km0.amvara.de (Nginx `opencloud` → puerto 9200)
+- **OpenCloud:** https://cloud.km0digital.com (Nginx `opencloud` → puerto 9200)
 - **TLS:** Let's Encrypt en ambos hostnames (`certbot.timer`; contacto ACME en comentarios de `opencloud-compose/.env`).
 - **`INSECURE=false`:** OpenCloud valida TLS en URLs públicas (OIDC requiere `https://` en `OC_URL`).
 - **Admin password:** `INITIAL_ADMIN_PASSWORD` en `.env` solo en el primer arranque; después, UI (ver runbook).

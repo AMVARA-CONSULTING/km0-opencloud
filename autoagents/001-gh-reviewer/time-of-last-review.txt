@@ -1,0 +1,13 @@
+2026-05-26T19:44:00Z — Run 001 (agent)
+  Preflight: /tmp/autoagents-loop/001-latest-context.txt (G001_GH_AUTH_FAILED=1, G001_LOG_SIGNALS=1)
+  GitHub sweep: SKIPPED — gh not authenticated; GH_TOKEN unset; ./scripts/setup-autoagents-gh.sh exits 1 (no autoagents/.env token). FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-dex: DNS "server misbehaving" only in historical tail; 0 matches in last 24h; container Up 3d, logins OK
+    - opencloud-opencloud-1: JWKS kid-not-found on /notifications/sse — 471 errors in tail, single client 79.152.41.69 (stale token retry after Dex key rotation ~17:17Z); not fleet-wide
+    - km0-web: no heuristic matches
+  NEW created: 0
+  gh comment/label: none (auth blocked)
+2026-05-26T21:55:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-05-26T22:05:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+

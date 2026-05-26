@@ -1,6 +1,6 @@
 # Dex OIDC gateway (Google + Apple)
 
-Lightweight OIDC broker behind nginx at `https://cloud.km0.amvara.de/dex/`.
+Lightweight OIDC broker behind nginx at `https://cloud.km0digital.com/dex/`.
 OpenCloud uses Dex as its single external issuer (no Keycloak).
 
 ## Google (working)
@@ -8,7 +8,7 @@ OpenCloud uses Dex as its single external issuer (no Keycloak).
 Authorized redirect URI in Google Cloud Console:
 
 ```text
-https://cloud.km0.amvara.de/dex/callback
+https://cloud.km0digital.com/dex/callback
 ```
 
 ## Apple Sign In
@@ -17,8 +17,8 @@ https://cloud.km0.amvara.de/dex/callback
 
 1. [Identifiers → Services IDs](https://developer.apple.com/account/resources/identifiers/list/serviceId) — create a Services ID (e.g. `de.amvara.km0.cloud`).
 2. Enable **Sign in with Apple** → Configure:
-   - **Domains:** `cloud.km0.amvara.de`
-   - **Return URLs:** `https://cloud.km0.amvara.de/dex/callback`
+   - **Domains:** `cloud.km0digital.com`
+   - **Return URLs:** `https://cloud.km0digital.com/dex/callback`
 3. Link the Services ID to your **App ID** (primary app with Sign in with Apple enabled).
 4. [Keys](https://developer.apple.com/account/resources/authkeys/list) — create key with **Sign in with Apple**, download `AuthKey_XXXXXXXXXX.p8` (once only).
 5. Note **Team ID** (Membership details), **Key ID**, and **Services ID** (client ID).
@@ -55,7 +55,7 @@ This generates the Apple JWT client secret (~180 days), updates `dex/.env`, and 
 
 ### 4. Verify
 
-- Dex login should list **Google** and **Apple**: open https://cloud.km0.amvara.de/
+- Dex login should list **Google** and **Apple**: open https://cloud.km0digital.com/
 - Logs: `docker logs opencloud-dex 2>&1 | grep apple`
 
 ### Renew Apple client secret
@@ -78,4 +78,4 @@ Login UI languages: **CA | ES | EN | DE** (aligned with km0-web). Preference sto
 
 Files: `/opt/opencloud/dex/web/themes/km0/` (`styles.css`, `i18n.js`), templates in `/opt/opencloud/dex/web/templates/`.
 
-Optional landing: https://cloud.km0.amvara.de/login.html
+Optional landing: https://cloud.km0digital.com/login.html

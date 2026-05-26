@@ -12,7 +12,7 @@ directives:
     - 'https://tile.openstreetmap.org/'
     - 'https://accounts.google.com'
     - 'https://oauth2.googleapis.com/token'
-    - 'https://cloud.km0.amvara.de/dex'
+    - 'https://cloud.km0digital.com/dex'
     - 'https://appleid.apple.com'
   default-src:
     - '''none'''
@@ -30,7 +30,7 @@ directives:
     - 'https://docs.opencloud.eu'
     - 'https://accounts.google.com'
     - 'https://oauth2.googleapis.com/token'
-    - 'https://cloud.km0.amvara.de/dex'
+    - 'https://cloud.km0digital.com/dex'
     - 'https://appleid.apple.com'
   img-src:
     - '''self'''

@@ -1,13 +1,13 @@
 {
-  "server": "https://cloud.km0.amvara.de/",
-  "theme": "https://cloud.km0.amvara.de/themes/opencloud/theme.json",
+  "server": "https://cloud.km0digital.com/",
+  "theme": "https://cloud.km0digital.com/themes/opencloud/theme.json",
   "openIdConnect": {
-    "metadata_url": "https://cloud.km0.amvara.de/dex/.well-known/openid-configuration",
-    "authority": "https://cloud.km0.amvara.de/dex",
+    "metadata_url": "https://cloud.km0digital.com/dex/.well-known/openid-configuration",
+    "authority": "https://cloud.km0digital.com/dex",
     "client_id": "opencloud-web",
     "response_type": "code",
     "scope": "openid profile email",
-    "post_logout_redirect_uri": "https://cloud.km0.amvara.de/login.html"
+    "post_logout_redirect_uri": "https://cloud.km0digital.com/login.html"
   },
   "apps": [
     "files",
@@ -28,7 +28,7 @@
   ],
   "options": {
     "contextHelpersReadMore": true,
-    "loginUrl": "https://cloud.km0.amvara.de/login.html",
+    "loginUrl": "https://cloud.km0digital.com/login.html",
     "tokenStorageLocal": true,
     "embed": {},
     "concurrentRequests": {

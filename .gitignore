@@ -19,8 +19,17 @@ dex-data/
 *.tar.gz
 backup*/
 
+# autoagents secrets
+autoagents/.env
+
+# autoagents runtime (preflight digests, gh stderr scratch — inside repo, not /tmp)
+autoagents/var/loop/
+!autoagents/var/.gitkeep
+
 # IDE
 .idea/
+__pycache__/
+*.pyc
 
 # Credenciales en /opt (referenciadas por Dex)
 google-client-secret.json

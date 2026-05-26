@@ -13,13 +13,13 @@
 # Environment overrides:
 #   BACKUP_ROOT=/opt/backup_opencloud_installation
 #   OPENCLOUD_DIR=/opt/opencloud
-#   TLS_DOMAIN=cloud.km0.amvara.de
+#   TLS_DOMAIN=cloud.km0digital.com
 #   KEEP_EXPANDED=true   # set to false to remove the directory after creating the tar
 set -euo pipefail
 
 BACKUP_ROOT="${BACKUP_ROOT:-/opt/backup_opencloud_installation}"
 OPENCLOUD_DIR="${OPENCLOUD_DIR:-/opt/opencloud}"
-TLS_DOMAIN="${TLS_DOMAIN:-cloud.km0.amvara.de}"
+TLS_DOMAIN="${TLS_DOMAIN:-cloud.km0digital.com}"
 KEEP_EXPANDED="${KEEP_EXPANDED:-true}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 DEST="${BACKUP_ROOT}/${STAMP}"

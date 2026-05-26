@@ -87,14 +87,14 @@ else
   echo "Warning: Apple connector not found in Dex logs. Check: docker logs opencloud-dex" >&2
 fi
 
-if curl -fsS "https://cloud.km0.amvara.de/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0.amvara.de%2Foidc-callback.html&response_type=code&scope=openid+profile+email&state=test&code_challenge=E9Melhoa2OwvFrEMTIguAEAOvqlb6vJxRFnGlK4K3k&code_challenge_method=S256" 2>/dev/null | grep -q Apple; then
+if curl -fsS "https://cloud.km0digital.com/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2Foidc-callback.html&response_type=code&scope=openid+profile+email&state=test&code_challenge=E9Melhoa2OwvFrEMTIguAEAOvqlb6vJxRFnGlK4K3k&code_challenge_method=S256" 2>/dev/null | grep -q Apple; then
   echo "Dex login page lists Apple."
 else
-  echo "Open https://cloud.km0.amvara.de/ and confirm Apple appears on the login screen."
+  echo "Open https://cloud.km0digital.com/ and confirm Apple appears on the login screen."
 fi
 
 echo ""
 echo "Apple Developer — Services ID Return URL must include:"
-echo "  https://cloud.km0.amvara.de/dex/callback"
+echo "  https://cloud.km0digital.com/dex/callback"
 echo ""
-echo "Done. Re-test login at https://cloud.km0.amvara.de/"
+echo "Done. Re-test login at https://cloud.km0digital.com/"

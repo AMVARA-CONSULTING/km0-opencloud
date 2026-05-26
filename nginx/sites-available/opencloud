@@ -1,11 +1,11 @@
-# OpenCloud — cloud.km0.amvara.de → Dex OIDC (/dex) + OpenCloud (127.0.0.1:9200)
+# OpenCloud — cloud.km0digital.com → Dex OIDC (/dex) + OpenCloud (127.0.0.1:9200)
 # Multi-provider login: /login.html (Google + Apple via Dex)
 # Web corporativa: km0.amvara.de → /etc/nginx/sites-available/km0 (puerto 9180)
 
 server {
     listen 80;
     listen [::]:80;
-    server_name cloud.km0.amvara.de;
+    server_name cloud.km0digital.com;
 
     location /.well-known/acme-challenge/ {
         root /var/www/certbot;
@@ -23,10 +23,10 @@ server {
     listen [::]:443 ssl;
     http2 on;
 
-    server_name cloud.km0.amvara.de;
+    server_name cloud.km0digital.com;
 
-    ssl_certificate     /etc/letsencrypt/live/cloud.km0.amvara.de/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/cloud.km0.amvara.de/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/cloud.km0digital.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cloud.km0digital.com/privkey.pem;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers off;
 

@@ -2,7 +2,7 @@ h1. KM0 OpenCloud — deployment repository (Redmine)
 
 h2. Purpose
 
-Version-controlled *operations* configuration for *OpenCloud* at @cloud.km0.amvara.de@ on Debian 13: external Nginx TLS, Dex OIDC (Google/Apple), hybrid local login, backup scripts, and minimal patches to upstream @opencloud-compose@ — *not* a fork of OpenCloud EU.
+Version-controlled *operations* configuration for *OpenCloud* at @cloud.km0digital.com@ on Debian 13: external Nginx TLS, Dex OIDC (Google/Apple), hybrid local login, backup scripts, and minimal patches to upstream @opencloud-compose@ — *not* a fork of OpenCloud EU.
 
 Marketing site @km0.amvara.de@ lives in a separate repo (@km0-web@).
 
@@ -11,9 +11,9 @@ Marketing site @km0.amvara.de@ lives in a separate repo (@km0-web@).
 h2. URLs
 
 |_.Service|_.URL|_.Repo|
-| OpenCloud | "https://cloud.km0.amvara.de":https://cloud.km0.amvara.de | @km0-opencloud@ (this) |
+| OpenCloud | "https://cloud.km0digital.com":https://cloud.km0digital.com | @km0-opencloud@ (this) |
 | Corporate web | "https://km0.amvara.de":https://km0.amvara.de | @km0-web@ |
-| Dex OIDC | @https://cloud.km0.amvara.de/dex@ | @dex/@ in this repo |
+| Dex OIDC | @https://cloud.km0digital.com/dex@ | @dex/@ in this repo |
 | Upstream compose | "opencloud-eu/opencloud-compose":https://github.com/opencloud-eu/opencloud-compose | Cloned on server as @opencloud-compose/@ (gitignored) |
 
 ---

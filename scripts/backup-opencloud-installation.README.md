@@ -10,9 +10,9 @@ Script: [`backup-opencloud-installation.sh`](backup-opencloud-installation.sh)
 | **`host-nginx/`** | **`/etc/nginx/sites-available/opencloud`**, **`opencloud-acme-bootstrap`** | **Active host nginx site configs** |
 | `host-nginx/repo-nginx/` | `/opt/opencloud/nginx/` | Version-controlled nginx templates in the repo |
 | `host-nginx/sites-enabled-*.txt` | `/etc/nginx/sites-enabled/opencloud` | Symlink target recorded for reference |
-| **`host-www/opencloud-auth/`** | **`/var/www/opencloud-auth/`** | **`login.html`** served at `https://cloud.km0.amvara.de/login.html` |
+| **`host-www/opencloud-auth/`** | **`/var/www/opencloud-auth/`** | **`login.html`** served at `https://cloud.km0digital.com/login.html` |
 | **`host-www/certbot/`** | **`/var/www/certbot/`** | ACME HTTP-01 webroot |
-| `letsencrypt/` | `/etc/letsencrypt/{live,archive,renewal}/cloud.km0.amvara.de*` | TLS certificates (default domain; override with `TLS_DOMAIN`) |
+| `letsencrypt/` | `/etc/letsencrypt/{live,archive,renewal}/cloud.km0digital.com*` | TLS certificates (default domain; override with `TLS_DOMAIN`) |
 | `opt-credentials/` | `/opt/google-client-secret.json`, Apple JSON files | OIDC secrets referenced by Dex |
 | `docker-volumes/` | Docker volumes `opencloud_opencloud-config`, `opencloud_opencloud-data`, `dex_dex-data` | Application data and Dex state |
 | `manifest/` | Generated at backup time | `backup.log`, `runtime-snapshot.txt` |
@@ -96,12 +96,12 @@ rsync -a "${SRC}/host-www/certbot/" /var/www/certbot/
 chown -R www-data:www-data /var/www/certbot 2>/dev/null || true
 ```
 
-Verify: `https://cloud.km0.amvara.de/login.html` should serve the restored picker page.
+Verify: `https://cloud.km0digital.com/login.html` should serve the restored picker page.
 
 ### 5. Restore TLS certificates (optional if re-issuing with certbot)
 
 ```bash
-DOMAIN=cloud.km0.amvara.de
+DOMAIN=cloud.km0digital.com
 
 for sub in live archive renewal; do
   if [[ -d "${SRC}/letsencrypt/${sub}" ]]; then
@@ -118,7 +118,7 @@ find /etc/letsencrypt -name 'privkey*.pem' -exec chmod 600 {} \;
 If certs are expired or the hostname changed, skip this step and run certbot after nginx is configured:
 
 ```bash
-certbot certonly --webroot -w /var/www/certbot -d cloud.km0.amvara.de
+certbot certonly --webroot -w /var/www/certbot -d cloud.km0digital.com
 ```
 
 ### 6. Restore OIDC credential files
@@ -187,9 +187,9 @@ docker ps --filter name=opencloud --filter name=dex
 
 ```bash
 nginx -t
-curl -sI https://cloud.km0.amvara.de/login.html | head -5
-curl -sI https://cloud.km0.amvara.de/ | head -5
-curl -sI https://cloud.km0.amvara.de/dex/.well-known/openid-configuration | head -5
+curl -sI https://cloud.km0digital.com/login.html | head -5
+curl -sI https://cloud.km0digital.com/ | head -5
+curl -sI https://cloud.km0digital.com/dex/.well-known/openid-configuration | head -5
 
 cd /opt/opencloud/opencloud-compose && docker compose logs --tail=30 opencloud
 docker logs --tail=30 opencloud-dex

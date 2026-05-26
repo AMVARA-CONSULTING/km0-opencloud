@@ -1,11 +1,11 @@
 {
-  "issuer": "https://cloud.km0.amvara.de/dex",
-  "authorization_endpoint": "https://cloud.km0.amvara.de/dex/auth",
-  "token_endpoint": "https://cloud.km0.amvara.de/konnect/v1/token",
-  "jwks_uri": "https://cloud.km0.amvara.de/dex/keys",
-  "userinfo_endpoint": "https://cloud.km0.amvara.de/dex/userinfo",
-  "device_authorization_endpoint": "https://cloud.km0.amvara.de/dex/device/code",
-  "introspection_endpoint": "https://cloud.km0.amvara.de/dex/token/introspect",
+  "issuer": "https://cloud.km0digital.com/dex",
+  "authorization_endpoint": "https://cloud.km0digital.com/dex/auth",
+  "token_endpoint": "https://cloud.km0digital.com/konnect/v1/token",
+  "jwks_uri": "https://cloud.km0digital.com/dex/keys",
+  "userinfo_endpoint": "https://cloud.km0digital.com/dex/userinfo",
+  "device_authorization_endpoint": "https://cloud.km0digital.com/dex/device/code",
+  "introspection_endpoint": "https://cloud.km0digital.com/dex/token/introspect",
   "grant_types_supported": [
     "authorization_code",
     "refresh_token",
