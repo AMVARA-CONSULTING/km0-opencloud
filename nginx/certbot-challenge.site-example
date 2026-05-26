@@ -1,0 +1,16 @@
+# Sitio temporal únicamente para la primera emisión de certificados con webroot.
+# Sustituir cloud.example.com y enlazar en sites-enabled antes de:
+#   certbot certonly --webroot -w /var/www/certbot -d cloud.example.com ...
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name km0.amvara.de;
+
+    root /var/www/certbot;
+
+    location /.well-known/acme-challenge/ {
+        allow all;
+        try_files $uri =404;
+    }
+}

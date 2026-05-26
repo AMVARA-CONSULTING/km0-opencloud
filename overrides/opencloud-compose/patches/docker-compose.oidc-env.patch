@@ -1,0 +1,24 @@
+diff --git a/docker-compose.yml b/docker-compose.yml
+index 291936a..5b44860 100644
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -56,6 +56,19 @@ services:
+       OC_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS: "${OC_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS:-1}"
+       # default language for services/WebUI; defaults to English, language code (ISO 639-1, e.g. de, en, fr)
+       OC_DEFAULT_LANGUAGE: ${DEFAULT_LANGUAGE}
++      # OIDC configuration
++      OC_OIDC_ISSUER: "${OC_OIDC_ISSUER:-https://accounts.google.com}"
++      WEB_OIDC_CLIENT_ID: "${WEB_OIDC_CLIENT_ID}"
++      OC_EXCLUDE_RUN_SERVICES: "${OC_EXCLUDE_RUN_SERVICES:-idp}"
++      PROXY_OIDC_REWRITE_WELLKNOWN: "${PROXY_OIDC_REWRITE_WELLKNOWN:-true}"
++      PROXY_AUTOPROVISION_ACCOUNTS: "${PROXY_AUTOPROVISION_ACCOUNTS:-true}"
++      GRAPH_USERNAME_MATCH: "${GRAPH_USERNAME_MATCH:-none}"
++      PROXY_USER_OIDC_CLAIM: "${PROXY_USER_OIDC_CLAIM:-email}"
++      PROXY_AUTOPROVISION_CLAIM_USERNAME: "${PROXY_AUTOPROVISION_CLAIM_USERNAME:-email}"
++      PROXY_USER_CS3_CLAIM: "${PROXY_USER_CS3_CLAIM:-username}"
++      PROXY_ROLE_ASSIGNMENT_DRIVER: "${PROXY_ROLE_ASSIGNMENT_DRIVER:-default}"
++      GRAPH_ASSIGN_DEFAULT_USER_ROLE: "${GRAPH_ASSIGN_DEFAULT_USER_ROLE:-true}"
++
+     volumes:
+       - ./config/opencloud/csp.yaml:/etc/opencloud/csp.yaml
+       - ./config/opencloud/banned-password-list.txt:/etc/opencloud/banned-password-list.txt

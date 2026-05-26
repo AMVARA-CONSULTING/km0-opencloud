@@ -1,0 +1,17 @@
+---
+services:
+  opencloud:
+      environment:
+        # bind to all interfaces
+        PROXY_HTTP_ADDR: "0.0.0.0:9200"
+        # Keep built-in idp for local username/password login alongside Dex/Google OIDC
+        OC_EXCLUDE_RUN_SERVICES: ""
+        # config.json OIDC routing is handled by nginx (local vs Dex); keep login URL here
+        WEB_OPTION_LOGIN_URL: https://${OC_DOMAIN:-cloud.km0.amvara.de}/login.html
+        WEB_OIDC_POST_LOGOUT_REDIRECT_URI: https://${OC_DOMAIN:-cloud.km0.amvara.de}/login.html
+      # Docker embedded DNS often fails to resolve the public hostname from inside the container
+      extra_hosts:
+        - "${OC_DOMAIN:-cloud.km0.amvara.de}:host-gateway"
+      ports:
+        # expose the opencloud server on localhost
+        - "127.0.0.1:9200:9200"

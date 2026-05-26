@@ -1,0 +1,27 @@
+# Secretos y entorno local
+.env
+**/.env
+!**/.env.example
+!**/.env.*.example
+
+# Clon upstream completo en la raíz del repo (mantener en disco; no versionar)
+/opencloud-compose/
+
+# Borrador local con secretos históricos
+README.red
+
+# Dex / Apple / Google fuera del repo
+*.p8
+AuthKey_*
+dex-data/
+
+# Backups
+*.tar.gz
+backup*/
+
+# IDE
+.idea/
+
+# Credenciales en /opt (referenciadas por Dex)
+google-client-secret.json
+apple-signin-credentials.json

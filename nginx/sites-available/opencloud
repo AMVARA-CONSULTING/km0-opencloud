@@ -1,0 +1,154 @@
+# OpenCloud — cloud.km0.amvara.de → Dex OIDC (/dex) + OpenCloud (127.0.0.1:9200)
+# Multi-provider login: /login.html (Google + Apple via Dex)
+# Web corporativa: km0.amvara.de → /etc/nginx/sites-available/km0 (puerto 9180)
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name cloud.km0.amvara.de;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+        allow all;
+        try_files $uri =404;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+
+    server_name cloud.km0.amvara.de;
+
+    ssl_certificate     /etc/letsencrypt/live/cloud.km0.amvara.de/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cloud.km0.amvara.de/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+
+    client_max_body_size 10G;
+
+    proxy_buffering off;
+    proxy_request_buffering off;
+
+    proxy_read_timeout 3600s;
+    proxy_send_timeout 3600s;
+    keepalive_requests 100000;
+    keepalive_timeout 5m;
+
+    proxy_next_upstream off;
+
+    location = /login.html {
+        alias /var/www/opencloud-auth/login.html;
+        default_type text/html;
+    }
+
+    # Hybrid OIDC: local login exchanges at /konnect/v1/token; Google uses Dex metadata
+    location = /oidc/local-metadata.json {
+        alias /var/www/opencloud-auth/local-metadata.json;
+        default_type application/json;
+    }
+
+    location = /config.json {
+        if ($cookie_oc_auth_mode = "dex") {
+            rewrite ^ /_internal/opencloud-config-dex.json last;
+        }
+        rewrite ^ /_internal/opencloud-config-local.json last;
+    }
+
+    location = /_internal/opencloud-config-local.json {
+        internal;
+        alias /var/www/opencloud-auth/config-local.json;
+        default_type application/json;
+    }
+
+    location = /_internal/opencloud-config-dex.json {
+        internal;
+        alias /var/www/opencloud-auth/config-dex.json;
+        default_type application/json;
+    }
+
+    # Dex OIDC broker — unified issuer for OpenCloud (Google + Apple connectors)
+    location /dex/ {
+        proxy_pass http://127.0.0.1:5556/dex/;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+    }
+
+    # Built-in idp login UI lives under /signin/v1/identifier/ but static assets are
+    # served from /signin/v1/static/. Relative ./static/ URLs otherwise 404 (blank page).
+    location ~ ^/signin/v1/identifier/static/(.*)$ {
+        proxy_pass http://127.0.0.1:9200/signin/v1/static/$1;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # JS posts to ./identifier/_/… which doubles when the page URL contains /identifier/index.html
+    location ~ ^/signin/v1/identifier/identifier/(.*)$ {
+        proxy_pass http://127.0.0.1:9200/signin/v1/identifier/$1;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # index.html breaks relative API paths — send users through the OAuth authorize handoff
+    location = /signin/v1/identifier/index.html {
+        return 302 /signin/v1/identifier/_/authorize?client_id=web&redirect_uri=https%3A%2F%2F$host%2F&response_type=code&scope=openid+profile+email;
+    }
+
+    # Trailing slash on /identifier/ also breaks relative API paths
+    location = /signin/v1/identifier/ {
+        return 302 /signin/v1/identifier/_/authorize?client_id=web&redirect_uri=https%3A%2F%2F$host%2F&response_type=code&scope=openid+profile+email;
+    }
+
+    location = / {
+        if ($km0_root_to_login) {
+            return 302 /login.html;
+        }
+
+        proxy_pass http://127.0.0.1:9200;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    # OpenCloud application
+    location / {
+        proxy_pass http://127.0.0.1:9200;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    add_header X-Frame-Options SAMEORIGIN always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy no-referrer always;
+}

@@ -1,0 +1,27 @@
+services:
+  dex:
+    image: ghcr.io/dexidp/dex:v2.41.1
+    container_name: opencloud-dex
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DEX_ISSUER: ${DEX_ISSUER}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      OPENCLOUD_WEB_CLIENT_ID: ${OPENCLOUD_WEB_CLIENT_ID}
+      APPLE_CLIENT_ID: ${APPLE_CLIENT_ID:-}
+      APPLE_TEAM_ID: ${APPLE_TEAM_ID:-}
+      APPLE_KEY_ID: ${APPLE_KEY_ID:-}
+      APPLE_CLIENT_SECRET: ${APPLE_CLIENT_SECRET:-}
+    entrypoint: ["/bin/sh", "/etc/dex/docker-entrypoint.sh"]
+    volumes:
+      - ./config.yaml:/etc/dex/config.yaml.template:ro
+      - ./docker-entrypoint.sh:/etc/dex/docker-entrypoint.sh:ro
+      - ./web:/etc/dex/web:ro
+      - dex-data:/var/dex
+    ports:
+      - "127.0.0.1:5556:5556"
+
+volumes:
+  dex-data:

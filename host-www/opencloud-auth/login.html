@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kilómetro 0 Digital — OpenCloud</title>
+  <meta name="description" content="Acceso a OpenCloud — Kilómetro 0 Digital" />
+  <link rel="icon" type="image/svg+xml" href="https://km0.amvara.de/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0b1220;
+      --gradient: linear-gradient(135deg, #ff5f2e 0%, #e040a0 35%, #7b3fe4 65%, #007bff 100%);
+      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--navy);
+      background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(123, 63, 228, 0.18) 0%, transparent 70%);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+    .card {
+      position: relative;
+      width: min(440px, 92vw);
+      padding: 2.5rem 2rem 2rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+      text-align: center;
+    }
+    .km0-lang-switch {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .km0-lang-switch__btn {
+      border: 0;
+      border-radius: 9999px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      font: inherit;
+      padding: 6px 10px;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .km0-lang-switch__btn:hover { color: #fff; }
+    .km0-lang-switch__btn--active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+    .logo {
+      width: min(200px, 55vw);
+      height: auto;
+      margin: 0 auto 1.5rem;
+      display: block;
+      filter: drop-shadow(0 0 24px rgba(123, 63, 228, 0.35));
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin: 0 0 0.75rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .tagline {
+      margin: 0 0 1.75rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    p {
+      margin: 0 0 1.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.85rem 2rem;
+      border: 0;
+      border-radius: 9999px;
+      background: var(--gradient);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+    .btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(123, 63, 228, 0.35);
+    }
+    .btn-secondary {
+      margin-top: 0.75rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: none;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: none;
+    }
+    footer {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+    footer a {
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+    }
+    footer a:hover { color: #7b3fe4; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <nav class="km0-lang-switch" role="navigation" aria-label="Idioma">
+      <button type="button" class="km0-lang-switch__btn" data-lang="ca" aria-pressed="false">CA</button>
+      <button type="button" class="km0-lang-switch__btn km0-lang-switch__btn--active" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" class="km0-lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+    </nav>
+    <img class="logo" src="https://km0.amvara.de/brand/logo.png" alt="Kilómetro 0 Digital" width="200" height="auto" />
+    <p class="eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
+    <h1>OpenCloud</h1>
+    <p class="tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
+    <p data-i18n="landingDescription">Accede a tus archivos en la nube. Elige Google/Apple (OIDC) o usuario y contraseña local.</p>
+    <a class="btn" href="/?oidc=1" id="km0-oidc-login" data-i18n="landingCtaOidc">Continuar con Google / Apple</a>
+    <a class="btn btn-secondary" href="/signin/v1/identifier/_/authorize?client_id=web&amp;redirect_uri=https%3A%2F%2Fcloud.km0.amvara.de%2F&amp;response_type=code&amp;scope=openid+profile+email" id="km0-local-login" data-i18n="landingCtaLocal">Iniciar sesión con usuario y contraseña</a>
+    <footer>
+      <a href="https://km0.amvara.de/" target="_blank" rel="noopener">km0.amvara.de</a>
+    </footer>
+  </div>
+  <script src="https://cloud.km0.amvara.de/dex/theme/i18n.js"></script>
+  <script>
+    (function () {
+      function clearAuthModeCookie() {
+        document.cookie = 'oc_auth_mode=;path=/;max-age=0;SameSite=Lax';
+      }
+      function setDexAuthModeCookie() {
+        document.cookie = 'oc_auth_mode=dex;path=/;max-age=600;SameSite=Lax';
+      }
+
+      var oidcBtn = document.getElementById('km0-oidc-login');
+      if (oidcBtn) {
+        oidcBtn.addEventListener('click', function () {
+          setDexAuthModeCookie();
+        });
+      }
+
+      var localBtn = document.getElementById('km0-local-login');
+      if (localBtn) {
+        localBtn.addEventListener('click', function () {
+          clearAuthModeCookie();
+        });
+      }
+
+      var keys = Object.keys(localStorage);
+      var hasSession = keys.some(function (k) {
+        return /auth|token|oidc|opencloud/i.test(k);
+      });
+      if (hasSession) {
+        clearAuthModeCookie();
+        window.location.replace('/files');
+      }
+    })();
+  </script>
+</body>
+</html>

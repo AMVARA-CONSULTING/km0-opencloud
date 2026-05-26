@@ -1,0 +1,41 @@
+# Template — rendered by docker-entrypoint.sh
+issuer: ISSUER_PLACEHOLDER
+storage:
+  type: sqlite3
+  config:
+    file: /var/dex/dex.db
+web:
+  http: 0.0.0.0:5556
+  allowedOrigins:
+    - 'https://ISSUER_HOST_PLACEHOLDER'
+frontend:
+  dir: /etc/dex/web
+  theme: km0
+  issuer: Kilómetro 0 Digital
+  logo: theme/logo.png
+logger:
+  level: info
+  format: json
+oauth2:
+  skipApprovalScreen: true
+  # Show provider picker (Google / Apple) instead of auto-redirecting to the only connector
+  alwaysShowLoginScreen: true
+  responseTypes:
+    - code
+    - id_token
+staticClients:
+  - id: OPENCLOUD_WEB_CLIENT_ID_PLACEHOLDER
+    name: OpenCloud Web
+    public: true
+    redirectURIs:
+      - 'https://ISSUER_HOST_PLACEHOLDER/'
+      - 'https://ISSUER_HOST_PLACEHOLDER/oidc-callback.html'
+      - 'https://ISSUER_HOST_PLACEHOLDER/oidc-silent-redirect.html'
+connectors:
+  - type: google
+    id: google
+    name: Google
+    config:
+      clientID: GOOGLE_CLIENT_ID_PLACEHOLDER
+      clientSecret: GOOGLE_CLIENT_SECRET_PLACEHOLDER
+      redirectURI: ISSUER_PLACEHOLDER/callback

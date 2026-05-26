@@ -1,0 +1,38 @@
+{
+  "server": "https://cloud.km0.amvara.de/",
+  "theme": "https://cloud.km0.amvara.de/themes/opencloud/theme.json",
+  "openIdConnect": {
+    "metadata_url": "https://cloud.km0.amvara.de/oidc/local-metadata.json",
+    "authority": "https://cloud.km0.amvara.de/dex",
+    "client_id": "web",
+    "response_type": "code",
+    "scope": "openid profile email",
+    "post_logout_redirect_uri": "https://cloud.km0.amvara.de/login.html"
+  },
+  "apps": [
+    "files",
+    "search",
+    "text-editor",
+    "pdf-viewer",
+    "external",
+    "admin-settings",
+    "epub-reader",
+    "preview",
+    "app-store"
+  ],
+  "external_apps": [
+    {
+      "id": "maps",
+      "path": "/assets/apps/maps/js/remoteEntry-lxWu31Tr.mjs"
+    }
+  ],
+  "options": {
+    "contextHelpersReadMore": true,
+    "loginUrl": "https://cloud.km0.amvara.de/login.html",
+    "tokenStorageLocal": true,
+    "embed": {},
+    "concurrentRequests": {
+      "shares": {}
+    }
+  }
+}

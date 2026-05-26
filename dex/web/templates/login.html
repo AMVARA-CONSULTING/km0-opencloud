@@ -1,0 +1,25 @@
+{{ template "header.html" . }}
+
+<div class="theme-panel">
+  <p class="km0-eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
+  <h2 class="theme-heading">OpenCloud</h2>
+  <p class="km0-subtitle" data-i18n="loginSubtitle">Elige cómo quieres iniciar sesión en cloud.km0.amvara.de</p>
+  <div>
+    {{ range $c := .Connectors }}
+      <div class="theme-form-row">
+        <a href="{{ $c.URL }}" target="_self">
+          <button type="button" class="dex-btn theme-btn-provider{{ if eq $c.ID "apple" }} theme-btn-provider--apple{{ end }}">
+            <span class="dex-btn-icon dex-btn-icon--{{ $c.Type }}{{ if eq $c.ID "apple" }} dex-btn-icon--apple{{ end }}"></span>
+            <span class="dex-btn-text" data-i18n-connector="{{ $c.ID }}" data-i18n-name="{{ $c.Name }}">{{ if eq $c.ID "google" }}Continuar con Google{{ else if eq $c.ID "apple" }}Continuar con Apple{{ else }}Log in with {{ $c.Name }}{{ end }}</span>
+          </button>
+        </a>
+      </div>
+    {{ end }}
+  </div>
+  <p class="km0-footer-note">
+    <a href="https://km0.amvara.de/" target="_blank" rel="noopener">km0.amvara.de</a>
+    · <span data-i18n="footerTagline">Origen local. Impacto digital.</span>
+  </p>
+</div>
+
+{{ template "footer.html" . }}
