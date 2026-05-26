@@ -46,5 +46,11 @@ if command -v python3 >/dev/null 2>&1 && [[ -f "${REPO_ROOT}/autoagents/gh_issue
     echo "Warning: GitHub issue sync failed (archive continues)." >&2
 fi
 
+if command -v python3 >/dev/null 2>&1 && [[ -f "${REPO_ROOT}/autoagents/redmine_sync.py" ]]; then
+  echo "Posting Redmine closing note..."
+  python3 "${REPO_ROOT}/autoagents/redmine_sync.py" note "$src" || \
+    echo "Warning: Redmine note sync failed (archive continues)." >&2
+fi
+
 mv "$src" "${dest_dir}/${bn}"
 echo "Moved to ${dest_dir}/${bn}"

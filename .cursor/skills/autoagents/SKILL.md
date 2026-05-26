@@ -33,7 +33,8 @@ FEAT/NEW → WIP → UNTESTED → TESTING → CLOSED → done/YYYY/MM/DD/
 | `autoagents/tasks/` | Active task queue |
 | `scripts/git-sync-main.sh` | Sync before edits |
 | `scripts/move-agent-task-to-done.sh` | Archive CLOSED tasks |
-| `autoagents/.env` | GH_TOKEN (gitignored) |
+| `autoagents/.env` | GH_TOKEN, Redmine vars (gitignored) |
+| `autoagents/redmine_sync.py` | Redmine closing notes (Textile `.red`) |
 
 ## Single commands
 

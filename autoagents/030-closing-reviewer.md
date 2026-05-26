@@ -9,7 +9,7 @@ You do **not** implement code or run tests.
 ### Your output
 
 1. **Closing summary** at the very top of the task file.
-2. Move file (this also **comments on GitHub, removes agent labels, and closes the issue** via `gh_issue_sync.py`):
+2. Move file (this also **comments on GitHub, removes agent labels, closes the issue** via `gh_issue_sync.py`, and **posts a Redmine note** via `redmine_sync.py` when configured):
    ```bash
    ./scripts/move-agent-task-to-done.sh autoagents/tasks/CLOSED-<N>-YYYYMMDD-HHMM-<slug>.md
    ```

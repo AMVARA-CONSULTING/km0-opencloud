@@ -41,6 +41,8 @@ On test failure: **testing → wip**, then **wip → untested** when ready.
 
 → **`autoagents/tasks/done/2026/05/26/CLOSED-12-20260526-1200-example.md`**
 
+When Redmine is configured (`REDMINE_URL`, `REDMINE_API_KEY`, `REDMINE_ISSUE_ID` in `autoagents/.env`), the move script also posts an English Textile (`.red`) closing summary to the Redmine issue via `autoagents/redmine_sync.py`.
+
 ## Rules of thumb
 
 - **`autoagents/VERSION`:** patch bumps on every loop prompt and each new FEAT task; committer always pushes it.

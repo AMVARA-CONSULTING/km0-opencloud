@@ -63,6 +63,9 @@ Create labels in the repo if missing.
 | `AGENT_COMMITTER_USE_CURSOR` | `1` (full committer via cursor-agent) |
 | `AGENT_LOOP_TMP` | `autoagents/var/loop` (inside repo; not `/tmp`) |
 | `GH_TOKEN` | from `autoagents/.env` |
+| `REDMINE_URL` | Redmine base URL (optional; closing notes) |
+| `REDMINE_API_KEY` | Redmine API key (optional) |
+| `REDMINE_ISSUE_ID` | Target Redmine issue for autoagents notes (optional) |
 
 Preflight digest: `autoagents/var/loop/001-latest-context.txt`
 
