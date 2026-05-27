@@ -301,12 +301,10 @@
           .then(function (hash) { return { verifier: verifier, challenge: base64url(hash) }; });
       }
 
-      // Store OIDC signin state exactly as oidc-client-ts does (localStorage,
-      // key = state id, value = SigninState JSON). Wrong storage/key caused
-      // "No matching state found in storage" on Google/local Dex callbacks.
+      // oidc-client-ts WebStorageStateStore uses localStorage + "oidc." prefix.
       function storeSigninState(state, authority, clientId, redirectUri, codeVerifier) {
         try {
-          localStorage.setItem(state, JSON.stringify({
+          localStorage.setItem('oidc.' + state, JSON.stringify({
             id: state,
             created: Math.floor(Date.now() / 1000),
             request_type: 'si:r',
