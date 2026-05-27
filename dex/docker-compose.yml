@@ -2,6 +2,8 @@ services:
   dex:
     image: ghcr.io/dexidp/dex:v2.41.1
     container_name: opencloud-dex
+    # Root for entrypoint: read IDM ldap.crt from opencloud-data (dir mode 0700)
+    user: "0:0"
     restart: unless-stopped
     env_file:
       - .env
@@ -10,6 +12,8 @@ services:
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       OPENCLOUD_WEB_CLIENT_ID: ${OPENCLOUD_WEB_CLIENT_ID}
+      OPENCLOUD_LDAP_HOST: ${OPENCLOUD_LDAP_HOST:-opencloud}
+      OPENCLOUD_IDM_BIND_PW: ${OPENCLOUD_IDM_BIND_PW:-}
       APPLE_CLIENT_ID: ${APPLE_CLIENT_ID:-}
       APPLE_TEAM_ID: ${APPLE_TEAM_ID:-}
       APPLE_KEY_ID: ${APPLE_KEY_ID:-}
@@ -20,8 +24,22 @@ services:
       - ./docker-entrypoint.sh:/etc/dex/docker-entrypoint.sh:ro
       - ./web:/etc/dex/web:ro
       - dex-data:/var/dex
+      - opencloud_opencloud-config:/etc/opencloud-config:ro
+      - opencloud_opencloud-data:/opencloud-data:ro
     ports:
       - "127.0.0.1:5556:5556"
+    networks:
+      - default
+      - opencloud-net
+
+networks:
+  opencloud-net:
+    external: true
+    name: opencloud_opencloud-net
 
 volumes:
   dex-data:
+  opencloud_opencloud-config:
+    external: true
+  opencloud_opencloud-data:
+    external: true

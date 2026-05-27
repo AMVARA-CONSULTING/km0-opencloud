@@ -4,6 +4,8 @@ services:
       environment:
         # bind to all interfaces
         PROXY_HTTP_ADDR: "0.0.0.0:9200"
+        # Allow Dex (opencloud_opencloud-net) to reach built-in IDM LDAPS on 9235
+        IDM_LDAPS_ADDR: "0.0.0.0:9235"
         # Keep built-in idp for local username/password login alongside Dex/Google OIDC
         OC_EXCLUDE_RUN_SERVICES: ""
         # config.json OIDC routing is handled by nginx (local vs Dex); keep login URL here

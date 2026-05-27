@@ -1,9 +1,9 @@
 {
-  "issuer": "https://cloud.km0.amvara.de",
-  "authorization_endpoint": "https://cloud.km0.amvara.de/signin/v1/identifier/_/authorize",
-  "token_endpoint": "https://cloud.km0.amvara.de/konnect/v1/token",
-  "jwks_uri": "https://cloud.km0.amvara.de/konnect/v1/jwks.json",
-  "userinfo_endpoint": "https://cloud.km0.amvara.de/konnect/v1/userinfo",
+  "issuer": "https://cloud.km0digital.com",
+  "authorization_endpoint": "https://cloud.km0digital.com/signin/v1/identifier/_/authorize",
+  "token_endpoint": "https://cloud.km0digital.com/konnect/v1/token",
+  "jwks_uri": "https://cloud.km0digital.com/konnect/v1/jwks.json",
+  "userinfo_endpoint": "https://cloud.km0digital.com/konnect/v1/userinfo",
   "grant_types_supported": [
     "authorization_code",
     "refresh_token"

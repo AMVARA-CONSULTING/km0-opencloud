@@ -1,7 +1,6 @@
 # Operations Runbook — OpenCloud on Debian 13
 
-**OpenCloud (temporary Google OAuth test):** https://cloud.km0.amvara.de · **Web:** https://km0.amvara.de  
-**OpenCloud (production hostname, restore after Google Console update):** https://cloud.km0digital.com  
+**OpenCloud:** https://cloud.km0digital.com · **Web:** https://km0.amvara.de  
 For architecture, port map and data layout, see [`../README.md`](../README.md).  
 Official docs: <https://docs.opencloud.eu/>
 
@@ -335,6 +334,7 @@ apt update && apt upgrade -y
 | 2026-05-21 | Production domain | `km0.amvara.de` Let's Encrypt (web) |
 | 2026-05-21 | Split hostnames | Web `km0.amvara.de`; OpenCloud `cloud.km0.amvara.de`, `OC_DOMAIN` actualizado |
 | 2026-05-26 | Cloud domain migration | `cloud.km0.amvara.de` → `cloud.km0digital.com`; TLS via `scripts/issue-cloud-km0digital-cert.sh` after DNS A record |
+| 2026-05-27 | Google OAuth on new domain | `OC_DOMAIN`, Dex issuer, `host-www/opencloud-auth`, nginx production vhost; legacy `cloud.km0.amvara.de` → 301 to new host |
 | 2026-05-21 | Reverted UI branding | Removed `km0` theme overlay; default OpenCloud logo/name in Web UI |
 | 2026-05-22 | Upgraded OpenCloud | `6.2.0` → `7.0.0`; added `sharing.service_account` in `opencloud.yaml` (7.x requirement) |
 
@@ -344,7 +344,7 @@ apt update && apt upgrade -y
 
 Authentication uses **Dex** as the sole OIDC issuer. **All** tokens (Google, Apple, local password) are Dex-issued so the OpenCloud proxy can verify them via Dex’s JWKS. The built-in `idp` stays running for internal service-to-service use but is no longer the end-user auth path.
 
-**Why all auth must go through Dex:** `OC_OIDC_ISSUER=Dex` means the proxy verifies access tokens against Dex’s JWKS only. Tokens issued directly by the built-in idp (LibreGraph Connect) have a different `kid` and are rejected with `"key not found in JWKS"`, causing an infinite re-auth loop. Dex’s built-in local password connector (`enablePasswordDB: true`) solves this.
+**Why all auth must go through Dex:** `OC_OIDC_ISSUER=Dex` means the proxy verifies access tokens against Dex’s JWKS only. Tokens issued directly by the built-in idp (LibreGraph Connect) have a different `kid` and are rejected with `"key not found in JWKS"`, causing an infinite re-auth loop. Dex’s **LDAP** connector (`connector_id=ldap`) validates username/password against OpenCloud’s built-in IDM (port 9235) and still issues Dex tokens.
 
 | Component | Role |
 |-----------|------|
@@ -358,19 +358,17 @@ Authentication uses **Dex** as the sole OIDC issuer. **All** tokens (Google, App
 | Action on landing | Sets cookie | Redirect target |
 |-------------------|-------------|-----------------|
 | Google / Apple | `oc_auth_mode=dex` | `/dex/auth?connector_id=google` or `apple` → provider → `/?code=…` |
-| Local username/password | `oc_auth_mode=dex` | `/dex/auth?connector_id=local` → Dex password form → `/oidc-callback.html?code=…` |
+| Local username/password | `oc_auth_mode=dex` | `/dex/auth?connector_id=ldap` → Dex password form → `/oidc-callback.html?code=…` |
 
 Legacy `/?oidc=1` still passes nginx to OpenCloud (bookmarks) but is not linked from the landing page.
 
-**Local Dex users** (add more in `dex/config.yaml` `staticPasswords` with `htpasswd -bnBC 12 '' <pw>` + new UUID for `userID`):
+**Local users:** any account in OpenCloud IDM (`ou=users,o=libregraph-idm`) — same username/password as the built-in login. Sign in with **uid** (e.g. `admin`, `luipy`) or full email when uid is an address. Dex maps `openCloudUUID` and `mail` into OIDC claims (`PROXY_USER_OIDC_CLAIM=email`).
 
-| Email | Password | Dex `userID` |
-|-------|----------|--------------|
-| `admin@cloud.km0.amvara.de` or `admin` | `OC-Temp-2026!` | `9f333c9a-86f3-45bd-a3bd-efd6f28fd726` |
+Dex reaches IDM at `ldaps://opencloud:9235` on the Docker network `opencloud_opencloud-net` (`IDM_LDAPS_ADDR=0.0.0.0:9235` in `overrides/opencloud-compose/external-proxy/opencloud.yml`). Bind password: `idm_password` from `opencloud.yaml` (auto-read by `dex/docker-entrypoint.sh` via mounted config volume, or set `OPENCLOUD_IDM_BIND_PW` in `dex/.env`).
 
 **Default landing:** unauthenticated visits to `/` redirect to `/login.html` (nginx). OAuth callbacks (`/?code=…`) pass through to OpenCloud. `WEB_OPTION_LOGIN_URL` points at `/login.html`.
 
-Config: `/opt/opencloud/dex/`. Dex themed picker remains a fallback for direct `/dex/auth` hits; primary UX is `login.html`.
+Config: `/opt/opencloud/dex/`. Nginx redirects `/dex/auth` without `connector_id` to `/login.html` (preserves OIDC query params). Dex themed picker is not shown in normal flows; primary UX is `login.html` only.
 
 **Deploy auth UI changes:**
 
@@ -390,24 +388,13 @@ curl -s https://cloud.km0digital.com/oidc/local-metadata.json | jq -r .authoriza
 # expect: .../signin/v1/identifier/_/authorize
 curl -sI "https://cloud.km0digital.com/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2F&response_type=code&scope=openid%20profile%20email&connector_id=google&state=test" | grep -i location
 # expect: /dex/auth/google (no Dex picker)
+curl -sI "https://cloud.km0digital.com/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2Foidc-callback.html&response_type=code&scope=openid%20profile%20email&state=test&code_challenge=x&code_challenge_method=S256" | grep -i '^location:'
+# expect: /login.html?... (no Dex connector picker)
 ```
 
 Manual: private window — local login reaches `/files` without `/dex/auth`; Google button skips Dex picker; DE language on landing.
 
-### Temporary: Google OAuth via `cloud.km0.amvara.de`
-
-While Google Cloud Console still lists the **old** hostname, test OpenCloud only at **https://cloud.km0.amvara.de** (not `cloud.km0digital.com`). Align:
-
-- `opencloud-compose/.env`: `OC_DOMAIN`, `OC_URL`, `OC_OIDC_ISSUER` → `cloud.km0.amvara.de`
-- `dex/.env`: `DEX_DOMAIN`, `DEX_ISSUER` → `https://cloud.km0.amvara.de/dex`
-- `host-www/opencloud-auth/config-*.json` and `local-metadata.json` URLs → same host
-- Nginx: TLS vhost for `cloud.km0.amvara.de` (cert under `/etc/letsencrypt/live/cloud.km0.amvara.de/`)
-
-Dex Google connector callback (must match Console): `https://cloud.km0.amvara.de/dex/callback`
-
-Revert to `cloud.km0digital.com` after adding that URI in Google Console for the new domain.
-
-**Google Cloud Console:** authorized redirect URI for the Dex Google connector (required; domain migration often leaves the old hostname here):
+**Google Cloud Console:** authorized redirect URIs for the Dex Google connector (must match Dex `redirectURI`):
 
 ```
 https://cloud.km0digital.com/dex/callback
@@ -415,7 +402,7 @@ https://cloud.km0digital.com/dex/callback
 
 Remove legacy entries such as `https://cloud.km0.amvara.de/dex/callback` unless you still use that host. A Google error `redirect_uri_mismatch` almost always means this list does not match Dex’s `redirectURI` in `dex/config.yaml` (check with `docker exec opencloud-dex grep redirectURI /etc/dex/config.yaml`).
 
-**Local login is now routed through Dex** (`connector_id=local`), not the identifier form. `local-metadata.json` and `config-local.json` are kept for reference but are no longer used for end-user authentication. All tokens are Dex-issued and verified via Dex’s JWKS.
+**Local login is routed through Dex** (`connector_id=ldap` → OpenCloud IDM), not the identifier form. `local-metadata.json` and `config-local.json` are kept for reference only. All tokens are Dex-issued and verified via Dex’s JWKS.
 
 **Apple:** create `/opt/apple-signin-credentials.json` from the example, then run:
 

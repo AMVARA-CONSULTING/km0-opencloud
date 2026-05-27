@@ -321,9 +321,33 @@
 
       /* ── login flows ──────────────────────────────────────── */
 
+      // Resume OpenCloud / Dex redirect when nginx sent us here from /dex/auth (no picker).
+      function oidcParamsFromUrl() {
+        var p = new URLSearchParams(location.search);
+        if (!p.get('client_id') || !p.get('state') || !p.get('code_challenge')) return null;
+        return {
+          client_id:             p.get('client_id'),
+          redirect_uri:          p.get('redirect_uri'),
+          response_type:         p.get('response_type') || 'code',
+          scope:                 p.get('scope') || OIDC_SCOPE,
+          state:                 p.get('state'),
+          code_challenge:        p.get('code_challenge'),
+          code_challenge_method: p.get('code_challenge_method') || 'S256'
+        };
+      }
+
       function startDexLogin(connectorId) {
-        clearOidcBrowserState();
+        var resumed = oidcParamsFromUrl();
+        if (!resumed) clearOidcBrowserState();
         setAuthModeCookie('dex');
+
+        if (resumed) {
+          location.assign('/dex/auth?' + new URLSearchParams(Object.assign({}, resumed, {
+            connector_id: connectorId
+          })).toString());
+          return;
+        }
+
         var redirectUri = location.origin + '/oidc-callback.html';
         var authority   = location.origin + '/dex';
 
@@ -346,7 +370,7 @@
       /* ── button bindings ──────────────────────────────────── */
       // All three providers go through Dex so tokens are Dex-issued and
       // verifiable by the OpenCloud proxy (OC_OIDC_ISSUER=Dex).
-      // 'local' uses Dex's built-in password connector (enablePasswordDB: true).
+      // 'ldap' validates against OpenCloud built-in IDM (all filesystem users).
 
       var googleBtn = document.getElementById('km0-login-google');
       if (googleBtn) googleBtn.addEventListener('click', function () { startDexLogin('google'); });
@@ -355,7 +379,7 @@
       if (appleBtn) appleBtn.addEventListener('click', function () { startDexLogin('apple'); });
 
       var localBtn = document.getElementById('km0-local-login');
-      if (localBtn) localBtn.addEventListener('click', function () { startDexLogin('local'); });
+      if (localBtn) localBtn.addEventListener('click', function () { startDexLogin('ldap'); });
 
       /* ── auto-forward if already authenticated ────────────── */
       try {

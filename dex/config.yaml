@@ -31,21 +31,25 @@ staticClients:
       - 'https://ISSUER_HOST_PLACEHOLDER/'
       - 'https://ISSUER_HOST_PLACEHOLDER/oidc-callback.html'
       - 'https://ISSUER_HOST_PLACEHOLDER/oidc-silent-redirect.html'
-# Enable built-in password DB for local user login.
-# Users here authenticate through Dex → tokens are Dex-issued → proxy can verify them.
-enablePasswordDB: true
-staticPasswords:
-  - email: "admin@cloud.km0.amvara.de"
-    # bcrypt of the admin password (OC-Temp-2026!)
-    hash: "$2b$12$1Pr.m.FZGrHE1sD9xi1R2.PVgyKpoE55ZJV6w4Mr60kfHpcLKYhVa"
-    username: "admin"
-    userID: "9f333c9a-86f3-45bd-a3bd-efd6f28fd726"
-  # Dex password DB looks up by the login field value (stored as email key).
-  - email: "admin"
-    hash: "$2b$12$1Pr.m.FZGrHE1sD9xi1R2.PVgyKpoE55ZJV6w4Mr60kfHpcLKYhVa"
-    username: "admin"
-    userID: "9f333c9a-86f3-45bd-a3bd-efd6f28fd726"
+# Local username/password via OpenCloud built-in IDM LDAP (not static Dex passwords).
 connectors:
+  - type: ldap
+    id: ldap
+    name: OpenCloud
+    config:
+      host: OPENCLOUD_LDAP_HOST_PLACEHOLDER:9235
+      rootCA: /etc/dex/opencloud-idm-ldap.crt
+      bindDN: uid=libregraph,ou=sysusers,o=libregraph-idm
+      bindPW: OPENCLOUD_IDM_BIND_PW_PLACEHOLDER
+      usernamePrompt: Username or email
+      userSearch:
+        baseDN: ou=users,o=libregraph-idm
+        filter: "(objectClass=inetOrgPerson)"
+        username: uid
+        idAttr: openCloudUUID
+        emailAttr: mail
+        nameAttr: displayName
+        preferredUsernameAttr: uid
   - type: google
     id: google
     name: Google

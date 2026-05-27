@@ -1,6 +1,5 @@
 # OpenCloud — Dex OIDC (/dex) + OpenCloud (127.0.0.1:9200)
-# Temporary Google OAuth test: use https://cloud.km0.amvara.de (Console redirect URIs)
-# Production hostname: cloud.km0digital.com (restore OC_DOMAIN / DEX_ISSUER when Console is updated)
+# Production: https://cloud.km0digital.com
 
 server {
     listen 80;
@@ -45,6 +44,7 @@ server {
     include /etc/nginx/snippets/opencloud-locations.conf;
 }
 
+# Legacy hostname → production (bookmarks, old OAuth Console entries)
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
@@ -57,17 +57,5 @@ server {
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers off;
 
-    client_max_body_size 10G;
-
-    proxy_buffering off;
-    proxy_request_buffering off;
-
-    proxy_read_timeout 3600s;
-    proxy_send_timeout 3600s;
-    keepalive_requests 100000;
-    keepalive_timeout 5m;
-
-    proxy_next_upstream off;
-
-    include /etc/nginx/snippets/opencloud-locations.conf;
+    return 301 https://cloud.km0digital.com$request_uri;
 }

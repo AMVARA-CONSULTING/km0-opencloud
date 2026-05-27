@@ -9,8 +9,24 @@ Authorized redirect URI in Google Cloud Console:
 
 ```text
 https://cloud.km0digital.com/dex/callback
+```
 
-After migrating the cloud hostname, update the Google OAuth client **Authorized redirect URIs** to the URL above. `redirect_uri_mismatch` from Google means the console still lists the old domain (e.g. `cloud.km0.amvara.de`).
+Also add the OpenCloud web client redirect URIs shown in Google Console (`/`, `/oidc-callback.html`, `/oidc-silent-redirect.html`). A `redirect_uri_mismatch` error means the Console list does not match Dex’s `redirectURI` (check with `docker exec opencloud-dex grep redirectURI /etc/dex/config.yaml`).
+
+## Local username/password (OpenCloud IDM LDAP)
+
+Dex connector `ldap` authenticates against the built-in OpenCloud IDM (`ldaps://opencloud:9235`, base `ou=users,o=libregraph-idm`). Users sign in with the same **uid** and password as in OpenCloud Settings.
+
+Requirements:
+
+- OpenCloud override sets `IDM_LDAPS_ADDR=0.0.0.0:9235` (see `overrides/opencloud-compose/external-proxy/opencloud.yml`).
+- Dex joins Docker network `opencloud_opencloud-net` and mounts `opencloud_opencloud-config` + `opencloud_opencloud-data` (for `idm/ldap.crt`).
+- `OPENCLOUD_IDM_BIND_PW` in `dex/.env` **or** auto-read from `opencloud.yaml` `idm_password` via the mounted config volume.
+
+Verify from the Dex container:
+
+```bash
+docker exec opencloud-dex grep -A2 'type: ldap' /etc/dex/config.yaml
 ```
 
 ## Apple Sign In
@@ -20,9 +36,7 @@ After migrating the cloud hostname, update the Google OAuth client **Authorized 
 1. [Identifiers → Services IDs](https://developer.apple.com/account/resources/identifiers/list/serviceId) — create a Services ID (e.g. `de.amvara.km0.cloud`).
 2. Enable **Sign in with Apple** → Configure:
    - **Domains:** `cloud.km0digital.com`
-   - **Return URLs:** `https://cloud.km0digital.com/dex/callback
-
-After migrating the cloud hostname, update the Google OAuth client **Authorized redirect URIs** to the URL above. `redirect_uri_mismatch` from Google means the console still lists the old domain (e.g. `cloud.km0.amvara.de`).`
+   - **Return URLs:** `https://cloud.km0digital.com/dex/callback`
 3. Link the Services ID to your **App ID** (primary app with Sign in with Apple enabled).
 4. [Keys](https://developer.apple.com/account/resources/authkeys/list) — create key with **Sign in with Apple**, download `AuthKey_XXXXXXXXXX.p8` (once only).
 5. Note **Team ID** (Membership details), **Key ID**, and **Services ID** (client ID).
