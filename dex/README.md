@@ -22,6 +22,11 @@ Requirements:
 - OpenCloud override sets `IDM_LDAPS_ADDR=0.0.0.0:9235` (see `overrides/opencloud-compose/external-proxy/opencloud.yml`).
 - Dex joins Docker network `opencloud_opencloud-net` and mounts `opencloud_opencloud-config` + `opencloud_opencloud-data` (for `idm/ldap.crt`).
 - `OPENCLOUD_IDM_BIND_PW` in `dex/.env` **or** auto-read from `opencloud.yaml` `idm_password` via the mounted config volume.
+- IDM LDAPS cert must include **`DNS:opencloud`** in the SAN (Dex connects to `opencloud:9235`). Auto-generated certs only list `localhost`. Run once after deploy or when Dex logs `certificate is valid for localhost, not opencloud`:
+
+  ```bash
+  ./scripts/regenerate-opencloud-idm-ldap-cert.sh --restart
+  ```
 
 Verify from the Dex container:
 

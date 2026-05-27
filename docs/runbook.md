@@ -366,6 +366,12 @@ Legacy `/?oidc=1` still passes nginx to OpenCloud (bookmarks) but is not linked 
 
 Dex reaches IDM at `ldaps://opencloud:9235` on the Docker network `opencloud_opencloud-net` (`IDM_LDAPS_ADDR=0.0.0.0:9235` in `overrides/opencloud-compose/external-proxy/opencloud.yml`). Bind password: `idm_password` from `opencloud.yaml` (auto-read by `dex/docker-entrypoint.sh` via mounted config volume, or set `OPENCLOUD_IDM_BIND_PW` in `dex/.env`).
 
+**IDM LDAPS certificate:** OpenCloud’s default `idm/ldap.crt` SAN is `localhost` only. Dex TLS hostname check requires `DNS:opencloud`. Regenerate once (backs up old files, restarts OpenCloud + Dex):
+
+```bash
+./scripts/regenerate-opencloud-idm-ldap-cert.sh --restart
+```
+
 **Default landing:** unauthenticated visits to `/` redirect to `/login.html` (nginx). OAuth callbacks (`/?code=…`) pass through to OpenCloud. `WEB_OPTION_LOGIN_URL` points at `/login.html`.
 
 Config: `/opt/opencloud/dex/`. Nginx redirects `/dex/auth` without `connector_id` to `/login.html` (preserves OIDC query params). Dex themed picker is not shown in normal flows; primary UX is `login.html` only.
