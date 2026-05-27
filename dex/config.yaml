@@ -18,8 +18,8 @@ logger:
   format: json
 oauth2:
   skipApprovalScreen: true
-  # Show provider picker (Google / Apple) instead of auto-redirecting to the only connector
-  alwaysShowLoginScreen: true
+  # Primary picker is /login.html; skip Dex screen when only one connector matches
+  alwaysShowLoginScreen: false
   responseTypes:
     - code
     - id_token
@@ -31,6 +31,20 @@ staticClients:
       - 'https://ISSUER_HOST_PLACEHOLDER/'
       - 'https://ISSUER_HOST_PLACEHOLDER/oidc-callback.html'
       - 'https://ISSUER_HOST_PLACEHOLDER/oidc-silent-redirect.html'
+# Enable built-in password DB for local user login.
+# Users here authenticate through Dex → tokens are Dex-issued → proxy can verify them.
+enablePasswordDB: true
+staticPasswords:
+  - email: "admin@cloud.km0.amvara.de"
+    # bcrypt of the admin password (OC-Temp-2026!)
+    hash: "$2b$12$1Pr.m.FZGrHE1sD9xi1R2.PVgyKpoE55ZJV6w4Mr60kfHpcLKYhVa"
+    username: "admin"
+    userID: "9f333c9a-86f3-45bd-a3bd-efd6f28fd726"
+  # Dex password DB looks up by the login field value (stored as email key).
+  - email: "admin"
+    hash: "$2b$12$1Pr.m.FZGrHE1sD9xi1R2.PVgyKpoE55ZJV6w4Mr60kfHpcLKYhVa"
+    username: "admin"
+    userID: "9f333c9a-86f3-45bd-a3bd-efd6f28fd726"
 connectors:
   - type: google
     id: google

@@ -9,6 +9,8 @@ Authorized redirect URI in Google Cloud Console:
 
 ```text
 https://cloud.km0digital.com/dex/callback
+
+After migrating the cloud hostname, update the Google OAuth client **Authorized redirect URIs** to the URL above. `redirect_uri_mismatch` from Google means the console still lists the old domain (e.g. `cloud.km0.amvara.de`).
 ```
 
 ## Apple Sign In
@@ -18,7 +20,9 @@ https://cloud.km0digital.com/dex/callback
 1. [Identifiers → Services IDs](https://developer.apple.com/account/resources/identifiers/list/serviceId) — create a Services ID (e.g. `de.amvara.km0.cloud`).
 2. Enable **Sign in with Apple** → Configure:
    - **Domains:** `cloud.km0digital.com`
-   - **Return URLs:** `https://cloud.km0digital.com/dex/callback`
+   - **Return URLs:** `https://cloud.km0digital.com/dex/callback
+
+After migrating the cloud hostname, update the Google OAuth client **Authorized redirect URIs** to the URL above. `redirect_uri_mismatch` from Google means the console still lists the old domain (e.g. `cloud.km0.amvara.de`).`
 3. Link the Services ID to your **App ID** (primary app with Sign in with Apple enabled).
 4. [Keys](https://developer.apple.com/account/resources/authkeys/list) — create key with **Sign in with Apple**, download `AuthKey_XXXXXXXXXX.p8` (once only).
 5. Note **Team ID** (Membership details), **Key ID**, and **Services ID** (client ID).

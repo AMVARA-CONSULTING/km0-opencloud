@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kilómetro 0 Digital — OpenCloud</title>
-  <meta name="description" content="Acceso a OpenCloud — Kilómetro 0 Digital" />
+  <title data-i18n="pageTitle">Kilómetro 0 Digital — OpenCloud</title>
+  <meta name="description" content="Acceso a OpenCloud — Kilómetro 0 Digital" data-i18n-meta-desc />
   <link rel="icon" type="image/svg+xml" href="https://km0.amvara.de/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -65,6 +65,10 @@
       background: rgba(255, 255, 255, 0.15);
       color: #fff;
     }
+    .km0-lang-switch__btn:focus-visible {
+      outline: 2px solid #7b3fe4;
+      outline-offset: 2px;
+    }
     .logo {
       width: min(200px, 55vw);
       height: auto;
@@ -99,41 +103,110 @@
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.5);
     }
-    p {
-      margin: 0 0 1.5rem;
+    .intro {
+      margin: 0 0 1.25rem;
       color: rgba(255, 255, 255, 0.6);
       font-size: 0.95rem;
       line-height: 1.5;
     }
-    .btn {
+    /* Provider buttons — aligned with dex/web/themes/km0/styles.css */
+    .theme-form-row {
+      margin: 14px auto;
+      max-width: 320px;
+    }
+    .dex-btn {
+      border: 0;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      font-size: 16px;
+      padding: 0;
       width: 100%;
-      padding: 0.85rem 2rem;
-      border: 0;
+    }
+    .dex-btn:focus {
+      outline: 2px solid #7b3fe4;
+      outline-offset: 2px;
+    }
+    .theme-btn-provider {
+      background: #ffffff;
+      border: 1px solid rgba(11, 18, 32, 0.08);
       border-radius: 9999px;
-      background: var(--gradient);
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      color: #0b1220;
+      min-height: 44px;
       transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
     }
-    .btn:hover {
+    .theme-btn-provider:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
       transform: scale(1.02);
-      box-shadow: 0 8px 24px rgba(123, 63, 228, 0.35);
     }
-    .btn-secondary {
-      margin-top: 0.75rem;
+    .theme-btn-provider--apple {
+      background: #000000;
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+    .theme-btn-provider--apple .dex-btn-text {
+      color: #ffffff;
+    }
+    .dex-btn-icon {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 24px;
+      border-radius: 9999px 0 0 9999px;
+      flex-shrink: 0;
+      height: 44px;
+      margin-right: 8px;
+      width: 44px;
+    }
+    .dex-btn-icon--google {
+      background-color: #ffffff;
+      background-image: url(/dex/static/img/google-icon.svg);
+    }
+    .dex-btn-icon--apple {
+      background-color: #000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z'/%3E%3C/svg%3E");
+      background-size: 20px;
+    }
+    .dex-btn-text {
+      flex: 1;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding-right: 12px;
+      text-align: center;
+    }
+    .landing-divider {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      margin: 1.25rem 0 0.75rem;
+      text-transform: uppercase;
+    }
+    .btn-local {
+      align-items: center;
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.25);
-      box-shadow: none;
+      border-radius: 9999px;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 320px;
+      padding: 0.85rem 2rem;
+      transition: background 0.35s var(--ease);
+      width: 100%;
     }
-    .btn-secondary:hover {
+    .btn-local:hover {
       background: rgba(255, 255, 255, 0.06);
-      box-shadow: none;
+    }
+    .btn-local:focus-visible {
+      outline: 2px solid #7b3fe4;
+      outline-offset: 2px;
     }
     footer {
       margin-top: 1.5rem;
@@ -153,50 +226,150 @@
       <button type="button" class="km0-lang-switch__btn" data-lang="ca" aria-pressed="false">CA</button>
       <button type="button" class="km0-lang-switch__btn km0-lang-switch__btn--active" data-lang="es" aria-pressed="true">ES</button>
       <button type="button" class="km0-lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" class="km0-lang-switch__btn" data-lang="de" aria-pressed="false">DE</button>
     </nav>
     <img class="logo" src="https://km0.amvara.de/brand/logo.png" alt="Kilómetro 0 Digital" width="200" height="auto" />
     <p class="eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
     <h1>OpenCloud</h1>
     <p class="tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
-    <p data-i18n="landingDescription">Accede a tus archivos en la nube. Elige Google/Apple (OIDC) o usuario y contraseña local.</p>
-    <a class="btn" href="/?oidc=1" id="km0-oidc-login" data-i18n="landingCtaOidc">Continuar con Google / Apple</a>
-    <a class="btn btn-secondary" href="/signin/v1/identifier/_/authorize?client_id=web&amp;redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2F&amp;response_type=code&amp;scope=openid+profile+email" id="km0-local-login" data-i18n="landingCtaLocal">Iniciar sesión con usuario y contraseña</a>
+    <p class="intro" data-i18n="landingDescription">Accede a tus archivos en la nube. Elige Google/Apple (OIDC) o usuario y contraseña local.</p>
+
+    <div class="theme-form-row">
+      <button type="button" class="dex-btn theme-btn-provider" id="km0-login-google" data-connector="google">
+        <span class="dex-btn-icon dex-btn-icon--google" aria-hidden="true"></span>
+        <span class="dex-btn-text" data-i18n-connector="google">Continuar con Google</span>
+      </button>
+    </div>
+    <div class="theme-form-row">
+      <button type="button" class="dex-btn theme-btn-provider theme-btn-provider--apple" id="km0-login-apple" data-connector="apple">
+        <span class="dex-btn-icon dex-btn-icon--apple" aria-hidden="true"></span>
+        <span class="dex-btn-text" data-i18n-connector="apple">Continuar con Apple</span>
+      </button>
+    </div>
+
+    <p class="landing-divider" data-i18n="landingDividerOr">o</p>
+
+    <button type="button" class="btn-local" id="km0-local-login" data-i18n="landingCtaLocal">
+      Iniciar sesión con usuario y contraseña
+    </button>
+
     <footer>
       <a href="https://km0.amvara.de/" target="_blank" rel="noopener">km0.amvara.de</a>
     </footer>
   </div>
-  <script src="https://cloud.km0digital.com/dex/theme/i18n.js"></script>
+  <script src="/dex/theme/i18n.js"></script>
   <script>
     (function () {
-      function clearAuthModeCookie() {
-        document.cookie = 'oc_auth_mode=;path=/;max-age=0;SameSite=Lax';
-      }
-      function setDexAuthModeCookie() {
-        document.cookie = 'oc_auth_mode=dex;path=/;max-age=600;SameSite=Lax';
+      'use strict';
+
+      var OIDC_SCOPE = 'openid profile email';
+      var AUTH_COOKIE_MAX_AGE = 600;
+
+      /* ── helpers ──────────────────────────────────────────── */
+
+      function setAuthModeCookie(mode) {
+        document.cookie = 'oc_auth_mode=' + mode +
+          ';path=/;max-age=' + AUTH_COOKIE_MAX_AGE + ';SameSite=Lax';
       }
 
-      var oidcBtn = document.getElementById('km0-oidc-login');
-      if (oidcBtn) {
-        oidcBtn.addEventListener('click', function () {
-          setDexAuthModeCookie();
+      // Clear stale Dex/local OIDC state so a prior Google session does not
+      // auto-renew when the user switches providers.
+      function clearOidcBrowserState() {
+        var pat = /^oidc\.|^oidc\.user:/i;
+        try { Object.keys(sessionStorage).forEach(function (k) { if (pat.test(k)) sessionStorage.removeItem(k); }); } catch (_) {}
+        try { Object.keys(localStorage).forEach(function (k) { if (pat.test(k)) localStorage.removeItem(k); }); } catch (_) {}
+      }
+
+      function base64url(buf) {
+        return btoa(String.fromCharCode.apply(null, new Uint8Array(buf)))
+          .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+      }
+
+      function randomHex(bytes) {
+        var a = new Uint8Array(bytes);
+        crypto.getRandomValues(a);
+        return Array.from(a, function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+      }
+
+      // Returns Promise<{verifier, challenge}> — PKCE S256
+      function generatePKCE() {
+        var arr = new Uint8Array(32);
+        crypto.getRandomValues(arr);
+        var verifier = base64url(arr.buffer);
+        return crypto.subtle
+          .digest('SHA-256', new TextEncoder().encode(verifier))
+          .then(function (hash) { return { verifier: verifier, challenge: base64url(hash) }; });
+      }
+
+      // Store OIDC signin state exactly as oidc-client-ts does (localStorage,
+      // key = state id, value = SigninState JSON). Wrong storage/key caused
+      // "No matching state found in storage" on Google/local Dex callbacks.
+      function storeSigninState(state, authority, clientId, redirectUri, codeVerifier) {
+        try {
+          localStorage.setItem(state, JSON.stringify({
+            id: state,
+            created: Math.floor(Date.now() / 1000),
+            request_type: 'si:r',
+            code_verifier: codeVerifier,
+            redirect_uri: redirectUri,
+            authority: authority,
+            client_id: clientId,
+            scope: OIDC_SCOPE,
+            extraTokenParams: {},
+            skipUserInfo: false
+          }));
+        } catch (_) {}
+      }
+
+      /* ── login flows ──────────────────────────────────────── */
+
+      function startDexLogin(connectorId) {
+        clearOidcBrowserState();
+        setAuthModeCookie('dex');
+        var redirectUri = location.origin + '/oidc-callback.html';
+        var authority   = location.origin + '/dex';
+
+        generatePKCE().then(function (pkce) {
+          var state = randomHex(16);
+          storeSigninState(state, authority, 'opencloud-web', redirectUri, pkce.verifier);
+          location.assign('/dex/auth?' + new URLSearchParams({
+            client_id:             'opencloud-web',
+            redirect_uri:          redirectUri,
+            response_type:         'code',
+            scope:                 OIDC_SCOPE,
+            connector_id:          connectorId,
+            state:                 state,
+            code_challenge:        pkce.challenge,
+            code_challenge_method: 'S256'
+          }).toString());
         });
       }
+
+      /* ── button bindings ──────────────────────────────────── */
+      // All three providers go through Dex so tokens are Dex-issued and
+      // verifiable by the OpenCloud proxy (OC_OIDC_ISSUER=Dex).
+      // 'local' uses Dex's built-in password connector (enablePasswordDB: true).
+
+      var googleBtn = document.getElementById('km0-login-google');
+      if (googleBtn) googleBtn.addEventListener('click', function () { startDexLogin('google'); });
+
+      var appleBtn = document.getElementById('km0-login-apple');
+      if (appleBtn) appleBtn.addEventListener('click', function () { startDexLogin('apple'); });
 
       var localBtn = document.getElementById('km0-local-login');
-      if (localBtn) {
-        localBtn.addEventListener('click', function () {
-          clearAuthModeCookie();
-        });
-      }
+      if (localBtn) localBtn.addEventListener('click', function () { startDexLogin('local'); });
 
-      var keys = Object.keys(localStorage);
-      var hasSession = keys.some(function (k) {
-        return /auth|token|oidc|opencloud/i.test(k);
-      });
-      if (hasSession) {
-        clearAuthModeCookie();
-        window.location.replace('/files');
-      }
+      /* ── auto-forward if already authenticated ────────────── */
+      try {
+        var hasToken = Object.keys(localStorage).some(function (k) {
+          if (!/oidc\.user:/i.test(k)) return false;
+          try {
+            var v = JSON.parse(localStorage.getItem(k));
+            return v && v.access_token && v.expires_at && v.expires_at * 1000 > Date.now();
+          } catch (_) { return false; }
+        });
+        if (hasToken) window.location.replace('/files');
+      } catch (_) {}
     })();
   </script>
 </body>

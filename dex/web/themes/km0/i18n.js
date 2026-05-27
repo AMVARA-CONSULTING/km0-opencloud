@@ -23,6 +23,7 @@
       landingCtaOidc: 'Continuar con Google / Apple',
       landingCtaLocal: 'Iniciar sesión con usuario y contraseña',
       landingTagline: 'Origen local · Impacto digital',
+      landingDividerOr: 'o',
     },
     ca: {
       metaDescription: "Inici de sessió OpenCloud — Kilòmetre 0 Digital",
@@ -41,6 +42,7 @@
       landingCtaOidc: 'Continuar amb Google / Apple',
       landingCtaLocal: "Iniciar sessió amb usuari i contrasenya",
       landingTagline: 'Origen local · Impacte digital',
+      landingDividerOr: 'o',
     },
     en: {
       metaDescription: 'OpenCloud sign-in — Kilometer 0 Digital',
@@ -59,6 +61,7 @@
       landingCtaOidc: 'Continue with Google / Apple',
       landingCtaLocal: 'Sign in with username and password',
       landingTagline: 'Local origin · Digital impact',
+      landingDividerOr: 'or',
     },
     de: {
       metaDescription: 'OpenCloud-Anmeldung — Kilometer 0 Digital',
@@ -78,6 +81,7 @@
       landingCtaOidc: 'Mit Google / Apple fortfahren',
       landingCtaLocal: 'Mit Benutzername und Passwort anmelden',
       landingTagline: 'Lokaler Ursprung · Digitale Wirkung',
+      landingDividerOr: 'oder',
     },
   };
 
@@ -167,7 +171,7 @@
     if (metaDesc) metaDesc.setAttribute('content', pack.metaDescription);
     document.title = pack.pageTitle;
 
-    var logo = document.querySelector('.theme-navbar__logo');
+    var logo = document.querySelector('.theme-navbar__logo, .logo');
     if (logo) logo.setAttribute('alt', pack.logoAlt);
 
     var langNav = document.querySelector('.km0-lang-switch');
