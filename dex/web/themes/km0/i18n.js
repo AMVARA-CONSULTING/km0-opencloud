@@ -24,6 +24,13 @@
       landingCtaLocal: 'Iniciar sesión con usuario y contraseña',
       landingTagline: 'Origen local · Impacto digital',
       landingDividerOr: 'o',
+      ldapLoginIntro: 'Inicia sesión con tu usuario y contraseña de OpenCloud.',
+      ldapUsernamePlaceholder: 'Usuario o correo',
+      ldapPasswordLabel: 'Contraseña',
+      ldapPasswordPlaceholder: 'Contraseña',
+      ldapSubmit: 'Iniciar sesión',
+      ldapLoginError: 'Usuario o contraseña incorrectos.',
+      ldapBackLink: 'Volver al inicio de sesión',
     },
     ca: {
       metaDescription: "Inici de sessió OpenCloud — Kilòmetre 0 Digital",
@@ -43,6 +50,13 @@
       landingCtaLocal: "Iniciar sessió amb usuari i contrasenya",
       landingTagline: 'Origen local · Impacte digital',
       landingDividerOr: 'o',
+      ldapLoginIntro: "Inicia sessió amb el teu usuari i contrasenya d'OpenCloud.",
+      ldapUsernamePlaceholder: 'Usuari o correu',
+      ldapPasswordLabel: 'Contrasenya',
+      ldapPasswordPlaceholder: 'Contrasenya',
+      ldapSubmit: 'Iniciar sessió',
+      ldapLoginError: 'Usuari o contrasenya incorrectes.',
+      ldapBackLink: "Tornar a l'inici de sessió",
     },
     en: {
       metaDescription: 'OpenCloud sign-in — Kilometer 0 Digital',
@@ -62,6 +76,13 @@
       landingCtaLocal: 'Sign in with username and password',
       landingTagline: 'Local origin · Digital impact',
       landingDividerOr: 'or',
+      ldapLoginIntro: 'Sign in with your OpenCloud username and password.',
+      ldapUsernamePlaceholder: 'Username or email',
+      ldapPasswordLabel: 'Password',
+      ldapPasswordPlaceholder: 'Password',
+      ldapSubmit: 'Sign in',
+      ldapLoginError: 'Incorrect username or password.',
+      ldapBackLink: 'Back to sign-in',
     },
     de: {
       metaDescription: 'OpenCloud-Anmeldung — Kilometer 0 Digital',
@@ -82,6 +103,14 @@
       landingCtaLocal: 'Mit Benutzername und Passwort anmelden',
       landingTagline: 'Lokaler Ursprung · Digitale Wirkung',
       landingDividerOr: 'oder',
+      ldapLoginIntro:
+        'Melden Sie sich mit Ihrem OpenCloud-Benutzernamen und Passwort an.',
+      ldapUsernamePlaceholder: 'Benutzername oder E-Mail',
+      ldapPasswordLabel: 'Passwort',
+      ldapPasswordPlaceholder: 'Passwort',
+      ldapSubmit: 'Anmelden',
+      ldapLoginError: 'Benutzername oder Passwort falsch.',
+      ldapBackLink: 'Zurück zur Anmeldung',
     },
   };
 
@@ -171,7 +200,7 @@
     if (metaDesc) metaDesc.setAttribute('content', pack.metaDescription);
     document.title = pack.pageTitle;
 
-    var logo = document.querySelector('.theme-navbar__logo, .logo');
+    var logo = document.querySelector('.theme-navbar__logo, .km0-card__logo, .logo');
     if (logo) logo.setAttribute('alt', pack.logoAlt);
 
     var langNav = document.querySelector('.km0-lang-switch');

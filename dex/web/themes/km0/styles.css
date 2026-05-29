@@ -14,6 +14,171 @@
   min-height: 100vh;
 }
 
+/* LDAP / password screen — matches host-www/opencloud-auth/login.html card */
+.theme-body--card {
+  display: grid;
+  margin: 0;
+  place-items: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+.km0-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  margin: 24px auto;
+  max-width: 440px;
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  text-align: center;
+  width: min(440px, 92vw);
+}
+
+.km0-card .km0-lang-switch {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+.km0-card__logo {
+  display: block;
+  filter: drop-shadow(0 0 24px rgba(123, 63, 228, 0.35));
+  height: auto;
+  margin: 0 auto 1.5rem;
+  width: min(200px, 55vw);
+}
+
+.km0-tagline {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+
+.km0-intro {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+}
+
+.km0-ldap-form {
+  margin: 0 auto;
+  max-width: 320px;
+}
+
+.km0-ldap-form .theme-form-row {
+  margin: 0 0 1rem;
+  max-width: none;
+  text-align: left;
+}
+
+.theme-form-row--submit {
+  margin-top: 1.25rem !important;
+  text-align: center;
+}
+
+.theme-form-label {
+  color: rgba(255, 255, 255, 0.55);
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.4rem;
+  text-align: left;
+  width: 100%;
+}
+
+.theme-form-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  box-shadow: none;
+  color: #fff;
+  display: block;
+  font-family: inherit;
+  font-size: 0.95rem;
+  height: auto;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.theme-form-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.theme-form-input:focus,
+.theme-form-input:active {
+  border-color: rgba(123, 63, 228, 0.55);
+  box-shadow: 0 0 0 3px rgba(123, 63, 228, 0.2);
+  outline: none;
+}
+
+.theme-btn--primary {
+  background: linear-gradient(
+    135deg,
+    #ff5f2e 0%,
+    #e040a0 35%,
+    #7b3fe4 65%,
+    #007bff 100%
+  );
+  border: 0;
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(123, 63, 228, 0.35);
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.2;
+  min-height: 44px;
+  min-width: 100%;
+  padding: 0.85rem 2rem;
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+  width: 100%;
+}
+
+.theme-btn--primary:hover {
+  box-shadow: 0 12px 28px rgba(123, 63, 228, 0.45);
+  color: #fff;
+  transform: scale(1.02);
+}
+
+.theme-btn--primary:focus-visible {
+  outline: 2px solid #7b3fe4;
+  outline-offset: 2px;
+}
+
+.theme-btn--primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+}
+
+.theme-link-back {
+  margin: 1.25rem 0 0;
+}
+
+.km0-back-link {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.km0-back-link:hover {
+  color: #7b3fe4;
+}
+
 .theme-navbar {
   align-items: center;
   background: rgba(11, 18, 32, 0.85);
@@ -212,7 +377,15 @@
 }
 
 .dex-error-box {
-  background: linear-gradient(135deg, #ff5f2e, #e040a0);
+  background: rgba(224, 64, 160, 0.15);
+  border: 1px solid rgba(255, 95, 46, 0.45);
   border-radius: 12px;
+  color: #ffb4a8;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0 0 0.5rem;
   max-width: 100%;
+  padding: 0.65rem 0.85rem;
+  text-align: left;
 }

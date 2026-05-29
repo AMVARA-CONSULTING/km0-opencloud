@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title data-i18n="pageTitle">Kilómetro 0 Digital — OpenCloud</title>
   <meta name="description" content="Acceso a OpenCloud — Kilómetro 0 Digital" data-i18n-meta-desc />
-  <link rel="icon" type="image/svg+xml" href="https://km0.amvara.de/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="https://km0digital.com/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -228,7 +228,7 @@
       <button type="button" class="km0-lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
       <button type="button" class="km0-lang-switch__btn" data-lang="de" aria-pressed="false">DE</button>
     </nav>
-    <img class="logo" src="https://km0.amvara.de/brand/logo.png" alt="Kilómetro 0 Digital" width="200" height="auto" />
+    <img class="logo" src="https://km0digital.com/brand/logo.png" alt="Kilómetro 0 Digital" width="200" height="auto" />
     <p class="eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
     <h1>OpenCloud</h1>
     <p class="tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
@@ -254,7 +254,7 @@
     </button>
 
     <footer>
-      <a href="https://km0.amvara.de/" target="_blank" rel="noopener">km0.amvara.de</a>
+      <a href="https://km0digital.com/" target="_blank" rel="noopener">km0digital.com</a>
     </footer>
   </div>
   <script src="/dex/theme/i18n.js"></script>
@@ -382,15 +382,38 @@
       if (localBtn) localBtn.addEventListener('click', function () { startDexLogin('ldap'); });
 
       /* ── auto-forward if already authenticated ────────────── */
+      // OpenCloud web uses oidc-client-ts with prefix "oc_oAuth." (see config tokenStorageLocal).
+      function hasActiveOidcSession() {
+        var stores = [localStorage, sessionStorage];
+        var keyPrefixes = ['oc_oAuth.user:', 'oidc.user:'];
+        for (var s = 0; s < stores.length; s++) {
+          var store = stores[s];
+          var keys;
+          try { keys = Object.keys(store); } catch (_) { continue; }
+          for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var matched = false;
+            for (var p = 0; p < keyPrefixes.length; p++) {
+              if (k.indexOf(keyPrefixes[p]) === 0) { matched = true; break; }
+            }
+            if (!matched) continue;
+            try {
+              var v = JSON.parse(store.getItem(k));
+              if (!v) continue;
+              var token = v.access_token || v.id_token;
+              if (!token) continue;
+              if (v.expires_at && v.expires_at * 1000 <= Date.now()) continue;
+              return true;
+            } catch (_) {}
+          }
+        }
+        return false;
+      }
+
       try {
-        var hasToken = Object.keys(localStorage).some(function (k) {
-          if (!/oidc\.user:/i.test(k)) return false;
-          try {
-            var v = JSON.parse(localStorage.getItem(k));
-            return v && v.access_token && v.expires_at && v.expires_at * 1000 > Date.now();
-          } catch (_) { return false; }
-        });
-        if (hasToken) window.location.replace('/files');
+        if (!oidcParamsFromUrl() && hasActiveOidcSession()) {
+          window.location.replace('/files');
+        }
       } catch (_) {}
     })();
   </script>
