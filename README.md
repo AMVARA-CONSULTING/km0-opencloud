@@ -1,4 +1,4 @@
-# OpenCloud on Debian 13 — Core deployment (no Collabora/WOPI)
+# OpenCloud on Debian 13 — Core + Collabora Online (browser editing)
 
 **OpenCloud:** https://cloud.km0digital.com · **Web:** https://km0.amvara.de · **OS:** Debian 13 (Trixie)
 
@@ -9,8 +9,10 @@
 ## Architecture
 
 ```
-Browser → https://km0.amvara.de     → Nginx (km0)      → 127.0.0.1:9180  (web corporativa)
-Browser → https://cloud.km0digital.com → Nginx (opencloud) → 127.0.0.1:9200  (OpenCloud)
+Browser → https://km0.amvara.de          → Nginx (km0)       → 127.0.0.1:9180  (web corporativa)
+Browser → https://cloud.km0digital.com   → Nginx (opencloud) → 127.0.0.1:9200  (OpenCloud)
+Browser → https://collabora.km0digital.com → Nginx (collabora) → 127.0.0.1:9980  (Collabora CODE)
+Collabora → https://wopi.km0digital.com    → Nginx (wopi)      → 127.0.0.1:9300  (WOPI bridge)
 ```
 
 OpenCloud path in detail:
@@ -69,7 +71,7 @@ UFW enforces: **22, 80, 443** open to the Internet. Port **9200 is loopback-only
 
 La configuración activa está en `opencloud-compose/.env` (`chmod 600`, **no** en Git). Plantilla versionada:
 
-`overrides/opencloud-compose/.env.debian-core-external-proxy.example`
+`overrides/opencloud-compose/.env.debian-collabora-external-proxy.example` (or `.env.debian-core-external-proxy.example` for core-only)
 
 Tras clonar upstream, copiar la plantilla y rellenar `INITIAL_ADMIN_PASSWORD`, OIDC y demás. Valores operativos del servidor (IP, contacto ACME, notas de contraseña) van documentados en comentarios del `.env` local.
 
@@ -158,6 +160,8 @@ Key Nginx directives and why they matter:
 | 80 | host (`nginx`) | Internet (UFW allow) | HTTP → HTTPS redirect only |
 | 443 | host (`nginx`) | Internet (UFW allow) | HTTPS — TLS termination + reverse proxy |
 | 9200 | host → container | `127.0.0.1` only | OpenCloud HTTP proxy service |
+| 9980 | host → container | `127.0.0.1` only | Collabora Online CODE (when enabled) |
+| 9300 | host → container | `127.0.0.1` only | WOPI collaboration service (when enabled) |
 | 9140–9300 | container internal | Inside container only | OpenCloud microservices (gRPC + HTTP) |
 
 ---
@@ -217,6 +221,8 @@ See [`docs/agent-loop.md`](docs/agent-loop.md) and [`.cursor/skills/autoagents/S
 
 - **Web:** https://km0.amvara.de (Nginx `km0` → puerto 9180)
 - **OpenCloud:** https://cloud.km0digital.com (Nginx `opencloud` → puerto 9200)
+- **Collabora:** https://collabora.km0digital.com (Nginx `collabora` → puerto 9980)
+- **WOPI:** https://wopi.km0digital.com (Nginx `wopi` → puerto 9300)
 - **TLS:** Let's Encrypt en ambos hostnames (`certbot.timer`; contacto ACME en comentarios de `opencloud-compose/.env`).
 - **`INSECURE=false`:** OpenCloud valida TLS en URLs públicas (OIDC requiere `https://` en `OC_URL`).
 - **Admin password:** `INITIAL_ADMIN_PASSWORD` en `.env` solo en el primer arranque; después, UI (ver runbook).

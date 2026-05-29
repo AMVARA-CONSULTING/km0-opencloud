@@ -21,4 +21,16 @@ Copia `csp.yaml` y `external-proxy/opencloud.yml`, y aplica `patches/docker-comp
 
 ## Plantilla de entorno
 
-Copiar `.env.debian-core-external-proxy.example` a `opencloud-compose/.env` y rellenar secretos (ver comentarios en el `.env` del servidor).
+| Plantilla | Uso |
+|-----------|-----|
+| `.env.debian-core-external-proxy.example` | OpenCloud solo (sin Collabora/WOPI) |
+| `.env.debian-collabora-external-proxy.example` | OpenCloud + Collabora Online CODE + WOPI |
+
+Copiar la plantilla adecuada a `opencloud-compose/.env` y rellenar secretos (ver comentarios en el `.env` del servidor).
+
+Con Collabora, además:
+
+```bash
+/opt/opencloud/scripts/issue-collabora-wopi-certs.sh   # DNS + Let's Encrypt + nginx
+/opt/opencloud/scripts/enable-collabora-compose.sh     # overrides + docker compose up -d
+```

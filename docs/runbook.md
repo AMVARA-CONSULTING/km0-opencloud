@@ -14,12 +14,18 @@ Official docs: <https://docs.opencloud.eu/>
 | Docker CE | 29.5.2 | `/etc/docker/daemon.json` | `systemctl status docker` |
 | Docker Compose plugin | v5.1.4 | — | bundled with Docker CE |
 | OpenCloud | rolling:7.0.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
+| Collabora CODE | 25.04.x | `opencloud-compose/.env` (`COLLABORA_*`) | `docker compose ps collabora` |
+| WOPI (collaboration) | same as OpenCloud image | `opencloud-compose/.env` (`WOPISERVER_DOMAIN`) | `docker compose ps collaboration` |
 | Nginx (web) | 1.26.3 | `/etc/nginx/sites-available/km0` | `km0.amvara.de` → :9180 |
 | Nginx (OpenCloud) | 1.26.3 | `/etc/nginx/sites-available/opencloud` | `cloud.km0digital.com` → :9200 |
+| Nginx (Collabora) | 1.26.3 | `/etc/nginx/sites-available/collabora` | `collabora.km0digital.com` → :9980 |
+| Nginx (WOPI) | 1.26.3 | `/etc/nginx/sites-available/wopi` | `wopi.km0digital.com` → :9300 |
 | UFW | system | `/etc/ufw/` | `ufw status verbose` |
 | Fail2ban | 1.1.0 | `/etc/fail2ban/jail.d/sshd.local` | `fail2ban-client status sshd` |
 | TLS (web) | Let's Encrypt | `/etc/letsencrypt/live/km0.amvara.de/` | Web landing |
 | TLS (cloud) | Let's Encrypt | `/etc/letsencrypt/live/cloud.km0digital.com/` | OpenCloud |
+| TLS (collabora) | Let's Encrypt | `/etc/letsencrypt/live/collabora.km0digital.com/` | Collabora CODE |
+| TLS (wopi) | Let's Encrypt | `/etc/letsencrypt/live/wopi.km0digital.com/` | WOPI bridge |
 | Certbot | 4.0.0 | `/var/www/certbot` (webroot) | `certbot renew --dry-run` |
 
 No PostgreSQL — the standard core stack uses embedded storage (Decomposed FS + BoltDB IDM).
@@ -74,7 +80,13 @@ All deployment variables live in a single file:
 The template for this deployment mode is:
 
 ```
-/opt/opencloud/opencloud-compose/.env.debian-core-external-proxy.example
+/opt/opencloud/overrides/opencloud-compose/.env.debian-collabora-external-proxy.example
+```
+
+Core-only (no Collabora):
+
+```
+/opt/opencloud/overrides/opencloud-compose/.env.debian-core-external-proxy.example
 ```
 
 The upstream template with all available options is:
@@ -87,7 +99,12 @@ The upstream template with all available options is:
 
 | Variable | Current value | Effect |
 |----------|--------------|--------|
-| `COMPOSE_FILE` | `docker-compose.yml:external-proxy/opencloud.yml` | External proxy overlay (binds `127.0.0.1:9200`) |
+| `COMPOSE_FILE` | `docker-compose.yml:weboffice/collabora.yml:external-proxy/opencloud.yml:external-proxy/collabora.yml` | Collabora + WOPI + external proxy overlays |
+| `COLLABORA_DOMAIN` | `collabora.km0digital.com` | Public hostname for Collabora editor iframe |
+| `WOPISERVER_DOMAIN` | `wopi.km0digital.com` | Public hostname for WOPI GetFile/PutFile |
+| `COLLABORA_SSL_ENABLE` | `false` | Nginx terminates TLS; Collabora listens HTTP on loopback |
+| `COLLABORA_SSL_VERIFICATION` | `false` | Collabora → WOPI over HTTPS via Nginx with valid certs |
+| `COLLABORA_ADMIN_PASSWORD` | *(in `.env` only)* | Collabora admin UI at `/browser/dist/admin/admin.html` |
 | `COMPOSE_PROJECT_NAME` | `opencloud` | Prefixes Docker resource names: volumes become `opencloud_opencloud-data`, etc. |
 | `OC_DOMAIN` | `cloud.km0digital.com` | Hostname público de OpenCloud (no usar `km0.amvara.de`, que es la web). |
 | `OC_DOCKER_IMAGE` / `OC_DOCKER_TAG` | `opencloudeu/opencloud-rolling` / `7.0.0` | Pinned image. Change `OC_DOCKER_TAG` to upgrade. |
@@ -118,6 +135,23 @@ The upstream template with all available options is:
 - `proxy_request_buffering off` — required for TUS resumable file uploads
 - `Strict-Transport-Security` header enabled
 
+**Collabora** (`/etc/nginx/sites-available/collabora`):
+
+- `server_name collabora.km0digital.com`
+- `:443 ssl` — forwards to `http://127.0.0.1:9980`
+- Shared snippet: `nginx/snippets/collabora-proxy.conf` (long timeouts, WebSocket upgrade)
+
+**WOPI** (`/etc/nginx/sites-available/wopi`):
+
+- `server_name wopi.km0digital.com`
+- `:443 ssl` — forwards to `http://127.0.0.1:9300`
+
+Templates live in `/opt/opencloud/nginx/sites-available/`. Enable with:
+
+```bash
+/opt/opencloud/scripts/issue-collabora-wopi-certs.sh
+```
+
 ### Validate and reload
 
 ```bash
@@ -135,6 +169,8 @@ systemctl reload nginx          # Zero-downtime reload
 |------|-------------|
 | `km0.amvara.de` | `/etc/letsencrypt/live/km0.amvara.de/` |
 | `cloud.km0digital.com` | `/etc/letsencrypt/live/cloud.km0digital.com/` |
+| `collabora.km0digital.com` | `/etc/letsencrypt/live/collabora.km0digital.com/` |
+| `wopi.km0digital.com` | `/etc/letsencrypt/live/wopi.km0digital.com/` |
 
 **ACME contact:** ver comentarios en `opencloud-compose/.env`  
 **Issued:** 2026-05-21 · **Expires:** 2026-08-19
@@ -166,6 +202,27 @@ Nginx must keep `location /.well-known/acme-challenge/` on port 80 for renewals 
 
 This requests the certificate, installs the production vhost (TLS paths under `/etc/letsencrypt/live/cloud.km0digital.com/`), and reloads nginx.
 
+### Collabora + WOPI hostnames
+
+1. Create DNS **A** records: `collabora.km0digital.com` and `wopi.km0digital.com` → same server IP as `cloud.km0digital.com`.
+2. Copy `overrides/opencloud-compose/.env.debian-collabora-external-proxy.example` to `opencloud-compose/.env` (or merge `COMPOSE_FILE` + `COLLABORA_*` / `WOPISERVER_*` into the existing `.env`).
+3. Run:
+
+```bash
+/opt/opencloud/scripts/issue-collabora-wopi-certs.sh
+/opt/opencloud/scripts/enable-collabora-compose.sh
+```
+
+Smoke checks:
+
+```bash
+curl -sI https://collabora.km0digital.com/hosting/discovery | head -3
+curl -sI https://wopi.km0digital.com | head -3
+docker compose ps collabora collaboration
+```
+
+Rollback: revert `COMPOSE_FILE` to core-only overlay, disable nginx sites (`rm /etc/nginx/sites-enabled/{collabora,wopi}`), `docker compose up -d`.
+
 ### Re-issue or add a subdomain (web)
 
 Use the bootstrap site at `/etc/nginx/sites-available/opencloud-acme-bootstrap` (HTTP-only) if you need to obtain a cert before enabling the full HTTPS vhost, then follow the same webroot flow:
@@ -194,7 +251,7 @@ Verify:
 
 ```bash
 ufw status verbose
-ss -tulpn | grep -E ':22|:80|:443|:9200'
+ss -tulpn | grep -E ':22|:80|:443|:9200|:9980|:9300'
 ```
 
 ---
@@ -438,6 +495,24 @@ Common causes:
 - `INITIAL_ADMIN_PASSWORD` not set → container exits immediately.
 - `OC_URL` does not start with `https://` → IDP service fails with `invalid iss value`.
 - Volume permission mismatch → files not writable by UID 1000.
+
+### Collabora editor does not load (CSP / frame errors)
+
+Browser console shows `frame-src` or `frame-ancestors` violations:
+
+1. Confirm `COLLABORA_DOMAIN` in `.env` matches `collabora.km0digital.com`.
+2. Recreate OpenCloud after changing `.env`: `docker compose up -d --force-recreate opencloud`.
+3. Check Collabora `extra_params` in `weboffice/collabora.yml` — `net.frame_ancestors` must include `OC_DOMAIN`.
+
+### Collabora cannot reach WOPI
+
+Collabora logs mention WOPI URL mismatch:
+
+```bash
+docker compose logs collabora collaboration | tail -50
+```
+
+Verify `WOPISERVER_DOMAIN`, Nginx `server_name` on the wopi vhost, and `aliasgroup1` in the collabora container env.
 
 ### Nginx returns 502 Bad Gateway
 
