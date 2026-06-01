@@ -3,6 +3,25 @@
 Lightweight OIDC broker behind nginx at `https://cloud.km0digital.com/dex/`.
 OpenCloud uses Dex as its single external issuer (no Keycloak).
 
+## OIDC static clients
+
+OpenCloud requires **fixed** public client IDs in Dex. Do not rename them.
+
+| Client | ID | Redirect URIs |
+|--------|-----|---------------|
+| Web | `opencloud-web` (override via `OPENCLOUD_WEB_CLIENT_ID`) | `https://<host>/`, `/oidc-callback.html`, `/oidc-silent-redirect.html` |
+| Desktop | `OpenCloudDesktop` | `http://127.0.0.1`, `http://localhost` |
+| Android | `OpenCloudAndroid` | `oc://android.opencloud.eu` |
+| iOS | `OpenCloudIOS` | `oc://ios.opencloud.eu` |
+
+Verify live config:
+
+```bash
+docker exec opencloud-dex grep -E 'OpenCloudDesktop|OpenCloudAndroid|OpenCloudIOS|opencloud-web' /etc/dex/config.yaml
+```
+
+Nginx sends `/dex/auth` without `connector_id` to `/login.html` **only** for `client_id=opencloud-web` (web SPA). Native apps hit Dex directly.
+
 ## Google (working)
 
 Authorized redirect URI in Google Cloud Console:

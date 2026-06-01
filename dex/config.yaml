@@ -31,6 +31,23 @@ staticClients:
       - 'https://ISSUER_HOST_PLACEHOLDER/'
       - 'https://ISSUER_HOST_PLACEHOLDER/oidc-callback.html'
       - 'https://ISSUER_HOST_PLACEHOLDER/oidc-silent-redirect.html'
+  # Fixed client IDs required by OpenCloud native apps (see OpenCloud external IdP docs).
+  - id: OpenCloudDesktop
+    name: OpenCloud Desktop
+    public: true
+    redirectURIs:
+      - 'http://127.0.0.1'
+      - 'http://localhost'
+  - id: OpenCloudAndroid
+    name: OpenCloud Android
+    public: true
+    redirectURIs:
+      - 'oc://android.opencloud.eu'
+  - id: OpenCloudIOS
+    name: OpenCloud iOS
+    public: true
+    redirectURIs:
+      - 'oc://ios.opencloud.eu'
 # Local username/password via OpenCloud built-in IDM LDAP (not static Dex passwords).
 connectors:
   - type: ldap
