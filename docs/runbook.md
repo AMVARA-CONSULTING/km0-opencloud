@@ -431,7 +431,51 @@ Dex reaches IDM at `ldaps://opencloud:9235` on the Docker network `opencloud_ope
 
 **Default landing:** unauthenticated visits to `/` redirect to `/login.html` (nginx). OAuth callbacks (`/?code=…`) pass through to OpenCloud. `WEB_OPTION_LOGIN_URL` points at `/login.html`.
 
-Config: `/opt/opencloud/dex/`. Nginx redirects `/dex/auth` without `connector_id` to `/login.html` (preserves OIDC query params). Dex themed picker is not shown in normal flows; primary UX is `login.html` only.
+Config: `/opt/opencloud/dex/`. Nginx redirects `/dex/auth` without `connector_id` to `/login.html` **only when `client_id=opencloud-web`** (preserves OIDC query params). Native sync clients (`OpenCloudDesktop`, `OpenCloudAndroid`, `OpenCloudIOS`) reach Dex directly. Dex themed picker is not shown in normal web flows; primary UX is `login.html` only.
+
+### Desktop and mobile sync clients
+
+Native OpenCloud apps use **fixed** Dex public clients (see `dex/config.yaml` `staticClients` and `dex/README.md`). Missing clients cause `invalid client_id ("OpenCloudIOS")` (or Android/Desktop) during OIDC.
+
+| Platform | Dex client ID | Redirect URI |
+|----------|---------------|--------------|
+| Desktop | `OpenCloudDesktop` | `http://127.0.0.1`, `http://localhost` |
+| Android | `OpenCloudAndroid` | `oc://android.opencloud.eu` |
+| iOS | `OpenCloudIOS` | `oc://ios.opencloud.eu` |
+
+After changing `dex/config.yaml`:
+
+```bash
+cd /opt/opencloud/dex && docker compose up -d
+docker exec opencloud-dex grep -E 'OpenCloudDesktop|OpenCloudAndroid|OpenCloudIOS' /etc/dex/config.yaml
+```
+
+If nginx map changed (`nginx/conf.d/opencloud-map.conf`):
+
+```bash
+sudo cp /opt/opencloud/nginx/conf.d/opencloud-map.conf /etc/nginx/conf.d/
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+**Server-side smoke checks:**
+
+```bash
+# WebFinger — desktop platform
+curl -s "https://cloud.km0digital.com/.well-known/webfinger?resource=https://cloud.km0digital.com&rel=http://openid.net/specs/connect/1.0/issuer&platform=desktop" | jq .
+# Desktop OAuth entry (must NOT redirect to /login.html; expect Dex auth or connector flow)
+curl -sI "https://cloud.km0digital.com/dex/auth?client_id=OpenCloudDesktop&redirect_uri=http%3A%2F%2F127.0.0.1&response_type=code&scope=openid+profile+email+offline_access&state=test&code_challenge=abc&code_challenge_method=S256" | grep -i '^location:'
+# Web flow unchanged — expect /login.html
+curl -sI "https://cloud.km0digital.com/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2Foidc-callback.html&response_type=code&scope=openid+profile+email&state=test&code_challenge=abc&code_challenge_method=S256" | grep -i '^location:'
+```
+
+**Log grep during operator tests:**
+
+```bash
+docker compose -f /opt/opencloud/opencloud-compose/docker-compose.yml logs -f opencloud 2>&1 | grep -iE 'OpenCloudDesktop|OpenCloudAndroid|OpenCloudIOS|mirall|oidc|invalid.client'
+docker logs -f opencloud-dex 2>&1 | grep -iE 'invalid|OpenCloud'
+```
+
+**Operator checklist (required for PASS):** iOS and Android app login + file sync both directions; optional desktop client; regression — web login (Google / Apple / LDAP) still reaches `/files`.
 
 **Deploy auth UI changes:**
 
