@@ -66,7 +66,7 @@ Secrets and operational notes (VPS IP, ACME email, initial admin password) are k
 h2. Delivery summary (2026-05-26)
 
 * Debian 13 core stack: OpenCloud @7.0.0@ rolling image, Nginx reverse proxy, Let's Encrypt.
-* Dex @v2.41.1@ as OIDC broker; Google connector live; Apple Sign In documented (@setup-apple.sh@).
+* Dex @v2.42.0@ as OIDC broker; Google connector live; Apple Sign In documented (@setup-apple.sh@).
 * Hybrid login: Google/Apple via Dex + local username/password (@idp@ kept; nginx routes @config-local.json@ vs @config-dex.json@).
 * KM0-branded Dex login UI (CA | ES | EN | DE) aligned with @km0-web@.
 * Minimal upstream footprint: @scripts/apply-opencloud-compose-overrides.sh@ after @git pull@ in @opencloud-compose/@.

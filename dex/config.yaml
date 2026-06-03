@@ -35,9 +35,9 @@ staticClients:
   - id: OpenCloudDesktop
     name: OpenCloud Desktop
     public: true
-    redirectURIs:
-      - 'http://127.0.0.1'
-      - 'http://localhost'
+    # Empty: Dex v2.42+ accepts http://127.0.0.1:<ephemeral-port> and http://localhost:<port>.
+    # Non-empty port-less URIs break desktop (strict match). Web/mobile clients unchanged below.
+    redirectURIs: []
   - id: OpenCloudAndroid
     name: OpenCloud Android
     public: true

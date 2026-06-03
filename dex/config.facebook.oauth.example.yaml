@@ -1,0 +1,27 @@
+# Example Dex oauth connector for Facebook Login (NOT active by default).
+# Enable via dex/docker-entrypoint.sh when FACEBOOK_CLIENT_ID and FACEBOOK_CLIENT_SECRET are set,
+# or merge manually into the rendered /etc/dex/config.yaml after deploy.
+#
+# Meta Developer → Facebook Login → Valid OAuth Redirect URIs:
+#   https://<DEX_ISSUER_HOST>/dex/callback
+#
+# See docs/facebook-login-dex-investigation.md
+
+- type: oauth
+  id: facebook
+  name: Facebook
+  config:
+    clientID: FACEBOOK_APP_ID_PLACEHOLDER
+    clientSecret: FACEBOOK_APP_SECRET_PLACEHOLDER
+    redirectURI: ISSUER_PLACEHOLDER/callback
+    authorizationURL: https://www.facebook.com/v21.0/dialog/oauth
+    tokenURL: https://graph.facebook.com/v21.0/oauth/access_token
+    userInfoURL: https://graph.facebook.com/me?fields=id,name,email
+    scopes:
+      - email
+      - public_profile
+    insecureSkipEmailVerified: true
+    claimMapping:
+      userIDKey: id
+      emailKey: email
+      userNameKey: name
