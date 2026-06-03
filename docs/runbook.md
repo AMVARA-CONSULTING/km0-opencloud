@@ -439,7 +439,7 @@ Native OpenCloud apps use **fixed** Dex public clients (see `dex/config.yaml` `s
 
 | Platform | Dex client ID | Redirect URI |
 |----------|---------------|--------------|
-| Desktop | `OpenCloudDesktop` | `http://127.0.0.1`, `http://localhost` |
+| Desktop | `OpenCloudDesktop` | Loopback any port (`127.0.0.1` / `localhost`); Dex ≥2.42, empty `redirectURIs` |
 | Android | `OpenCloudAndroid` | `oc://android.opencloud.eu` |
 | iOS | `OpenCloudIOS` | `oc://ios.opencloud.eu` |
 
@@ -462,8 +462,8 @@ sudo nginx -t && sudo systemctl reload nginx
 ```bash
 # WebFinger — desktop platform
 curl -s "https://cloud.km0digital.com/.well-known/webfinger?resource=https://cloud.km0digital.com&rel=http://openid.net/specs/connect/1.0/issuer&platform=desktop" | jq .
-# Desktop OAuth entry (must NOT redirect to /login.html; expect Dex auth or connector flow)
-curl -sI "https://cloud.km0digital.com/dex/auth?client_id=OpenCloudDesktop&redirect_uri=http%3A%2F%2F127.0.0.1&response_type=code&scope=openid+profile+email+offline_access&state=test&code_challenge=abc&code_challenge_method=S256" | grep -i '^location:'
+# Desktop OAuth entry with ephemeral port (must NOT redirect to /login.html; expect HTTP 200 or Dex/connector flow, NOT Unregistered redirect_uri)
+curl -sI "https://cloud.km0digital.com/dex/auth?client_id=OpenCloudDesktop&redirect_uri=http%3A%2F%2F127.0.0.1%3A50353&response_type=code&scope=openid+profile+email+offline_access&state=test&code_challenge=abc&code_challenge_method=S256" | grep -iE '^(HTTP|location:)'
 # Web flow unchanged — expect /login.html
 curl -sI "https://cloud.km0digital.com/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2Foidc-callback.html&response_type=code&scope=openid+profile+email&state=test&code_challenge=abc&code_challenge_method=S256" | grep -i '^location:'
 ```
@@ -518,6 +518,8 @@ sudo /opt/opencloud/dex/setup-apple.sh
 ```
 
 See `/opt/opencloud/dex/README.md` for Apple Developer portal steps.
+
+**Facebook (investigation only, not production):** architecture, claim mapping, Meta requirements, and enablement checklist — [`docs/facebook-login-dex-investigation.md`](facebook-login-dex-investigation.md). Connector is env-gated in `dex/docker-entrypoint.sh` (`FACEBOOK_CLIENT_ID` / `FACEBOOK_CLIENT_SECRET`).
 
 Dex logs: `docker logs -f opencloud-dex`
 

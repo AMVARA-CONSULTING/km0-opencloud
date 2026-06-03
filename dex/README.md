@@ -10,7 +10,7 @@ OpenCloud requires **fixed** public client IDs in Dex. Do not rename them.
 | Client | ID | Redirect URIs |
 |--------|-----|---------------|
 | Web | `opencloud-web` (override via `OPENCLOUD_WEB_CLIENT_ID`) | `https://<host>/`, `/oidc-callback.html`, `/oidc-silent-redirect.html` |
-| Desktop | `OpenCloudDesktop` | `http://127.0.0.1`, `http://localhost` |
+| Desktop | `OpenCloudDesktop` | Loopback: any port on `http://127.0.0.1` or `http://localhost` (Dex ≥2.42, **empty** `redirectURIs` in config). OpenCloud upstream docs list port-less URIs for other IdPs; Dex requires an empty list. |
 | Android | `OpenCloudAndroid` | `oc://android.opencloud.eu` |
 | iOS | `OpenCloudIOS` | `oc://ios.opencloud.eu` |
 
@@ -103,6 +103,24 @@ This generates the Apple JWT client secret (~180 days), updates `dex/.env`, and 
 ### Renew Apple client secret
 
 Apple JWT secrets expire. Re-run `setup-apple.sh` before expiry (or add a cron job every ~150 days).
+
+## Facebook Login (investigation — not enabled by default)
+
+Facebook is **not** OIDC-native. km0 uses Dex `type: oauth` with the Graph API (Dex v2.42 has no maintained `type: facebook` connector).
+
+**Full report:** [`docs/facebook-login-dex-investigation.md`](../docs/facebook-login-dex-investigation.md)  
+**Example config:** `dex/config.facebook.oauth.example.yaml`
+
+To enable after Meta App Review:
+
+1. Create a Meta app with **Facebook Login**; add redirect URI `https://cloud.km0digital.com/dex/callback`.
+2. Set in `dex/.env` (chmod 600): `FACEBOOK_CLIENT_ID`, `FACEBOOK_CLIENT_SECRET`.
+3. `cd /opt/opencloud/dex && docker compose up -d`
+4. Verify connector: `docker exec opencloud-dex grep -A3 'id: facebook' /etc/dex/config.yaml`
+5. Add CSP entries for `https://www.facebook.com` and `https://graph.facebook.com` in `overrides/opencloud-compose/config/opencloud/csp.yaml`, apply overrides, restart OpenCloud.
+6. Add a Facebook button on `host-www/opencloud-auth/login.html` (`connector_id=facebook`) and rsync to `/var/www/opencloud-auth/`.
+
+**Identity requirement:** OpenCloud uses `PROXY_USER_OIDC_CLAIM=email`. Facebook must return `email`; logins without email will fail autoprov.
 
 ## Commands
 

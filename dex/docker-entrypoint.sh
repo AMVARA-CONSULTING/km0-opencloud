@@ -59,4 +59,29 @@ if [ -n "${APPLE_CLIENT_ID:-}" ] && [ -n "${APPLE_CLIENT_SECRET:-}" ]; then
 EOF
 fi
 
+# Facebook Login via generic OAuth connector (see docs/facebook-login-dex-investigation.md)
+if [ -n "${FACEBOOK_CLIENT_ID:-}" ] && [ -n "${FACEBOOK_CLIENT_SECRET:-}" ]; then
+  fb_secret=$(printf '%s' "${FACEBOOK_CLIENT_SECRET}" | sed "s/'/''/g")
+  cat >> /etc/dex/config.yaml <<EOF
+  - type: oauth
+    id: facebook
+    name: Facebook
+    config:
+      clientID: ${FACEBOOK_CLIENT_ID}
+      clientSecret: '${fb_secret}'
+      redirectURI: ${DEX_ISSUER}/callback
+      authorizationURL: https://www.facebook.com/v21.0/dialog/oauth
+      tokenURL: https://graph.facebook.com/v21.0/oauth/access_token
+      userInfoURL: https://graph.facebook.com/me?fields=id,name,email
+      scopes:
+        - email
+        - public_profile
+      insecureSkipEmailVerified: true
+      claimMapping:
+        userIDKey: id
+        emailKey: email
+        userNameKey: name
+EOF
+fi
+
 exec /usr/local/bin/dex serve /etc/dex/config.yaml
