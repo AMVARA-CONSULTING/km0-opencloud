@@ -244,7 +244,7 @@
     <p class="eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
     <h1>OpenCloud</h1>
     <p class="tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
-    <p class="intro" data-i18n="landingDescription">Accede a tus archivos en la nube. Elige Google/Apple (OIDC) o usuario y contraseña local.</p>
+    <p class="intro" data-i18n="landingDescription">Accede a tus archivos en la nube. Elige Google (OIDC) o usuario y contraseña local.</p>
 
     <div class="theme-form-row">
       <button type="button" class="dex-btn theme-btn-provider" id="km0-login-google" data-connector="google">
@@ -252,7 +252,8 @@
         <span class="dex-btn-text" data-i18n-connector="google">Continuar con Google</span>
       </button>
     </div>
-    <div class="theme-form-row">
+    <!-- Apple OIDC: hidden until APPLE_CLIENT_* is configured (see dex/setup-apple.sh) -->
+    <div class="theme-form-row" id="km0-login-apple-row" hidden>
       <button type="button" class="dex-btn theme-btn-provider theme-btn-provider--apple" id="km0-login-apple" data-connector="apple">
         <span class="dex-btn-icon dex-btn-icon--apple" aria-hidden="true"></span>
         <span class="dex-btn-text" data-i18n-connector="apple">Continuar con Apple</span>
