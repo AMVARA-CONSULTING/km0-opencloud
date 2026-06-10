@@ -52,6 +52,7 @@
       registerErrorDuplicate: 'Este correo ya está registrado.',
       registerErrorGeneric: 'No se pudo crear la cuenta. Inténtalo de nuevo más tarde.',
       registerSubmitting: 'Creando cuenta…',
+      registerSigningIn: 'Iniciando sesión…',
     },
     ca: {
       metaDescription: "Inici de sessió OpenCloud — Kilòmetre 0 Digital",
@@ -99,6 +100,7 @@
       registerErrorDuplicate: 'Aquest correu ja està registrat.',
       registerErrorGeneric: 'No s\'ha pogut crear el compte. Torna-ho a provar més tard.',
       registerSubmitting: 'Creant compte…',
+      registerSigningIn: 'Iniciant sessió…',
     },
     en: {
       metaDescription: 'OpenCloud sign-in — Kilometer 0 Digital',
@@ -146,6 +148,7 @@
       registerErrorDuplicate: 'This email is already registered.',
       registerErrorGeneric: 'Could not create account. Please try again later.',
       registerSubmitting: 'Creating account…',
+      registerSigningIn: 'Signing in…',
     },
     de: {
       metaDescription: 'OpenCloud-Anmeldung — Kilometer 0 Digital',
@@ -195,6 +198,7 @@
       registerErrorDuplicate: 'Diese E-Mail ist bereits registriert.',
       registerErrorGeneric: 'Konto konnte nicht erstellt werden. Bitte später erneut versuchen.',
       registerSubmitting: 'Konto wird erstellt…',
+      registerSigningIn: 'Anmeldung läuft…',
     },
   };
 

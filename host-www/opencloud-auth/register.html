@@ -269,6 +269,7 @@
     </footer>
   </div>
   <script src="/dex/theme/i18n.js"></script>
+  <script src="/dex-auth.js"></script>
   <script>
     (function () {
       'use strict';
@@ -279,6 +280,7 @@
       var form = document.getElementById('km0-register-form');
       var errorEl = document.getElementById('km0-register-error');
       var submitBtn = document.getElementById('km0-register-submit');
+      var redirecting = false;
 
       function t(key) {
         if (window.KM0LoginI18n && window.KM0LoginI18n.t) {
@@ -304,6 +306,18 @@
           return 'registerErrorPasswordWeak';
         }
         return null;
+      }
+
+      function startPostRegisterLogin(email, password) {
+        if (!window.KM0DexAuth) {
+          showError('registerErrorGeneric');
+          return;
+        }
+        redirecting = true;
+        submitBtn.textContent = t('registerSigningIn');
+        window.KM0DexAuth.storePendingLogin(email, password);
+        window.KM0DexAuth.clearOidcBrowserState();
+        window.KM0DexAuth.startDexLogin('ldap');
       }
 
       form.addEventListener('submit', function (ev) {
@@ -335,7 +349,7 @@
           })
           .then(function (result) {
             if (result.status === 201) {
-              window.location.assign('/login.html?registered=1');
+              startPostRegisterLogin(email, password);
               return;
             }
             if (result.status === 409 || (result.body && result.body.error === 'duplicate')) {
@@ -356,8 +370,10 @@
             showError('registerErrorGeneric');
           })
           .finally(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = t('registerSubmit');
+            if (!redirecting) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = t('registerSubmit');
+            }
           });
       });
     })();
