@@ -1,0 +1,23 @@
+services:
+  register-api:
+    build: .
+    container_name: opencloud-register-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      GRAPH_BASE_URL: ${GRAPH_BASE_URL:-http://opencloud:9200}
+      GRAPH_SERVICE_USER: ${GRAPH_SERVICE_USER:-}
+      GRAPH_SERVICE_PASSWORD: ${GRAPH_SERVICE_PASSWORD:-}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN:-https://cloud.km0digital.com}
+      MIN_PASSWORD_LENGTH: ${MIN_PASSWORD_LENGTH:-8}
+      MIN_SPECIAL_CHARACTERS: ${MIN_SPECIAL_CHARACTERS:-1}
+    ports:
+      - "127.0.0.1:8091:8091"
+    networks:
+      - opencloud-net
+
+networks:
+  opencloud-net:
+    external: true
+    name: opencloud_opencloud-net

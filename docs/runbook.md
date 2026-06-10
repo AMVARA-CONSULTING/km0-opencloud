@@ -421,6 +421,41 @@ Legacy `/?oidc=1` still passes nginx to OpenCloud (bookmarks) but is not linked 
 
 **Local users:** any account in OpenCloud IDM (`ou=users,o=libregraph-idm`) — same username/password as the built-in login. Sign in with **uid** (e.g. `admin`, `luipy`) or full email when uid is an address. Dex maps `openCloudUUID` and `mail` into OIDC claims (`PROXY_USER_OIDC_CLAIM=email`).
 
+### Public self-registration (email + password)
+
+New users can register at https://cloud.km0digital.com/register.html. The page posts to `POST /api/register`, proxied by nginx to **register-api** (`127.0.0.1:8091`), which creates the account via OpenCloud Graph `POST /graph/v1.0/users`. Email is used as `onPremisesSamAccountName` and `mail` (aligns with Google autoprov by email).
+
+After registration, the user signs in via the existing Dex LDAP flow (`connector_id=ldap`) on `/login.html`.
+
+| Component | Path |
+|-----------|------|
+| Register page | `host-www/opencloud-auth/register.html` |
+| Registration API | `register-api/` (Docker on `127.0.0.1:8091`) |
+| Nginx | `register.html`, `/api/register` + rate limit (`nginx/conf.d/opencloud-rate-limit.conf`) |
+
+**Operator setup (one-time):**
+
+```bash
+cd /opt/opencloud/register-api
+cp .env.example .env && chmod 600 .env
+# Set GRAPH_SERVICE_USER / GRAPH_SERVICE_PASSWORD (admin or dedicated service account with user-create permission)
+docker compose up -d --build
+curl -s http://127.0.0.1:8091/health
+```
+
+**Deploy registration changes:**
+
+```bash
+rsync -a /opt/opencloud/host-www/opencloud-auth/ /var/www/opencloud-auth/
+sudo cp /opt/opencloud/nginx/snippets/opencloud-locations.conf /etc/nginx/snippets/
+sudo cp /opt/opencloud/nginx/conf.d/opencloud-rate-limit.conf /etc/nginx/conf.d/
+sudo nginx -t && sudo systemctl reload nginx
+cd /opt/opencloud/register-api && docker compose up -d --build
+cd /opt/opencloud/dex && docker compose restart dex   # if i18n.js changed
+```
+
+**Out of scope:** email verification, billing enforcement, invite-only registration.
+
 Dex reaches IDM at `ldaps://opencloud:9235` on the Docker network `opencloud_opencloud-net` (`IDM_LDAPS_ADDR=0.0.0.0:9235` in `overrides/opencloud-compose/external-proxy/opencloud.yml`). Bind password: `idm_password` from `opencloud.yaml` (auto-read by `dex/docker-entrypoint.sh` via mounted config volume, or set `OPENCLOUD_IDM_BIND_PW` in `dex/.env`).
 
 **IDM LDAPS certificate:** OpenCloud’s default `idm/ldap.crt` SAN is `localhost` only. Dex TLS hostname check requires `DNS:opencloud`. Regenerate once (backs up old files, restarts OpenCloud + Dex):
@@ -483,8 +518,11 @@ docker logs -f opencloud-dex 2>&1 | grep -iE 'invalid|OpenCloud'
 rsync -a /opt/opencloud/host-www/opencloud-auth/ /var/www/opencloud-auth/
 # If nginx template changed:
 sudo cp /opt/opencloud/nginx/sites-available/opencloud /etc/nginx/sites-available/opencloud
+sudo cp /opt/opencloud/nginx/snippets/opencloud-locations.conf /etc/nginx/snippets/
+sudo cp /opt/opencloud/nginx/conf.d/opencloud-rate-limit.conf /etc/nginx/conf.d/
 sudo nginx -t && sudo systemctl reload nginx
 cd /opt/opencloud/dex && docker compose up -d
+cd /opt/opencloud/register-api && docker compose up -d --build
 ```
 
 **Verify:**
