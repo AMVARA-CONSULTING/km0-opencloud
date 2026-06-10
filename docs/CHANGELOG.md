@@ -12,6 +12,8 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- Shared `dex-auth.js` module for Dex OIDC/PKCE login flows (login, register, and Dex password pages); nginx serves it at `/dex-auth.js`.
+- Post-registration auto sign-in: successful registration stores credentials briefly in session storage, redirects through Dex LDAP, and the Dex password page auto-submits the pending login; i18n `registerSigningIn` strings (ES/CA/EN/DE).
 - Operator scripts `setup-register-api-graph-token.sh` and `verify-register-api.sh` for register-api Graph app-token setup and deploy verification.
 - Public email/password self-registration: `register.html`, `register-api` (Graph user creation on `127.0.0.1:8091`), nginx `/api/register` proxy with rate limiting, login page link and post-registration banner, i18n strings (ES/CA/EN/DE); runbook operator setup.
 - KM0 branded favicon (SVG) on Dex login, static `login.html`, and OpenCloud SPA theme path; `/brand/og-preview.png` for share previews.
