@@ -4,13 +4,21 @@ Minimal backend for public self-registration. Creates OpenCloud IDM users via `P
 
 ## Setup
 
+OpenCloud disables password Basic auth by default (`PROXY_ENABLE_BASIC_AUTH=false`). Use an **app token**, not a user password:
+
+```bash
+./scripts/setup-register-api-graph-token.sh
+# optional: --user admin  (must have user-create permission)
+```
+
+Or manually:
+
 ```bash
 cp .env.example .env
 chmod 600 .env
-# Edit GRAPH_SERVICE_USER / GRAPH_SERVICE_PASSWORD (admin or dedicated service account)
+docker exec opencloud-opencloud-1 opencloud auth-app create --user-name admin
+# Set GRAPH_SERVICE_USER and GRAPH_SERVICE_APP_TOKEN in .env
 ```
-
-The service user must be allowed to create users in OpenCloud Graph. Use an admin account or create a dedicated user with the appropriate role in OpenCloud Settings.
 
 ## Run
 
@@ -18,13 +26,20 @@ The service user must be allowed to create users in OpenCloud Graph. Use an admi
 cd /opt/opencloud/register-api
 docker compose up -d --build
 curl -s http://127.0.0.1:8091/health
+# expect: {"graph_auth_ok": true, "graph_configured": true, "ok": true}
+```
+
+Verify after deploy:
+
+```bash
+./scripts/verify-register-api.sh
 ```
 
 ## Endpoints
 
 | Path | Method | Description |
 |------|--------|-------------|
-| `/health` | GET | Liveness + `graph_configured` flag |
+| `/health` | GET | Liveness + `graph_configured` + `graph_auth_ok` |
 | `/register` | POST | JSON `{ "email", "password" }` → create user |
 
 Nginx proxies public `POST /api/register` to `http://127.0.0.1:8091/register`.

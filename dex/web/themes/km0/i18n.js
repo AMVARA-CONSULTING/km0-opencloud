@@ -18,7 +18,7 @@
       continueProvider: 'Iniciar sesión con {name}',
       footerTagline: 'Origen local. Impacto digital.',
       landingDescription:
-        'Accede a tus archivos en la nube. Elige Google (OIDC) o usuario y contraseña local.',
+        'Inicia sesión con Google o tu usuario.',
       landingCta: 'Continuar al inicio de sesión',
       landingCtaOidc: 'Continuar con Google',
       landingCtaLocal: 'Iniciar sesión con usuario y contraseña',
@@ -42,9 +42,9 @@
       registerConfirmPasswordPlaceholder: 'Repite la contraseña',
       registerSubmit: 'Crear cuenta',
       registerSignInLink: '¿Ya tienes cuenta? Inicia sesión',
-      registerCreateAccountLink: 'Crear cuenta',
+      registerCreateAccountLink: '¿Aún no tienes cuenta?',
       registerPricingNotice:
-        'Este servicio está en fase de pruebas y es gratuito por ahora. Tras el periodo de pruebas, el almacenamiento en la nube costará <strong>1,99 €/mes</strong>. <a href="https://km0digital.com/pricing/" target="_blank" rel="noopener">Ver precios →</a>',
+        'Este servicio está en fase de pruebas y es gratuito por ahora. Tras el periodo de pruebas, el almacenamiento en la nube costará <strong>1,99 €/mes</strong>. <a href="https://km0digital.com/pricing/" target="_blank" rel="noopener">Ver precios</a>',
       registerSuccessBanner: 'Cuenta creada. Inicia sesión con tu correo y contraseña.',
       registerErrorEmailInvalid: 'Introduce un correo electrónico válido.',
       registerErrorPasswordMismatch: 'Las contraseñas no coinciden.',
@@ -65,7 +65,7 @@
       continueProvider: "Iniciar sessió amb {name}",
       footerTagline: 'Origen local. Impacte digital.',
       landingDescription:
-        "Accedeix als teus fitxers al núvol. Tria Google (OIDC) o usuari i contrasenya local.",
+        "Inicia sessió amb Google o el teu usuari.",
       landingCta: "Continuar a l'inici de sessió",
       landingCtaOidc: 'Continuar amb Google',
       landingCtaLocal: "Iniciar sessió amb usuari i contrasenya",
@@ -89,9 +89,9 @@
       registerConfirmPasswordPlaceholder: 'Repeteix la contrasenya',
       registerSubmit: 'Crear compte',
       registerSignInLink: 'Ja tens compte? Inicia sessió',
-      registerCreateAccountLink: 'Crear compte',
+      registerCreateAccountLink: 'Encara no tens compte?',
       registerPricingNotice:
-        'Aquest servei està en fase de proves i és gratuït per ara. Després del període de proves, l\'emmagatzematge al núvol costarà <strong>1,99 €/mes</strong>. <a href="https://km0digital.com/ca/pricing/" target="_blank" rel="noopener">Veure preus →</a>',
+        'Aquest servei està en fase de proves i és gratuït per ara. Després del període de proves, l\'emmagatzematge al núvol costarà <strong>1,99 €/mes</strong>. <a href="https://km0digital.com/ca/pricing/" target="_blank" rel="noopener">Veure preus</a>',
       registerSuccessBanner: 'Compte creat. Inicia sessió amb el teu correu i contrasenya.',
       registerErrorEmailInvalid: 'Introdueix un correu electrònic vàlid.',
       registerErrorPasswordMismatch: 'Les contrasenyes no coincideixen.',
@@ -112,7 +112,7 @@
       continueProvider: 'Sign in with {name}',
       footerTagline: 'Local origin. Digital impact.',
       landingDescription:
-        'Access your files in the cloud. Choose Google (OIDC) or local username and password.',
+        'Sign in with Google or your account.',
       landingCta: 'Continue to sign in',
       landingCtaOidc: 'Continue with Google',
       landingCtaLocal: 'Sign in with username and password',
@@ -136,9 +136,9 @@
       registerConfirmPasswordPlaceholder: 'Repeat password',
       registerSubmit: 'Create account',
       registerSignInLink: 'Already have an account? Sign in',
-      registerCreateAccountLink: 'Create account',
+      registerCreateAccountLink: "Don't have an account yet?",
       registerPricingNotice:
-        'This service is currently in testing and free to try. After the testing period, cloud storage will be <strong>€1.99/month</strong>. <a href="https://km0digital.com/en/pricing/" target="_blank" rel="noopener">See pricing →</a>',
+        'This service is currently in testing and free to try. After the testing period, cloud storage will be <strong>€1.99/month</strong>. <a href="https://km0digital.com/en/pricing/" target="_blank" rel="noopener">See pricing</a>',
       registerSuccessBanner: 'Account created. Sign in with your email and password.',
       registerErrorEmailInvalid: 'Enter a valid email address.',
       registerErrorPasswordMismatch: 'Passwords do not match.',
@@ -160,7 +160,7 @@
       continueProvider: 'Mit {name} anmelden',
       footerTagline: 'Lokaler Ursprung. Digitale Wirkung.',
       landingDescription:
-        'Greifen Sie auf Ihre Dateien in der Cloud zu. Wählen Sie Google (OIDC) oder lokales Benutzerkonto.',
+        'Melden Sie sich mit Google oder Ihrem Benutzerkonto an.',
       landingCta: 'Weiter zur Anmeldung',
       landingCtaOidc: 'Mit Google fortfahren',
       landingCtaLocal: 'Mit Benutzername und Passwort anmelden',
@@ -185,9 +185,9 @@
       registerConfirmPasswordPlaceholder: 'Passwort wiederholen',
       registerSubmit: 'Konto erstellen',
       registerSignInLink: 'Bereits ein Konto? Anmelden',
-      registerCreateAccountLink: 'Konto erstellen',
+      registerCreateAccountLink: 'Noch kein Konto?',
       registerPricingNotice:
-        'Dieser Dienst befindet sich in der Testphase und ist derzeit kostenlos. Nach der Testphase kostet Cloud-Speicher <strong>1,99 €/Monat</strong>. <a href="https://km0digital.com/de/pricing/" target="_blank" rel="noopener">Preise ansehen →</a>',
+        'Dieser Dienst befindet sich in der Testphase und ist derzeit kostenlos. Nach der Testphase kostet Cloud-Speicher <strong>1,99 €/Monat</strong>. <a href="https://km0digital.com/de/pricing/" target="_blank" rel="noopener">Preise ansehen</a>',
       registerSuccessBanner: 'Konto erstellt. Melden Sie sich mit E-Mail und Passwort an.',
       registerErrorEmailInvalid: 'Geben Sie eine gültige E-Mail-Adresse ein.',
       registerErrorPasswordMismatch: 'Passwörter stimmen nicht überein.',

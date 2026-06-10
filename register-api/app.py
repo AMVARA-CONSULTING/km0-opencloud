@@ -22,13 +22,41 @@ MIN_LEN = int(os.environ.get("MIN_PASSWORD_LENGTH", "8"))
 MIN_SPECIAL = int(os.environ.get("MIN_SPECIAL_CHARACTERS", "1"))
 GRAPH_URL = os.environ.get("GRAPH_BASE_URL", "http://127.0.0.1:9200").rstrip("/")
 GRAPH_USER = os.environ.get("GRAPH_SERVICE_USER", "")
+GRAPH_APP_TOKEN = os.environ.get("GRAPH_SERVICE_APP_TOKEN", "")
 GRAPH_PASS = os.environ.get("GRAPH_SERVICE_PASSWORD", "")
 ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "https://cloud.km0digital.com")
 LISTEN_PORT = int(os.environ.get("PORT", "8091"))
 
 
+def graph_secret() -> str:
+    """App token (production) or password (dev only when PROXY_ENABLE_BASIC_AUTH=true)."""
+    return GRAPH_APP_TOKEN or GRAPH_PASS
+
+
 def graph_configured() -> bool:
-    return bool(GRAPH_USER and GRAPH_PASS)
+    return bool(GRAPH_USER and graph_secret())
+
+
+def graph_auth_header() -> str:
+    creds = f"{GRAPH_USER}:{graph_secret()}"
+    return "Basic " + base64.b64encode(creds.encode()).decode()
+
+
+def graph_request(method: str, path: str, data: bytes | None = None) -> tuple[int, str]:
+    req = urllib.request.Request(
+        f"{GRAPH_URL}{path}",
+        data=data,
+        method=method,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": graph_auth_header(),
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return resp.status, resp.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as exc:
+        return exc.code, exc.read().decode("utf-8", errors="replace")
 
 
 def check_origin() -> bool:
@@ -60,6 +88,13 @@ def display_name_from_email(email: str) -> str:
     return name.title() if name else email
 
 
+def graph_auth_ok() -> bool:
+    if not graph_configured():
+        return False
+    status, _ = graph_request("GET", "/graph/v1.0/me")
+    return status == 200
+
+
 def graph_create_user(email: str, password: str) -> tuple[int, str | None]:
     payload = json.dumps(
         {
@@ -70,27 +105,22 @@ def graph_create_user(email: str, password: str) -> tuple[int, str | None]:
         }
     ).encode()
 
-    auth = base64.b64encode(f"{GRAPH_USER}:{GRAPH_PASS}".encode()).decode()
-    req = urllib.request.Request(
-        f"{GRAPH_URL}/graph/v1.0/users",
-        data=payload,
-        method="POST",
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": f"Basic {auth}",
-        },
-    )
-
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            return resp.status, None
-    except urllib.error.HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace").lower()
-        if exc.code in (409, 422) or "already exists" in body or "namealreadyexists" in body:
+        status, body = graph_request("POST", "/graph/v1.0/users", payload)
+        if status == 201:
+            return 201, None
+        body_lower = body.lower()
+        if status in (409, 422) or "already exists" in body_lower or "namealreadyexists" in body_lower:
             return 409, "duplicate"
-        if exc.code == 400:
+        if status == 400:
             return 400, "validation"
-        log.warning("Graph API error status=%s", exc.code)
+        if status == 401:
+            log.error(
+                "Graph API auth failed (401) — set GRAPH_SERVICE_APP_TOKEN "
+                "(password auth requires PROXY_ENABLE_BASIC_AUTH=true)"
+            )
+            return 503, "auth_failed"
+        log.warning("Graph API error status=%s", status)
         return 500, "graph_error"
     except urllib.error.URLError as exc:
         log.warning("Graph API unreachable: %s", exc.reason)
@@ -102,7 +132,9 @@ def graph_create_user(email: str, password: str) -> tuple[int, str | None]:
 
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({"ok": True, "graph_configured": graph_configured()})
+    configured = graph_configured()
+    auth_ok = graph_auth_ok() if configured else False
+    return jsonify({"ok": True, "graph_configured": configured, "graph_auth_ok": auth_ok})
 
 
 @app.route("/register", methods=["POST"])
@@ -111,7 +143,11 @@ def register():
         return jsonify({"error": "forbidden"}), 403
 
     if not graph_configured():
-        log.error("GRAPH_SERVICE_USER/PASSWORD not configured")
+        log.error("GRAPH_SERVICE_USER and GRAPH_SERVICE_APP_TOKEN not configured")
+        return jsonify({"error": "service_unavailable"}), 503
+
+    if not graph_auth_ok():
+        log.error("Graph API credentials rejected — run scripts/setup-register-api-graph-token.sh")
         return jsonify({"error": "service_unavailable"}), 503
 
     if request.content_type and "application/json" not in request.content_type:

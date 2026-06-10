@@ -435,12 +435,23 @@ After registration, the user signs in via the existing Dex LDAP flow (`connector
 
 **Operator setup (one-time):**
 
+OpenCloud rejects password Basic auth when `PROXY_ENABLE_BASIC_AUTH=false` (default). register-api must use an **app token**:
+
+```bash
+./scripts/setup-register-api-graph-token.sh
+# Creates token for admin (or pass --user <uid> with user-create permission)
+./scripts/verify-register-api.sh
+```
+
+Manual alternative:
+
 ```bash
 cd /opt/opencloud/register-api
 cp .env.example .env && chmod 600 .env
-# Set GRAPH_SERVICE_USER / GRAPH_SERVICE_PASSWORD (admin or dedicated service account with user-create permission)
+docker exec opencloud-opencloud-1 opencloud auth-app create --user-name admin
+# Set GRAPH_SERVICE_USER + GRAPH_SERVICE_APP_TOKEN in .env (not password)
 docker compose up -d --build
-curl -s http://127.0.0.1:8091/health
+curl -s http://127.0.0.1:8091/health   # expect graph_auth_ok: true
 ```
 
 **Deploy registration changes:**
