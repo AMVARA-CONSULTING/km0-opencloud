@@ -31,6 +31,27 @@
       ldapSubmit: 'Iniciar sesión',
       ldapLoginError: 'Usuario o contraseña incorrectos.',
       ldapBackLink: 'Volver al inicio de sesión',
+      registerPageTitle: 'Crear cuenta — Kilómetro 0 Digital',
+      registerMetaDescription: 'Registro en OpenCloud — Kilómetro 0 Digital',
+      registerIntro: 'Crea tu cuenta con correo y contraseña para acceder a OpenCloud.',
+      registerEmailLabel: 'Correo electrónico',
+      registerEmailPlaceholder: 'tu@correo.com',
+      registerPasswordLabel: 'Contraseña',
+      registerPasswordPlaceholder: 'Contraseña',
+      registerConfirmPasswordLabel: 'Confirmar contraseña',
+      registerConfirmPasswordPlaceholder: 'Repite la contraseña',
+      registerSubmit: 'Crear cuenta',
+      registerSignInLink: '¿Ya tienes cuenta? Inicia sesión',
+      registerCreateAccountLink: 'Crear cuenta',
+      registerPricingNotice:
+        'Este servicio está en fase de pruebas y es gratuito por ahora. Tras el periodo de pruebas, el almacenamiento en la nube costará <strong>1,99 €/mes</strong>. <a href="https://km0digital.com/pricing/" target="_blank" rel="noopener">Ver precios →</a>',
+      registerSuccessBanner: 'Cuenta creada. Inicia sesión con tu correo y contraseña.',
+      registerErrorEmailInvalid: 'Introduce un correo electrónico válido.',
+      registerErrorPasswordMismatch: 'Las contraseñas no coinciden.',
+      registerErrorPasswordWeak: 'La contraseña debe tener al menos 8 caracteres e incluir un carácter especial.',
+      registerErrorDuplicate: 'Este correo ya está registrado.',
+      registerErrorGeneric: 'No se pudo crear la cuenta. Inténtalo de nuevo más tarde.',
+      registerSubmitting: 'Creando cuenta…',
     },
     ca: {
       metaDescription: "Inici de sessió OpenCloud — Kilòmetre 0 Digital",
@@ -57,6 +78,27 @@
       ldapSubmit: 'Iniciar sessió',
       ldapLoginError: 'Usuari o contrasenya incorrectes.',
       ldapBackLink: "Tornar a l'inici de sessió",
+      registerPageTitle: 'Crear compte — Kilòmetre 0 Digital',
+      registerMetaDescription: "Registre a OpenCloud — Kilòmetre 0 Digital",
+      registerIntro: "Crea el teu compte amb correu i contrasenya per accedir a OpenCloud.",
+      registerEmailLabel: 'Correu electrònic',
+      registerEmailPlaceholder: 'tu@correu.com',
+      registerPasswordLabel: 'Contrasenya',
+      registerPasswordPlaceholder: 'Contrasenya',
+      registerConfirmPasswordLabel: 'Confirmar contrasenya',
+      registerConfirmPasswordPlaceholder: 'Repeteix la contrasenya',
+      registerSubmit: 'Crear compte',
+      registerSignInLink: 'Ja tens compte? Inicia sessió',
+      registerCreateAccountLink: 'Crear compte',
+      registerPricingNotice:
+        'Aquest servei està en fase de proves i és gratuït per ara. Després del període de proves, l\'emmagatzematge al núvol costarà <strong>1,99 €/mes</strong>. <a href="https://km0digital.com/ca/pricing/" target="_blank" rel="noopener">Veure preus →</a>',
+      registerSuccessBanner: 'Compte creat. Inicia sessió amb el teu correu i contrasenya.',
+      registerErrorEmailInvalid: 'Introdueix un correu electrònic vàlid.',
+      registerErrorPasswordMismatch: 'Les contrasenyes no coincideixen.',
+      registerErrorPasswordWeak: 'La contrasenya ha de tenir almenys 8 caràcters i incloure un caràcter especial.',
+      registerErrorDuplicate: 'Aquest correu ja està registrat.',
+      registerErrorGeneric: 'No s\'ha pogut crear el compte. Torna-ho a provar més tard.',
+      registerSubmitting: 'Creant compte…',
     },
     en: {
       metaDescription: 'OpenCloud sign-in — Kilometer 0 Digital',
@@ -83,6 +125,27 @@
       ldapSubmit: 'Sign in',
       ldapLoginError: 'Incorrect username or password.',
       ldapBackLink: 'Back to sign-in',
+      registerPageTitle: 'Create account — Kilometer 0 Digital',
+      registerMetaDescription: 'OpenCloud registration — Kilometer 0 Digital',
+      registerIntro: 'Create your account with email and password to access OpenCloud.',
+      registerEmailLabel: 'Email',
+      registerEmailPlaceholder: 'you@example.com',
+      registerPasswordLabel: 'Password',
+      registerPasswordPlaceholder: 'Password',
+      registerConfirmPasswordLabel: 'Confirm password',
+      registerConfirmPasswordPlaceholder: 'Repeat password',
+      registerSubmit: 'Create account',
+      registerSignInLink: 'Already have an account? Sign in',
+      registerCreateAccountLink: 'Create account',
+      registerPricingNotice:
+        'This service is currently in testing and free to try. After the testing period, cloud storage will be <strong>€1.99/month</strong>. <a href="https://km0digital.com/en/pricing/" target="_blank" rel="noopener">See pricing →</a>',
+      registerSuccessBanner: 'Account created. Sign in with your email and password.',
+      registerErrorEmailInvalid: 'Enter a valid email address.',
+      registerErrorPasswordMismatch: 'Passwords do not match.',
+      registerErrorPasswordWeak: 'Password must be at least 8 characters and include a special character.',
+      registerErrorDuplicate: 'This email is already registered.',
+      registerErrorGeneric: 'Could not create account. Please try again later.',
+      registerSubmitting: 'Creating account…',
     },
     de: {
       metaDescription: 'OpenCloud-Anmeldung — Kilometer 0 Digital',
@@ -111,6 +174,27 @@
       ldapSubmit: 'Anmelden',
       ldapLoginError: 'Benutzername oder Passwort falsch.',
       ldapBackLink: 'Zurück zur Anmeldung',
+      registerPageTitle: 'Konto erstellen — Kilometer 0 Digital',
+      registerMetaDescription: 'OpenCloud-Registrierung — Kilometer 0 Digital',
+      registerIntro: 'Erstellen Sie Ihr Konto mit E-Mail und Passwort für OpenCloud.',
+      registerEmailLabel: 'E-Mail',
+      registerEmailPlaceholder: 'sie@beispiel.de',
+      registerPasswordLabel: 'Passwort',
+      registerPasswordPlaceholder: 'Passwort',
+      registerConfirmPasswordLabel: 'Passwort bestätigen',
+      registerConfirmPasswordPlaceholder: 'Passwort wiederholen',
+      registerSubmit: 'Konto erstellen',
+      registerSignInLink: 'Bereits ein Konto? Anmelden',
+      registerCreateAccountLink: 'Konto erstellen',
+      registerPricingNotice:
+        'Dieser Dienst befindet sich in der Testphase und ist derzeit kostenlos. Nach der Testphase kostet Cloud-Speicher <strong>1,99 €/Monat</strong>. <a href="https://km0digital.com/de/pricing/" target="_blank" rel="noopener">Preise ansehen →</a>',
+      registerSuccessBanner: 'Konto erstellt. Melden Sie sich mit E-Mail und Passwort an.',
+      registerErrorEmailInvalid: 'Geben Sie eine gültige E-Mail-Adresse ein.',
+      registerErrorPasswordMismatch: 'Passwörter stimmen nicht überein.',
+      registerErrorPasswordWeak: 'Passwort muss mindestens 8 Zeichen und ein Sonderzeichen enthalten.',
+      registerErrorDuplicate: 'Diese E-Mail ist bereits registriert.',
+      registerErrorGeneric: 'Konto konnte nicht erstellt werden. Bitte später erneut versuchen.',
+      registerSubmitting: 'Konto wird erstellt…',
     },
   };
 
@@ -186,6 +270,11 @@
       el.setAttribute('placeholder', t(locale, key));
     });
 
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-html');
+      el.innerHTML = t(locale, key);
+    });
+
     document.querySelectorAll('[data-i18n-connector]').forEach(function (el) {
       var id = el.getAttribute('data-i18n-connector');
       if (id === 'google') el.textContent = pack.continueGoogle;
@@ -197,8 +286,17 @@
     });
 
     var metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', pack.metaDescription);
-    document.title = pack.pageTitle;
+    if (metaDesc) {
+      var metaKey = metaDesc.getAttribute('data-i18n-meta') || 'metaDescription';
+      metaDesc.setAttribute('content', t(locale, metaKey));
+    }
+
+    var titleEl = document.querySelector('title[data-i18n]');
+    if (titleEl) {
+      document.title = t(locale, titleEl.getAttribute('data-i18n'));
+    } else {
+      document.title = pack.pageTitle;
+    }
 
     var logo = document.querySelector('.theme-navbar__logo, .km0-card__logo, .logo');
     if (logo) logo.setAttribute('alt', pack.logoAlt);
@@ -239,5 +337,10 @@
     init();
   }
 
-  window.KM0LoginI18n = { setLocale: setLocale, getLocale: getLocale, locales: LOCALES };
+  window.KM0LoginI18n = {
+    setLocale: setLocale,
+    getLocale: getLocale,
+    locales: LOCALES,
+    t: function (key) { return t(getLocale(), key); },
+  };
 })();

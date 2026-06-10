@@ -230,6 +230,26 @@
       text-decoration: none;
     }
     footer a:hover { color: #7b3fe4; }
+    .register-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+    }
+    .register-link:hover { color: #7b3fe4; }
+    .success-banner {
+      display: none;
+      margin: 0 0 1.25rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(56, 178, 72, 0.15);
+      border: 1px solid rgba(56, 178, 72, 0.35);
+      color: #9ae6b4;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .success-banner--visible { display: block; }
   </style>
 </head>
 <body>
@@ -245,6 +265,8 @@
     <h1>OpenCloud</h1>
     <p class="tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
     <p class="intro" data-i18n="landingDescription">Accede a tus archivos en la nube. Elige Google (OIDC) o usuario y contraseña local.</p>
+
+    <div class="success-banner" id="km0-registered-banner" data-i18n="registerSuccessBanner" role="status"></div>
 
     <div class="theme-form-row">
       <button type="button" class="dex-btn theme-btn-provider" id="km0-login-google" data-connector="google">
@@ -265,6 +287,8 @@
     <button type="button" class="btn-local" id="km0-local-login" data-i18n="landingCtaLocal">
       Iniciar sesión con usuario y contraseña
     </button>
+
+    <a class="register-link" href="/register.html" data-i18n="registerCreateAccountLink">Crear cuenta</a>
 
     <footer>
       <a href="https://km0digital.com/" target="_blank" rel="noopener">km0digital.com</a>
@@ -426,6 +450,15 @@
       try {
         if (!oidcParamsFromUrl() && hasActiveOidcSession()) {
           window.location.replace('/files');
+        }
+      } catch (_) {}
+
+      /* ── post-registration banner ─────────────────────────── */
+      try {
+        var params = new URLSearchParams(location.search);
+        if (params.get('registered') === '1') {
+          var banner = document.getElementById('km0-registered-banner');
+          if (banner) banner.classList.add('success-banner--visible');
         }
       } catch (_) {}
     })();
