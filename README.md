@@ -1,4 +1,4 @@
-# OpenCloud on Debian 13 — Core + Collabora Online (browser editing)
+# OpenCloud on Debian 13: Core + Collabora Online (browser editing)
 
 **OpenCloud:** https://cloud.km0digital.com · **Web:** https://km0.amvara.de · **OS:** Debian 13 (Trixie)
 
@@ -9,7 +9,7 @@
 ## Architecture
 
 ```
-Browser → https://km0.amvara.de          → Nginx (km0)       → 127.0.0.1:9180  (web corporativa)
+Browser → https://km0.amvara.de          → Nginx (km0)       → 127.0.0.1:9180  (corporate web)
 Browser → https://cloud.km0digital.com   → Nginx (opencloud) → 127.0.0.1:9200  (OpenCloud)
 Browser → https://collabora.km0digital.com → Nginx (collabora) → 127.0.0.1:9980  (Collabora CODE)
 Collabora → https://wopi.km0digital.com    → Nginx (wopi)      → 127.0.0.1:9300  (WOPI bridge)
@@ -30,23 +30,23 @@ OpenCloud container  (opencloudeu/opencloud-rolling:7.0.0, UID 1000:1000)
 Docker volumes  (opencloud_opencloud-data  /  opencloud_opencloud-config)
 ```
 
-UFW enforces: **22, 80, 443** open to the Internet. Port **9200 is loopback-only** — not reachable externally. **Fail2ban** (`sshd` jail) bans IPs after repeated SSH login failures (see runbook).
+UFW enforces: **22, 80, 443** open to the Internet. Port **9200 is loopback-only**; it is not reachable externally. **Fail2ban** (`sshd` jail) bans IPs after repeated SSH login failures (see runbook).
 
 ---
 
 ## Repository layout
 
 ```
-/opt/opencloud/                    # Git: km0-opencloud (este repo)
-├── overrides/opencloud-compose/   # Parches KM0 sobre upstream (no fork)
-├── opencloud-compose/             # Clon local upstream (gitignored; ver overrides/)
-├── dex/                           # OIDC Dex + tema KM0
-├── nginx/                         # Plantillas → /etc/nginx/
-├── host-www/opencloud-auth/       # Plantillas → /var/www/opencloud-auth/
-├── scripts/                       # Backups y apply-opencloud-compose-overrides.sh
+/opt/opencloud/                    # Git: km0-opencloud (this repo)
+├── overrides/opencloud-compose/   # KM0 patches on upstream (no fork)
+├── opencloud-compose/             # Local upstream clone (gitignored; see overrides/)
+├── dex/                           # OIDC Dex stack + KM0 theme
+├── nginx/                         # Templates → /etc/nginx/
+├── host-www/opencloud-auth/       # Hybrid login templates → /var/www/opencloud-auth/
+├── scripts/                       # Backups and apply-opencloud-compose-overrides.sh
 └── docs/
     ├── runbook.md
-    └── REPOSITORY.md              # Qué se versiona y qué no
+    └── REPOSITORY.md              # What is versioned and what is not
 ```
 
 ---
@@ -57,9 +57,10 @@ UFW enforces: **22, 80, 443** open to the Internet. Port **9200 is loopback-only
 |------|---------|
 | `/opt/opencloud/opencloud-compose/.env` | **Single source of truth** for deployment variables. `chmod 600`. |
 | `/etc/nginx/sites-available/opencloud` | Active Nginx vhost (TLS termination + reverse proxy). |
-| `/etc/nginx/sites-available/km0` | Web corporativa (`km0.amvara.de` → :9180) |
-| `/etc/letsencrypt/live/km0.amvara.de/` | Certificado web |
-| `/etc/letsencrypt/live/cloud.km0digital.com/` | Certificado OpenCloud |
+| `/etc/nginx/sites-available/km0` | Corporate web (`km0.amvara.de` → :9180) |
+| `/opt/opencloud/dex/.env` | Dex OIDC secrets (`chmod 600`; see `dex/README.md`) |
+| `/etc/letsencrypt/live/km0.amvara.de/` | Web TLS certificate |
+| `/etc/letsencrypt/live/cloud.km0digital.com/` | OpenCloud TLS certificate |
 | `/var/www/certbot` | ACME HTTP-01 webroot for certificate renewal |
 | `/etc/docker/daemon.json` | Docker log rotation policy (`json-file`, max 10 MB × 3 files). |
 | `/var/lib/docker/volumes/opencloud_opencloud-data/` | All user data (files, search index, NATS state, IDM database). |
@@ -69,13 +70,14 @@ UFW enforces: **22, 80, 443** open to the Internet. Port **9200 is loopback-only
 
 ## Active `.env` variables
 
-La configuración activa está en `opencloud-compose/.env` (`chmod 600`, **no** en Git). Plantilla versionada:
+Active configuration lives in `opencloud-compose/.env` (`chmod 600`, **not** in Git). Versioned templates:
 
-`overrides/opencloud-compose/.env.debian-collabora-external-proxy.example` (or `.env.debian-core-external-proxy.example` for core-only)
+- `overrides/opencloud-compose/.env.debian-collabora-external-proxy.example` (OpenCloud + Collabora + WOPI)
+- `overrides/opencloud-compose/.env.debian-core-external-proxy.example` (core-only, no Collabora)
 
-Tras clonar upstream, copiar la plantilla y rellenar `INITIAL_ADMIN_PASSWORD`, OIDC y demás. Valores operativos del servidor (IP, contacto ACME, notas de contraseña) van documentados en comentarios del `.env` local.
+After cloning upstream, copy the template and set `INITIAL_ADMIN_PASSWORD`, Dex OIDC (`OC_OIDC_ISSUER`, `WEB_OIDC_CLIENT_ID`), and other secrets. Document operational values (server IP, ACME contact, password notes) in comments in the local `.env`.
 
-`COMPOSE_PROJECT_NAME=opencloud` fija los volúmenes `opencloud_opencloud-data` y `opencloud_opencloud-config`.
+`COMPOSE_PROJECT_NAME=opencloud` pins Docker volume names to `opencloud_opencloud-data` and `opencloud_opencloud-config`.
 
 ---
 
@@ -111,7 +113,7 @@ All persistent data lives in two Docker volumes on the host:
 
 OpenCloud **does not encrypt data at rest by default** in the core deployment. Files are stored as plain blobs in the Docker volume. Options to add encryption:
 
-- **Disk-level:** encrypt the host volume (`dm-crypt`/`LUKS`) before Docker mounts it — transparent to OpenCloud.
+- **Disk-level:** encrypt the host volume (`dm-crypt`/`LUKS`) before Docker mounts it; transparent to OpenCloud.
 - **Object storage:** use S3 with server-side encryption (SSE-S3 or SSE-KMS) by adding the `storage/decomposeds3.yml` overlay.
 - **Client-side:** OpenCloud supports end-to-end encryption via the desktop/mobile clients (keys never leave the client).
 
@@ -148,7 +150,7 @@ Key Nginx directives and why they matter:
 | `client_max_body_size` | 10G | Maximum single upload size |
 | `http2 on` | on | HTTP/2 multiplexing (nginx ≥ 1.25 syntax; this server runs 1.26.3) |
 
-`PROXY_TLS=false` in the container environment tells OpenCloud's internal proxy service that the **external** Nginx handles TLS — so OpenCloud does not attempt to wrap its own HTTP listener in TLS.
+`PROXY_TLS=false` in the container environment tells OpenCloud's internal proxy service that the **external** Nginx handles TLS, so OpenCloud does not attempt to wrap its own HTTP listener in TLS.
 
 ---
 
@@ -158,7 +160,7 @@ Key Nginx directives and why they matter:
 |------|----------|-----------------|---------|
 | 22 | host (`sshd`) | Internet (UFW allow) | SSH admin access |
 | 80 | host (`nginx`) | Internet (UFW allow) | HTTP → HTTPS redirect only |
-| 443 | host (`nginx`) | Internet (UFW allow) | HTTPS — TLS termination + reverse proxy |
+| 443 | host (`nginx`) | Internet (UFW allow) | HTTPS: TLS termination + reverse proxy |
 | 9200 | host → container | `127.0.0.1` only | OpenCloud HTTP proxy service |
 | 9980 | host → container | `127.0.0.1` only | Collabora Online CODE (when enabled) |
 | 9300 | host → container | `127.0.0.1` only | WOPI collaboration service (when enabled) |
@@ -219,15 +221,16 @@ See [`docs/agent-loop.md`](docs/agent-loop.md) and [`.cursor/skills/autoagents/S
 
 ## Current deployment notes
 
-- **Web:** https://km0.amvara.de (Nginx `km0` → puerto 9180)
-- **OpenCloud:** https://cloud.km0digital.com (Nginx `opencloud` → puerto 9200)
-- **Collabora:** https://collabora.km0digital.com (Nginx `collabora` → puerto 9980)
-- **WOPI:** https://wopi.km0digital.com (Nginx `wopi` → puerto 9300)
-- **TLS:** Let's Encrypt en ambos hostnames (`certbot.timer`; contacto ACME en comentarios de `opencloud-compose/.env`).
-- **`INSECURE=false`:** OpenCloud valida TLS en URLs públicas (OIDC requiere `https://` en `OC_URL`).
-- **Admin password:** `INITIAL_ADMIN_PASSWORD` en `.env` solo en el primer arranque; después, UI (ver runbook).
-- **Backups:** [`scripts/backup-volumes.sh`](scripts/backup-volumes.sh) o [`scripts/backup-opencloud-installation.sh`](scripts/backup-opencloud-installation.sh).
+- **Web:** https://km0.amvara.de (Nginx `km0` → port 9180)
+- **OpenCloud:** https://cloud.km0digital.com (Nginx `opencloud` → port 9200; Dex OIDC at `/dex/`)
+- **Login landing:** https://cloud.km0digital.com/login.html (hybrid Google / Apple / local LDAP via Dex)
+- **Collabora:** https://collabora.km0digital.com (Nginx `collabora` → port 9980)
+- **WOPI:** https://wopi.km0digital.com (Nginx `wopi` → port 9300)
+- **TLS:** Let's Encrypt on all public hostnames (`certbot.timer`; ACME contact in `opencloud-compose/.env` comments).
+- **`INSECURE=false`:** OpenCloud validates TLS on public URLs (OIDC requires `https://` in `OC_URL`).
+- **Admin password:** `INITIAL_ADMIN_PASSWORD` in `.env` applies only on first startup; change later in the UI (see runbook).
+- **Backups:** [`scripts/backup-volumes.sh`](scripts/backup-volumes.sh) or [`scripts/backup-opencloud-installation.sh`](scripts/backup-opencloud-installation.sh).
 
-Repositorio Git: [`docs/REPOSITORY.md`](docs/REPOSITORY.md) · Operaciones: [`docs/runbook.md`](docs/runbook.md).
+Git repository layout: [`docs/REPOSITORY.md`](docs/REPOSITORY.md) · Day-to-day operations: [`docs/runbook.md`](docs/runbook.md).
 
 **License:** Deployment configuration in this repository is [MIT](LICENSE). OpenCloud upstream is [Apache 2.0](https://github.com/opencloud-eu/opencloud/blob/main/LICENSE).
