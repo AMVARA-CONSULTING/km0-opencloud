@@ -229,3 +229,5 @@ See [`docs/agent-loop.md`](docs/agent-loop.md) and [`.cursor/skills/autoagents/S
 - **Backups:** [`scripts/backup-volumes.sh`](scripts/backup-volumes.sh) o [`scripts/backup-opencloud-installation.sh`](scripts/backup-opencloud-installation.sh).
 
 Repositorio Git: [`docs/REPOSITORY.md`](docs/REPOSITORY.md) · Operaciones: [`docs/runbook.md`](docs/runbook.md).
+
+**License:** Deployment configuration in this repository is [MIT](LICENSE). OpenCloud upstream is [Apache 2.0](https://github.com/opencloud-eu/opencloud/blob/main/LICENSE).
