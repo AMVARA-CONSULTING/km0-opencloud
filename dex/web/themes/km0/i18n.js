@@ -30,6 +30,12 @@
       ldapPasswordPlaceholder: 'Contraseña',
       ldapSubmit: 'Iniciar sesión',
       ldapLoginError: 'Usuario o contraseña incorrectos.',
+      ldapErrorTitle: 'Problema al iniciar sesión',
+      ldapOidcAccountTitle: 'Usa Google para esta cuenta',
+      ldapOidcAccountError:
+        'Esta cuenta se creó con Google. Inicia sesión con Google en lugar de usuario y contraseña.',
+      ldapErrorGeneric:
+        'No hemos podido iniciar sesión. Inténtalo de nuevo o usa otro método de acceso.',
       ldapBackLink: 'Volver al inicio de sesión',
       registerPageTitle: 'Crear cuenta — Kilómetro 0 Digital',
       registerMetaDescription: 'Registro en OpenCloud — Kilómetro 0 Digital',
@@ -78,6 +84,12 @@
       ldapPasswordPlaceholder: 'Contrasenya',
       ldapSubmit: 'Iniciar sessió',
       ldapLoginError: 'Usuari o contrasenya incorrectes.',
+      ldapErrorTitle: "Problema en iniciar sessió",
+      ldapOidcAccountTitle: 'Fes servir Google per a aquest compte',
+      ldapOidcAccountError:
+        "Aquest compte es va crear amb Google. Inicia sessió amb Google en lloc d'usuari i contrasenya.",
+      ldapErrorGeneric:
+        "No hem pogut iniciar sessió. Torna-ho a provar o fes servir un altre mètode d'accés.",
       ldapBackLink: "Tornar a l'inici de sessió",
       registerPageTitle: 'Crear compte — Kilòmetre 0 Digital',
       registerMetaDescription: "Registre a OpenCloud — Kilòmetre 0 Digital",
@@ -126,6 +138,12 @@
       ldapPasswordPlaceholder: 'Password',
       ldapSubmit: 'Sign in',
       ldapLoginError: 'Incorrect username or password.',
+      ldapErrorTitle: 'Sign-in problem',
+      ldapOidcAccountTitle: 'Use Google for this account',
+      ldapOidcAccountError:
+        'This account was created with Google. Sign in with Google instead of username and password.',
+      ldapErrorGeneric:
+        'We could not sign you in. Please try again or use another sign-in method.',
       ldapBackLink: 'Back to sign-in',
       registerPageTitle: 'Create account — Kilometer 0 Digital',
       registerMetaDescription: 'OpenCloud registration — Kilometer 0 Digital',
@@ -176,6 +194,12 @@
       ldapPasswordPlaceholder: 'Passwort',
       ldapSubmit: 'Anmelden',
       ldapLoginError: 'Benutzername oder Passwort falsch.',
+      ldapErrorTitle: 'Anmeldeproblem',
+      ldapOidcAccountTitle: 'Google für dieses Konto verwenden',
+      ldapOidcAccountError:
+        'Dieses Konto wurde mit Google erstellt. Melden Sie sich mit Google statt Benutzername und Passwort an.',
+      ldapErrorGeneric:
+        'Anmeldung fehlgeschlagen. Bitte erneut versuchen oder eine andere Anmeldemethode wählen.',
       ldapBackLink: 'Zurück zur Anmeldung',
       registerPageTitle: 'Konto erstellen — Kilometer 0 Digital',
       registerMetaDescription: 'OpenCloud-Registrierung — Kilometer 0 Digital',

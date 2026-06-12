@@ -10,6 +10,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- Dex LDAP login for Google OIDC accounts: when a user tries username/password on an account registered via Google, Dex now shows a KM0-branded error page (ES/CA/EN/DE) with **Continue with Google** instead of a raw LDAP bind error; `dex-auth.js` resumes the in-flight OIDC flow from Dex's `back` query parameter.
 - Self-registration: `POST /api/register` returned HTTP 500 because register-api used password Basic auth while OpenCloud Graph requires an app token when `PROXY_ENABLE_BASIC_AUTH=false` (default). register-api now uses `GRAPH_SERVICE_APP_TOKEN`, reports `graph_auth_ok` in `/health`, and returns 503 on auth failures.
 - Registration canonical URL `/register` (301 from `/register.html`); Dex password page link to register; ES/CA/EN/DE copy updates on login and register flows.
 - Login landing: hide Apple OIDC button until `APPLE_CLIENT_*` is configured; update ES/CA/EN/DE copy to reference Google only (not Google/Apple).

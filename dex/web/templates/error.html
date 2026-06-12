@@ -1,8 +1,73 @@
-{{ template "header.html" . }}
+{{ template "header-card.html" . }}
 
-<div class="theme-panel">
-  <h2 class="theme-heading">{{ .ErrType }}</h2>
-  <p>{{ .ErrMsg }}</p>
-</div>
+      <p class="km0-eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
+      <h2 class="theme-heading" id="dex-error-heading" data-i18n="ldapErrorTitle">Problema al iniciar sesión</h2>
+      <p class="km0-tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
 
-{{ template "footer.html" . }}
+      <div id="dex-ldap-oidc-error" class="dex-error-box" role="alert" hidden data-i18n="ldapOidcAccountError">
+        Esta cuenta se creó con Google. Inicia sesión con Google en lugar de usuario y contraseña.
+      </div>
+
+      <div id="dex-generic-error" class="dex-error-box" role="alert" hidden data-i18n="ldapErrorGeneric">
+        No hemos podido iniciar sesión. Inténtalo de nuevo o usa otro método de acceso.
+      </div>
+
+      <div id="dex-oidc-actions" class="km0-error-actions" hidden>
+        <div class="theme-form-row">
+          <button type="button" class="dex-btn theme-btn-provider" id="km0-error-google">
+            <span class="dex-btn-icon dex-btn-icon--google" aria-hidden="true"></span>
+            <span class="dex-btn-text" data-i18n="continueGoogle">Continuar con Google</span>
+          </button>
+        </div>
+        <p class="theme-link-back">
+          <a class="km0-back-link" href="/login.html" data-i18n="ldapBackLink">Volver al inicio de sesión</a>
+        </p>
+      </div>
+
+      <p id="dex-tech-error" class="km0-tech-error" hidden>{{ .ErrMsg }}</p>
+
+<script src="/dex-auth.js"></script>
+<script type="text/javascript">
+  function initDexErrorPage() {
+    var techEl = document.getElementById('dex-tech-error');
+    var oidcErr = document.getElementById('dex-ldap-oidc-error');
+    var genericErr = document.getElementById('dex-generic-error');
+    var actions = document.getElementById('dex-oidc-actions');
+    var heading = document.getElementById('dex-error-heading');
+    var googleBtn = document.getElementById('km0-error-google');
+    var raw = techEl ? (techEl.textContent || '').trim() : '';
+
+    function isLdapOidcConflict(msg) {
+      if (!msg) return false;
+      var lower = msg.toLowerCase();
+      return lower.indexOf('login error: ldap:') >= 0 &&
+        (lower.indexOf('operations error') >= 0 || lower.indexOf('failed to bind') >= 0);
+    }
+
+    if (isLdapOidcConflict(raw)) {
+      if (heading) {
+        heading.setAttribute('data-i18n', 'ldapOidcAccountTitle');
+        if (window.KM0LoginI18n) {
+          heading.textContent = window.KM0LoginI18n.t('ldapOidcAccountTitle');
+        }
+      }
+      if (oidcErr) oidcErr.hidden = false;
+      if (actions) actions.hidden = false;
+    } else if (raw) {
+      if (genericErr) genericErr.hidden = false;
+      if (actions) actions.hidden = false;
+    }
+
+    if (googleBtn && window.KM0DexAuth) {
+      googleBtn.addEventListener('click', function () {
+        window.KM0DexAuth.startDexLogin('google');
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(initDexErrorPage, 0);
+  });
+</script>
+
+{{ template "footer-card.html" . }}
