@@ -62,8 +62,7 @@
     } catch (_) {}
   }
 
-  function oidcParamsFromUrl() {
-    var p = new URLSearchParams(location.search);
+  function oidcParamsFromSearch(p) {
     if (!p.get('client_id') || !p.get('state') || !p.get('code_challenge')) return null;
     return {
       client_id:             p.get('client_id'),
@@ -74,6 +73,21 @@
       code_challenge:        p.get('code_challenge'),
       code_challenge_method: p.get('code_challenge_method') || 'S256'
     };
+  }
+
+  function oidcParamsFromBackParam() {
+    var back = new URLSearchParams(location.search).get('back');
+    if (!back) return null;
+    try {
+      var u = new URL(back, location.origin);
+      return oidcParamsFromSearch(new URLSearchParams(u.search));
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function oidcParamsFromUrl() {
+    return oidcParamsFromSearch(new URLSearchParams(location.search)) || oidcParamsFromBackParam();
   }
 
   function startDexLogin(connectorId) {
