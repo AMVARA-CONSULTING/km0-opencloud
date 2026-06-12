@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- Auth branding: double KM0 pin logo size on login, register, Dex card, and navbar views (96px → 192px).
 - KM0 branding: new pin SVG logo on login, register, Dex navbar, and LDAP card views; local `/logo.svg` and `theme/logo.svg` replace external wordmark PNG; favicon updated (shadow ellipse removed); Dex `frontend.logoURL` set for v2.42.
 - README: English-only content; removed em dashes; deployment notes aligned with runbook (Dex OIDC at `/dex/`, hybrid login landing, both `.env` templates, full TLS hostnames).
 

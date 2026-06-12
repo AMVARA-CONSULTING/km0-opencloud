@@ -46,7 +46,7 @@
   filter: drop-shadow(0 0 24px rgba(123, 63, 228, 0.35));
   height: auto;
   margin: 0 auto 1.5rem;
-  width: min(96px, 22vw);
+  width: min(192px, 44vw);
 }
 
 .km0-tagline {
@@ -245,10 +245,10 @@
 }
 
 .theme-navbar__logo {
-  max-height: 56px;
+  max-height: 112px;
   height: auto;
   width: auto;
-  max-width: min(280px, 70vw);
+  max-width: min(560px, 70vw);
   object-fit: contain;
   filter: drop-shadow(0 0 24px rgba(123, 63, 228, 0.35));
 }
