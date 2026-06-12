@@ -12,7 +12,7 @@ frontend:
   dir: /etc/dex/web
   theme: km0
   issuer: Kilómetro 0 Digital
-  logo: theme/logo.png
+  logoURL: theme/logo.svg
 logger:
   level: info
   format: json

@@ -46,7 +46,7 @@
   filter: drop-shadow(0 0 24px rgba(123, 63, 228, 0.35));
   height: auto;
   margin: 0 auto 1.5rem;
-  width: min(200px, 55vw);
+  width: min(96px, 22vw);
 }
 
 .km0-tagline {
