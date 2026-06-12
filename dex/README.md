@@ -138,4 +138,6 @@ Login UI languages: **CA | ES | EN | DE** (aligned with km0-web). Preference sto
 
 Files: `/opt/opencloud/dex/web/themes/km0/` (`styles.css`, `i18n.js`), templates in `/opt/opencloud/dex/web/templates/`.
 
+Dex password and error pages load `dex-auth.js` from `/dex/static/dex-auth.js`. Keep it in sync with the canonical `host-www/opencloud-auth/dex-auth.js` (copy into `dex/web/static/` when editing), restart Dex, and rsync `host-www/opencloud-auth/` to `/var/www/opencloud-auth/` for the login landing.
+
 Optional landing: https://cloud.km0digital.com/login.html

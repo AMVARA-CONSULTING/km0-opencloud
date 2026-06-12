@@ -10,14 +10,14 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
-- Dex LDAP login for Google OIDC accounts: when a user tries username/password on an account registered via Google, Dex now shows a KM0-branded error page (ES/CA/EN/DE) with **Continue with Google** instead of a raw LDAP bind error; `dex-auth.js` resumes the in-flight OIDC flow from Dex's `back` query parameter.
+- Dex LDAP login for Google OIDC accounts: when a user tries username/password on an account registered via Google, Dex now shows a KM0-branded error page (ES/CA/EN/DE) with **Continue with Google** instead of a raw LDAP bind error; `dex-auth.js` resumes the in-flight OIDC flow from Dex's `back` query parameter. Dex password and error pages load the script from `/dex/static/dex-auth.js` so OIDC resume works after a Dex restart without a separate nginx rsync.
 - Self-registration: `POST /api/register` returned HTTP 500 because register-api used password Basic auth while OpenCloud Graph requires an app token when `PROXY_ENABLE_BASIC_AUTH=false` (default). register-api now uses `GRAPH_SERVICE_APP_TOKEN`, reports `graph_auth_ok` in `/health`, and returns 503 on auth failures.
 - Registration canonical URL `/register` (301 from `/register.html`); Dex password page link to register; ES/CA/EN/DE copy updates on login and register flows.
 - Login landing: hide Apple OIDC button until `APPLE_CLIENT_*` is configured; update ES/CA/EN/DE copy to reference Google only (not Google/Apple).
 
 ### Added
 
-- Shared `dex-auth.js` module for Dex OIDC/PKCE login flows (login, register, and Dex password pages); nginx serves it at `/dex-auth.js`.
+- Shared `dex-auth.js` module for Dex OIDC/PKCE login flows (login, register, and Dex password pages); nginx serves it at `/dex-auth.js`, Dex serves a synced copy at `/dex/static/dex-auth.js`.
 - Post-registration auto sign-in: successful registration stores credentials briefly in session storage, redirects through Dex LDAP, and the Dex password page auto-submits the pending login; i18n `registerSigningIn` strings (ES/CA/EN/DE).
 - Operator scripts `setup-register-api-graph-token.sh` and `verify-register-api.sh` for register-api Graph app-token setup and deploy verification.
 - Public email/password self-registration: `register.html`, `register-api` (Graph user creation on `127.0.0.1:8091`), nginx `/api/register` proxy with rate limiting, login page link and post-registration banner, i18n strings (ES/CA/EN/DE); runbook operator setup.

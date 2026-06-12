@@ -26,7 +26,7 @@
 
       <p id="dex-tech-error" class="km0-tech-error" hidden>{{ .ErrMsg }}</p>
 
-<script src="/dex-auth.js"></script>
+<script src="{{ url .ReqPath "static/dex-auth.js" }}"></script>
 <script type="text/javascript">
   function initDexErrorPage() {
     var techEl = document.getElementById('dex-tech-error');
