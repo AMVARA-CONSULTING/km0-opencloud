@@ -14,6 +14,8 @@ services:
       # Docker embedded DNS often fails to resolve the public hostname from inside the container
       extra_hosts:
         - "${OC_DOMAIN:-cloud.km0digital.com}:host-gateway"
+        # Local km0-mail Postfix submission (SMTP relay without auth from Docker networks)
+        - "host.docker.internal:host-gateway"
       ports:
         # expose the opencloud server on localhost
         - "127.0.0.1:9200:9200"
