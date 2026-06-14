@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- OpenCloud compose (external-proxy): map `host.docker.internal` to host gateway so the container can reach local km0-mail Postfix for SMTP relay from Docker networks.
+
 ### Changed
 
 - Auth branding: double KM0 pin logo size on login, register, Dex card, and navbar views (96px → 192px).
