@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# OpenCloud user-data backup every 5 days at 03:00 (days 1, 6, 11, 16, 21, 26 of each month).
+# Keeps 5 rotated archives under /data/opencloud-backup/user-data/.
+0 3 */5 * * root /usr/bin/flock -n /run/opencloud-user-backup.lock /opt/opencloud/scripts/backup-user-data.sh >> /var/log/opencloud-user-backup.log 2>&1

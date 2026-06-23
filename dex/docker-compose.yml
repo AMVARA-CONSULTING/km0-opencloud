@@ -20,6 +20,8 @@ services:
       APPLE_CLIENT_SECRET: ${APPLE_CLIENT_SECRET:-}
       FACEBOOK_CLIENT_ID: ${FACEBOOK_CLIENT_ID:-}
       FACEBOOK_CLIENT_SECRET: ${FACEBOOK_CLIENT_SECRET:-}
+      KM0_MAIL_WEB_OAUTH_SECRET: ${KM0_MAIL_WEB_OAUTH_SECRET:-}
+      KM0_MAIL_DOVECOT_OAUTH_SECRET: ${KM0_MAIL_DOVECOT_OAUTH_SECRET:-}
     entrypoint: ["/bin/sh", "/etc/dex/docker-entrypoint.sh"]
     volumes:
       - ./config.yaml:/etc/dex/config.yaml.template:ro
