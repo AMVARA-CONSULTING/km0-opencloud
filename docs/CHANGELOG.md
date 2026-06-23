@@ -11,6 +11,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- Security: removed hardcoded Discord webhook URL from `scripts/backup-user-data.sh`; alerts require `DISCORD_WEBHOOK_URL` (rotate any webhook exposed in git history).
 - Open Graph and Twitter Card previews: regenerated `og-preview.png` with the new KM0 pin logo; added missing Twitter Card meta tags on `register.html`.
 - OpenCloud compose (external-proxy): map `host.docker.internal` to host gateway so the container can reach local km0-mail Postfix for SMTP relay from Docker networks.
 
