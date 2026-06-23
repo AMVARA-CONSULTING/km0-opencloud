@@ -4,8 +4,14 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Dex: optional km0-mail webmail SSO — static OAuth clients `km0-mail-web` and `km0-mail-dovecot` with env-gated secrets in `docker-entrypoint.sh` (disabled until `KM0_MAIL_*_OAUTH_SECRET` set in `dex/.env`).
+- Operator script `scripts/backup-user-data.sh` and cron template `scripts/opencloud-user-backup.cron` for rotated OpenCloud user-data volume backups to `/data`.
+
 ### Fixed
 
+- Open Graph and Twitter Card previews: regenerated `og-preview.png` with the new KM0 pin logo; added missing Twitter Card meta tags on `register.html`.
 - OpenCloud compose (external-proxy): map `host.docker.internal` to host gateway so the container can reach local km0-mail Postfix for SMTP relay from Docker networks.
 
 ### Changed

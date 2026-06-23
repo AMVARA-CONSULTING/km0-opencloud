@@ -48,6 +48,15 @@ staticClients:
     public: true
     redirectURIs:
       - 'oc://ios.opencloud.eu'
+  # km0-mail webmail SSO (secrets from dex/.env via docker-entrypoint.sh)
+  - id: km0-mail-web
+    name: KM0 Mail Webmail
+    redirectURIs:
+      - 'https://mail.km0digital.com/index.php/login/oauth'
+    secret: KM0_MAIL_WEB_OAUTH_SECRET_PLACEHOLDER
+  - id: km0-mail-dovecot
+    name: KM0 Mail Dovecot introspection
+    secret: KM0_MAIL_DOVECOT_OAUTH_SECRET_PLACEHOLDER
 # Local username/password via OpenCloud built-in IDM LDAP (not static Dex passwords).
 connectors:
   - type: ldap

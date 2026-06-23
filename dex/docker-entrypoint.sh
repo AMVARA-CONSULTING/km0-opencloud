@@ -37,6 +37,16 @@ sed -i "s|OPENCLOUD_WEB_CLIENT_ID_PLACEHOLDER|${OPENCLOUD_WEB_CLIENT_ID}|g" /etc
 sed -i "s|OPENCLOUD_LDAP_HOST_PLACEHOLDER|${OPENCLOUD_LDAP_HOST}|g" /etc/dex/config.yaml
 sed -i "s|OPENCLOUD_IDM_BIND_PW_PLACEHOLDER|'${ldap_bind_pw}'|g" /etc/dex/config.yaml
 
+# km0-mail SSO (optional — secrets from km0-mail .env)
+if [ -n "${KM0_MAIL_WEB_OAUTH_SECRET:-}" ] && [ -n "${KM0_MAIL_DOVECOT_OAUTH_SECRET:-}" ]; then
+  km0_web_secret=$(printf '%s' "${KM0_MAIL_WEB_OAUTH_SECRET}" | sed "s/'/''/g" | sed 's/[&/\]/\\&/g')
+  km0_dovecot_secret=$(printf '%s' "${KM0_MAIL_DOVECOT_OAUTH_SECRET}" | sed "s/'/''/g" | sed 's/[&/\]/\\&/g')
+  sed -i "s|KM0_MAIL_WEB_OAUTH_SECRET_PLACEHOLDER|${km0_web_secret}|g" /etc/dex/config.yaml
+  sed -i "s|KM0_MAIL_DOVECOT_OAUTH_SECRET_PLACEHOLDER|${km0_dovecot_secret}|g" /etc/dex/config.yaml
+else
+  sed -i '/# km0-mail webmail SSO/,/KM0_MAIL_DOVECOT_OAUTH_SECRET_PLACEHOLDER/d' /etc/dex/config.yaml
+fi
+
 # Apple Sign In via generic OIDC connector (Dex v2.41 has no native "apple" type)
 if [ -n "${APPLE_CLIENT_ID:-}" ] && [ -n "${APPLE_CLIENT_SECRET:-}" ]; then
   # YAML-safe single-quoted secret
