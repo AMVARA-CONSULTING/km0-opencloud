@@ -250,6 +250,23 @@
       line-height: 1.4;
     }
     .success-banner--visible { display: block; }
+    .pricing-notice {
+      margin: 0 0 1.25rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      background: rgba(123, 63, 228, 0.12);
+      border: 1px solid rgba(123, 63, 228, 0.25);
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .pricing-notice a {
+      color: #b794f6;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .pricing-notice a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -267,6 +284,8 @@
     <p class="intro" data-i18n="landingDescription">Inicia sesión con Google o tu usuario.</p>
 
     <div class="success-banner" id="km0-registered-banner" data-i18n="registerSuccessBanner" role="status"></div>
+
+    <div class="pricing-notice" data-i18n-html="registerPricingNotice"></div>
 
     <div class="theme-form-row">
       <button type="button" class="dex-btn theme-btn-provider" id="km0-login-google" data-connector="google">

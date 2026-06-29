@@ -25,6 +25,68 @@
     } catch (_) {}
   }
 
+  function clearAllAuthState() {
+    clearOidcBrowserState();
+    var authPat = /^oc_oAuth\.|^oidc\.|^oidc\.user:/i;
+    try {
+      [sessionStorage, localStorage].forEach(function (store) {
+        Object.keys(store).forEach(function (k) {
+          if (authPat.test(k)) store.removeItem(k);
+        });
+      });
+    } catch (_) {}
+    try {
+      document.cookie = 'oc_auth_mode=;path=/;max-age=0;SameSite=Lax';
+    } catch (_) {}
+  }
+
+  function getStoredIdToken() {
+    var stores = [localStorage, sessionStorage];
+    var keyPrefixes = ['oc_oAuth.user:', 'oidc.user:'];
+    for (var s = 0; s < stores.length; s++) {
+      var store = stores[s];
+      var keys;
+      try { keys = Object.keys(store); } catch (_) { continue; }
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        var matched = false;
+        for (var p = 0; p < keyPrefixes.length; p++) {
+          if (k.indexOf(keyPrefixes[p]) === 0) { matched = true; break; }
+        }
+        if (!matched) continue;
+        try {
+          var v = JSON.parse(store.getItem(k));
+          if (v && v.id_token) return v.id_token;
+        } catch (_) {}
+      }
+    }
+    return null;
+  }
+
+  function completeLogoutIfNeeded() {
+    try {
+      var params = new URLSearchParams(location.search);
+      if (params.get('from_dex')) {
+        clearAllAuthState();
+        return false;
+      }
+      var idToken = getStoredIdToken();
+      if (!idToken) {
+        clearAllAuthState();
+        return false;
+      }
+      var postLogout = location.origin + '/logout?from_dex=1';
+      location.assign('/dex/logout?' + new URLSearchParams({
+        id_token_hint: idToken,
+        post_logout_redirect_uri: postLogout
+      }).toString());
+      return true;
+    } catch (_) {
+      clearAllAuthState();
+      return false;
+    }
+  }
+
   function base64url(buf) {
     return btoa(String.fromCharCode.apply(null, new Uint8Array(buf)))
       .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
@@ -164,6 +226,8 @@
     startDexLogin: startDexLogin,
     setAuthModeCookie: setAuthModeCookie,
     clearOidcBrowserState: clearOidcBrowserState,
+    clearAllAuthState: clearAllAuthState,
+    completeLogoutIfNeeded: completeLogoutIfNeeded,
     oidcParamsFromUrl: oidcParamsFromUrl,
     storePendingLogin: storePendingLogin,
     autoSubmitPendingLogin: autoSubmitPendingLogin

@@ -1,25 +1,31 @@
-{{ template "header.html" . }}
+{{ template "header-card.html" . }}
 
-<div class="theme-panel">
-  <p class="km0-eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
-  <h2 class="theme-heading">OpenCloud</h2>
-  <p class="km0-subtitle" data-i18n="loginSubtitle">Elige cómo quieres iniciar sesión en cloud.km0digital.com</p>
-  <div>
-    {{ range $c := .Connectors }}
-      <div class="theme-form-row">
-        <a href="{{ $c.URL }}" target="_self">
-          <button type="button" class="dex-btn theme-btn-provider{{ if eq $c.ID "apple" }} theme-btn-provider--apple{{ end }}">
-            <span class="dex-btn-icon dex-btn-icon--{{ $c.Type }}{{ if eq $c.ID "apple" }} dex-btn-icon--apple{{ end }}"></span>
-            <span class="dex-btn-text" data-i18n-connector="{{ $c.ID }}" data-i18n-name="{{ $c.Name }}">{{ if eq $c.ID "google" }}Continuar con Google{{ else if eq $c.ID "apple" }}Continuar con Apple{{ else }}Log in with {{ $c.Name }}{{ end }}</span>
-          </button>
-        </a>
+      <p class="km0-eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
+      <h2 class="theme-heading">OpenCloud</h2>
+      <p class="km0-tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
+      <p class="km0-intro" data-i18n="landingDescription">Inicia sesión con Google o tu usuario.</p>
+
+      <div class="km0-pricing-notice" data-i18n-html="registerPricingNotice"></div>
+
+      <div>
+        {{ range $c := .Connectors }}
+          <div class="theme-form-row">
+            <a href="{{ $c.URL }}" target="_self">
+              <button type="button" class="dex-btn theme-btn-provider{{ if eq $c.ID "apple" }} theme-btn-provider--apple{{ end }}">
+                <span class="dex-btn-icon dex-btn-icon--{{ $c.Type }}{{ if eq $c.ID "apple" }} dex-btn-icon--apple{{ end }}"></span>
+                <span class="dex-btn-text" data-i18n-connector="{{ $c.ID }}" data-i18n-name="{{ $c.Name }}">{{ if eq $c.ID "google" }}Continuar con Google{{ else if eq $c.ID "apple" }}Continuar con Apple{{ else }}Log in with {{ $c.Name }}{{ end }}</span>
+              </button>
+            </a>
+          </div>
+        {{ end }}
       </div>
-    {{ end }}
-  </div>
-  <p class="km0-footer-note">
-    <a href="https://km0digital.com/" target="_blank" rel="noopener">km0digital.com</a>
-    · <span data-i18n="footerTagline">Origen local. Impacto digital.</span>
-  </p>
-</div>
 
-{{ template "footer.html" . }}
+      <p class="theme-link-back">
+        <a class="km0-back-link" href="/register" data-i18n="registerCreateAccountLink">¿Aún no tienes cuenta?</a>
+      </p>
+
+      <p class="km0-footer-note">
+        <a href="https://km0digital.com/" target="_blank" rel="noopener">km0digital.com</a>
+      </p>
+
+{{ template "footer-card.html" . }}

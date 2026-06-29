@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="logoutPageTitle">Kilómetro 0 Digital — Sesión cerrada</title>
+  <meta name="description" content="Sesión cerrada en OpenCloud — Kilómetro 0 Digital" data-i18n-meta="logoutMetaDescription" />
+  <link rel="canonical" href="https://cloud.km0digital.com/logout" />
+  <meta property="og:title" content="Kilómetro 0 Digital — OpenCloud" />
+  <meta property="og:description" content="Sesión cerrada en OpenCloud — Kilómetro 0 Digital" />
+  <meta property="og:image" content="https://cloud.km0digital.com/brand/og-preview.png" />
+  <meta property="og:url" content="https://cloud.km0digital.com/logout" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="KM0 Digital Cloud" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kilómetro 0 Digital — OpenCloud" />
+  <meta name="twitter:description" content="Sesión cerrada en OpenCloud — Kilómetro 0 Digital" />
+  <meta name="twitter:image" content="https://cloud.km0digital.com/brand/og-preview.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0b1220;
+      --gradient: linear-gradient(135deg, #ff5f2e 0%, #e040a0 35%, #7b3fe4 65%, #007bff 100%);
+      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--navy);
+      background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(123, 63, 228, 0.18) 0%, transparent 70%);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+    .card {
+      position: relative;
+      width: min(440px, 92vw);
+      padding: 2.5rem 2rem 2rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+      text-align: center;
+    }
+    .km0-lang-switch {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .km0-lang-switch__btn {
+      border: 0;
+      border-radius: 9999px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      font: inherit;
+      padding: 6px 10px;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .km0-lang-switch__btn:hover { color: #fff; }
+    .km0-lang-switch__btn--active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+    .km0-lang-switch__btn:focus-visible {
+      outline: 2px solid #7b3fe4;
+      outline-offset: 2px;
+    }
+    .logo {
+      width: min(192px, 44vw);
+      height: auto;
+      margin: 0 auto 1.5rem;
+      display: block;
+      filter: drop-shadow(0 0 24px rgba(123, 63, 228, 0.35));
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin: 0 0 0.75rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .tagline {
+      margin: 0 0 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .intro {
+      margin: 0 0 1.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .logout-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .btn-primary {
+      align-items: center;
+      background: #fff;
+      border: 0;
+      border-radius: 9999px;
+      color: #0b1220;
+      cursor: pointer;
+      display: inline-flex;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      justify-content: center;
+      padding: 0.85rem 2rem;
+      text-decoration: none;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+      width: 100%;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      transform: scale(1.02);
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid #7b3fe4;
+      outline-offset: 2px;
+    }
+    .btn-secondary {
+      align-items: center;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 9999px;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      justify-content: center;
+      padding: 0.85rem 2rem;
+      text-decoration: none;
+      transition: background 0.35s var(--ease);
+      width: 100%;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .btn-secondary:focus-visible {
+      outline: 2px solid #7b3fe4;
+      outline-offset: 2px;
+    }
+    footer {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+    footer a {
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+    }
+    footer a:hover { color: #7b3fe4; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <nav class="km0-lang-switch" role="navigation" aria-label="Idioma">
+      <button type="button" class="km0-lang-switch__btn" data-lang="ca" aria-pressed="false">CA</button>
+      <button type="button" class="km0-lang-switch__btn km0-lang-switch__btn--active" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" class="km0-lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" class="km0-lang-switch__btn" data-lang="de" aria-pressed="false">DE</button>
+    </nav>
+    <img class="logo" src="/logo.svg" alt="Kilómetro 0 Digital" width="192" height="192" />
+    <p class="eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
+    <h1 data-i18n="logoutTitle">Sesión cerrada</h1>
+    <p class="tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
+    <p class="intro" data-i18n="logoutMessage">Has cerrado sesión en OpenCloud correctamente.</p>
+
+    <div class="logout-actions">
+      <a class="btn-primary" href="/login.html" data-i18n="logoutReturnLogin">Volver a iniciar sesión</a>
+      <a class="btn-secondary" href="https://km0digital.com/" data-i18n="logoutGoHome">Ir a km0digital.com</a>
+    </div>
+
+    <footer>
+      <a href="https://km0digital.com/" target="_blank" rel="noopener">km0digital.com</a>
+    </footer>
+  </div>
+  <script src="/dex/theme/i18n.js"></script>
+  <script src="/dex-auth.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      if (window.KM0DexAuth && window.KM0DexAuth.completeLogoutIfNeeded) {
+        window.KM0DexAuth.completeLogoutIfNeeded();
+      } else if (window.KM0DexAuth && window.KM0DexAuth.clearAllAuthState) {
+        window.KM0DexAuth.clearAllAuthState();
+      }
+    })();
+  </script>
+</body>
+</html>
