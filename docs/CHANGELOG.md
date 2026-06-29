@@ -6,6 +6,16 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- Branded `/logout` page with Dex OIDC end-session flow; `dex-auth.js` helpers `completeLogoutIfNeeded` and `clearAllAuthState`; nginx serves static logout before the OpenCloud SPA; `post_logout_redirect_uri` updated in auth configs.
+- Payment/pricing notice on host `/login.html` and Dex desktop login card (reuses `registerPricingNotice` i18n).
+- Playwright auth test suite (`tests/auth/`) and operator curl smoke script `scripts/verify-auth-pages.sh`.
+
+### Changed
+
+- Dex desktop login template switched to card layout (`header-card.html`) aligned with host login/register; register link added.
+
+### Added
+
 - Dex: optional km0-mail webmail SSO — static OAuth clients `km0-mail-web` and `km0-mail-dovecot` with env-gated secrets in `docker-entrypoint.sh` (disabled until `KM0_MAIL_*_OAUTH_SECRET` set in `dex/.env`).
 - Operator script `scripts/backup-user-data.sh` and cron template `scripts/opencloud-user-backup.cron` for rotated OpenCloud user-data volume backups to `/data`.
 

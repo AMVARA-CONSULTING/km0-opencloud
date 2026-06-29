@@ -1,0 +1,13 @@
+{
+  "name": "km0-opencloud-auth-tests",
+  "private": true,
+  "description": "Playwright tests for KM0 OpenCloud authentication pages",
+  "scripts": {
+    "test": "playwright test",
+    "test:update-snapshots": "playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "^1.52.0"
+  }
+}

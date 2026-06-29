@@ -403,3 +403,39 @@
 .km0-tech-error {
   display: none;
 }
+
+.km0-pricing-notice {
+  background: rgba(123, 63, 228, 0.12);
+  border: 1px solid rgba(123, 63, 228, 0.25);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 0 auto 1.25rem;
+  max-width: 320px;
+  padding: 0.85rem 1rem;
+  text-align: left;
+}
+
+.km0-pricing-notice a {
+  color: #b794f6;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.km0-pricing-notice a:hover {
+  text-decoration: underline;
+}
+
+.km0-logout-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.5rem auto 0;
+  max-width: 320px;
+}
+
+.km0-logout-actions .theme-btn--primary,
+.km0-logout-actions .btn-local {
+  text-decoration: none;
+}
