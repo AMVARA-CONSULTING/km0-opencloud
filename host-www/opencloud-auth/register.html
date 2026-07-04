@@ -311,6 +311,21 @@
         return null;
       }
 
+      function errorKeyFromResponse(status, body) {
+        if (status === 429) return 'registerErrorRateLimit';
+        var err = body && body.error;
+        if (status === 409 || err === 'duplicate') return 'registerErrorDuplicate';
+        if (status === 503 || err === 'service_unavailable') return 'registerErrorServiceUnavailable';
+        if (status === 400) {
+          if (err === 'invalid_email') return 'registerErrorEmailInvalid';
+          if (err === 'password_too_short' || err === 'password_needs_special') {
+            return 'registerErrorPasswordWeak';
+          }
+          if (err === 'validation') return 'registerErrorValidation';
+        }
+        return 'registerErrorGeneric';
+      }
+
       function startPostRegisterLogin(email, password) {
         if (!window.KM0DexAuth) {
           showError('registerErrorGeneric');
@@ -355,19 +370,7 @@
               startPostRegisterLogin(email, password);
               return;
             }
-            if (result.status === 409 || (result.body && result.body.error === 'duplicate')) {
-              showError('registerErrorDuplicate');
-              return;
-            }
-            if (result.status === 400) {
-              var err = result.body && result.body.error;
-              if (err === 'invalid_email') showError('registerErrorEmailInvalid');
-              else if (err === 'password_too_short' || err === 'password_needs_special') {
-                showError('registerErrorPasswordWeak');
-              } else showError('registerErrorGeneric');
-              return;
-            }
-            showError('registerErrorGeneric');
+            showError(errorKeyFromResponse(result.status, result.body));
           })
           .catch(function () {
             showError('registerErrorGeneric');
