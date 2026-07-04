@@ -19,7 +19,7 @@ check() {
 
 check "health reachable" "curl -sf '${BASE}/health'" '"ok":'
 check "graph configured" "curl -sf '${BASE}/health'" '"graph_configured":'
-check "graph auth ok" "curl -sf '${BASE}/health'" '"graph_auth_ok":'
+check "graph auth ok" "curl -sf '${BASE}/health'" '"graph_auth_ok"[[:space:]]*:[[:space:]]*true'
 check "invalid email → 400" \
   "curl -sf -w '%{http_code}' -o /tmp/reg-verify.json -X POST '${BASE}/register' -H 'Content-Type: application/json' -d '{\"email\":\"bad\",\"password\":\"x\"}'" \
   '400'

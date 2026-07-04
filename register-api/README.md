@@ -8,8 +8,36 @@ OpenCloud disables password Basic auth by default (`PROXY_ENABLE_BASIC_AUTH=fals
 
 ```bash
 ./scripts/setup-register-api-graph-token.sh
-# optional: --user admin  (must have user-create permission)
+# optional: --user admin --expires-in 90d  (default 90 days)
 ```
+
+### Token rotation and auto-renewal
+
+The Graph app token expires (default **90 days**). Rotate manually or enable weekly auto-renewal when fewer than **14 days** remain.
+
+**Manual rotation** (register-api only — does not touch users, volumes, Dex, or OpenCloud config):
+
+```bash
+./scripts/setup-register-api-graph-token.sh --expires-in 90d
+cd /opt/opencloud/register-api && docker compose up -d --build register-api
+./scripts/verify-register-api.sh   # expect graph_auth_ok: true
+```
+
+**Auto-renewal** (install once on the host):
+
+```bash
+sudo cp /opt/opencloud/scripts/register-api-token-renewal.cron /etc/cron.d/register-api-token-renewal
+sudo chmod 644 /etc/cron.d/register-api-token-renewal
+```
+
+Runs Mondays at 03:00 UTC; logs to `/var/log/register-api-token-renewal.log`. Force a check:
+
+```bash
+./scripts/renew-register-api-graph-token.sh
+./scripts/renew-register-api-graph-token.sh --force   # renew regardless of expiry
+```
+
+**Safety:** renewal scripts only update `GRAPH_SERVICE_APP_TOKEN` / expiry metadata in `register-api/.env` and restart **register-api**. They must **not** run `docker compose down -v`, delete volumes, reset users, or change Dex/OIDC settings. A failed renewal leaves existing Google OAuth login unaffected.
 
 Or manually:
 
