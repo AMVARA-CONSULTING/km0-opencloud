@@ -440,8 +440,27 @@ OpenCloud rejects password Basic auth when `PROXY_ENABLE_BASIC_AUTH=false` (defa
 ```bash
 ./scripts/setup-register-api-graph-token.sh
 # Creates token for admin (or pass --user <uid> with user-create permission)
+# Default expiration: 90 days (--expires-in 90d)
 ./scripts/verify-register-api.sh
 ```
+
+**Token rotation (manual):**
+
+```bash
+./scripts/setup-register-api-graph-token.sh --expires-in 90d
+cd /opt/opencloud/register-api && docker compose up -d --build register-api
+./scripts/verify-register-api.sh   # graph_auth_ok: true required
+```
+
+**Auto-renewal:** install `scripts/register-api-token-renewal.cron` to `/etc/cron.d/register-api-token-renewal`. The renewal script (`renew-register-api-graph-token.sh`) runs weekly, renews when fewer than 14 days remain or `graph_auth_ok` is false, updates only `register-api/.env` token fields, and restarts **register-api** only.
+
+**Safety — do not during token renewal:**
+
+* Delete, recreate, migrate, reset, or modify existing OpenCloud users, groups, storage, databases, or Docker volumes
+* Change Dex/OIDC configuration or unrelated `.env` values (only `GRAPH_SERVICE_APP_TOKEN` and expiry metadata in `register-api/.env`)
+* Run `docker compose down -v`, `docker volume rm`, `opencloud users delete/reset`, or `opencloud config reset`
+
+A failed renewal must not break Google OAuth login or user data.
 
 Manual alternative:
 

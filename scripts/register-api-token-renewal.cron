@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Renew register-api Graph App Token weekly when <14 days remain (Mondays 03:00 UTC).
+# Scope: register-api/.env token + register-api container only — never touches users/volumes/OIDC.
+0 3 * * 1 root /usr/bin/flock -n /run/register-api-token-renewal.lock /opt/opencloud/scripts/renew-register-api-graph-token.sh >> /var/log/register-api-token-renewal.log 2>&1

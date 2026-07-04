@@ -11,6 +11,7 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- register-api Graph app token rotation: `setup-register-api-graph-token.sh --expires-in 90d` (default 90 days), `renew-register-api-graph-token.sh` with 14-day threshold, cron template `register-api-token-renewal.cron`, runbook safety constraints.
 - Incident report `docs/register-incident-20260704-fundaalicates-yahoo.md` — generic register error caused by rejected Graph app token (503); Google OAuth path unaffected.
 
 ### Added
