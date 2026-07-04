@@ -95,6 +95,30 @@ def graph_auth_ok() -> bool:
     return status == 200
 
 
+def graph_error_code(status: int, body: str) -> str:
+    """Map Graph API response to a stable register-api error code."""
+    body_lower = body.lower()
+    if status in (409, 422) or "already exists" in body_lower or "namealreadyexists" in body_lower:
+        return "duplicate"
+    if status == 400:
+        try:
+            data = json.loads(body)
+            err = data.get("error", {})
+            if isinstance(err, dict):
+                code = str(err.get("code", "")).lower()
+                message = str(err.get("message", "")).lower()
+                if "alreadyexists" in code or "conflict" in code or "already exists" in message:
+                    return "duplicate"
+        except (json.JSONDecodeError, TypeError, AttributeError):
+            pass
+        return "validation"
+    if status == 401:
+        return "auth_failed"
+    if status >= 500:
+        return "graph_error"
+    return "graph_error"
+
+
 def graph_create_user(email: str, password: str) -> tuple[int, str | None]:
     payload = json.dumps(
         {
@@ -109,25 +133,25 @@ def graph_create_user(email: str, password: str) -> tuple[int, str | None]:
         status, body = graph_request("POST", "/graph/v1.0/users", payload)
         if status == 201:
             return 201, None
-        body_lower = body.lower()
-        if status in (409, 422) or "already exists" in body_lower or "namealreadyexists" in body_lower:
-            return 409, "duplicate"
-        if status == 400:
-            return 400, "validation"
-        if status == 401:
+        code = graph_error_code(status, body)
+        if code == "auth_failed":
             log.error(
                 "Graph API auth failed (401) — set GRAPH_SERVICE_APP_TOKEN "
                 "(password auth requires PROXY_ENABLE_BASIC_AUTH=true)"
             )
-            return 503, "auth_failed"
-        log.warning("Graph API error status=%s", status)
-        return 500, "graph_error"
+            return 503, "service_unavailable"
+        if code == "duplicate":
+            return 409, "duplicate"
+        if code == "validation":
+            return 400, "validation"
+        log.warning("Graph API error status=%s body=%s", status, body[:200])
+        return 500, "internal"
     except urllib.error.URLError as exc:
         log.warning("Graph API unreachable: %s", exc.reason)
-        return 503, "unavailable"
+        return 503, "service_unavailable"
     except Exception:
         log.exception("Graph API request failed")
-        return 500, "graph_error"
+        return 500, "internal"
 
 
 @app.route("/health", methods=["GET"])
@@ -141,14 +165,6 @@ def health():
 def register():
     if not check_origin():
         return jsonify({"error": "forbidden"}), 403
-
-    if not graph_configured():
-        log.error("GRAPH_SERVICE_USER and GRAPH_SERVICE_APP_TOKEN not configured")
-        return jsonify({"error": "service_unavailable"}), 503
-
-    if not graph_auth_ok():
-        log.error("Graph API credentials rejected — run scripts/setup-register-api-graph-token.sh")
-        return jsonify({"error": "service_unavailable"}), 503
 
     if request.content_type and "application/json" not in request.content_type:
         return jsonify({"error": "invalid_content_type"}), 400
@@ -165,16 +181,18 @@ def register():
     if err:
         return jsonify({"error": err}), 400
 
+    if not graph_configured():
+        log.error("GRAPH_SERVICE_USER and GRAPH_SERVICE_APP_TOKEN not configured")
+        return jsonify({"error": "service_unavailable"}), 503
+
+    if not graph_auth_ok():
+        log.error("Graph API credentials rejected — run scripts/setup-register-api-graph-token.sh")
+        return jsonify({"error": "service_unavailable"}), 503
+
     status, reason = graph_create_user(email, password)
     if status == 201:
         return jsonify({"ok": True}), 201
-    if status == 409:
-        return jsonify({"error": "duplicate"}), 409
-    if status == 400:
-        return jsonify({"error": "validation"}), 400
-    if status == 503:
-        return jsonify({"error": "service_unavailable"}), 503
-    return jsonify({"error": "internal"}), 500
+    return jsonify({"error": reason or "internal"}), status
 
 
 if __name__ == "__main__":

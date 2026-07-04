@@ -4,6 +4,15 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- Self-registration UX: register page maps API/HTTP errors to typed i18n messages (duplicate, validation, service unavailable, rate limit) instead of a generic failure; duplicate copy directs users who registered via Google to use Google sign-in (ES/CA/EN/DE).
+- register-api: validate email/password before Graph auth probe; parse Graph JSON for duplicate/conflict; return stable error codes (`validation`, `duplicate`, `service_unavailable`, `internal`).
+
+### Added
+
+- Incident report `docs/register-incident-20260704-fundaalicates-yahoo.md` — generic register error caused by rejected Graph app token (503); Google OAuth path unaffected.
+
 ### Added
 
 - Branded `/logout` page with Dex OIDC end-session flow; `dex-auth.js` helpers `completeLogoutIfNeeded` and `clearAllAuthState`; nginx serves static logout before the OpenCloud SPA; `post_logout_redirect_uri` updated in auth configs.
