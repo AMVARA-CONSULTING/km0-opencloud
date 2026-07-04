@@ -7,6 +7,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ENV_FILE="${ROOT}/register-api/.env"
 OC_CONTAINER="${OPENCLOUD_CONTAINER:-opencloud-opencloud-1}"
 SERVICE_USER="${GRAPH_SERVICE_USER:-admin}"
+USER_FROM_ARG=0
 EXPIRES_IN="${GRAPH_TOKEN_EXPIRES_IN:-90d}"
 DO_RESTART=1
 
@@ -56,7 +57,7 @@ expires_in_hours() {
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --user) SERVICE_USER="$2"; shift 2 ;;
+    --user) SERVICE_USER="$2"; USER_FROM_ARG=1; shift 2 ;;
     --container) OC_CONTAINER="$2"; shift 2 ;;
     --expires-in) EXPIRES_IN="$2"; shift 2 ;;
     --no-restart) DO_RESTART=0; shift ;;
@@ -64,6 +65,13 @@ while [[ $# -gt 0 ]]; do
     *) echo "Unknown option: $1" >&2; usage; exit 1 ;;
   esac
 done
+
+if [[ "$USER_FROM_ARG" -eq 0 && -f "$ENV_FILE" ]]; then
+  ENV_USER="$(grep -m1 '^GRAPH_SERVICE_USER=' "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)"
+  if [[ -n "$ENV_USER" ]]; then
+    SERVICE_USER="$ENV_USER"
+  fi
+fi
 
 OC_EXPIRATION="$(parse_expires_in "$EXPIRES_IN")"
 EXPIRE_HOURS="$(expires_in_hours "$EXPIRES_IN")"
@@ -114,7 +122,25 @@ if [[ "$DO_RESTART" -eq 1 && -f "${ROOT}/register-api/docker-compose.yml" ]]; th
   echo "register-api restarted."
 fi
 
-HEALTH="$(curl -sf "http://127.0.0.1:8091/health" 2>/dev/null || true)"
+wait_for_health() {
+  local max_wait="${REGISTER_API_HEALTH_WAIT_SEC:-30}"
+  local interval=2
+  local elapsed=0
+  local health=""
+  while [[ "$elapsed" -lt "$max_wait" ]]; do
+    health="$(curl -sf "http://127.0.0.1:8091/health" 2>/dev/null || true)"
+    if [[ -n "$health" ]] && printf '%s' "$health" | grep -qE '"graph_auth_ok"[[:space:]]*:[[:space:]]*true'; then
+      printf '%s' "$health"
+      return 0
+    fi
+    sleep "$interval"
+    elapsed=$((elapsed + interval))
+  done
+  printf '%s' "$health"
+  return 1
+}
+
+HEALTH="$(wait_for_health || true)"
 if [[ -n "$HEALTH" ]]; then
   echo "Health: $HEALTH"
   if ! printf '%s' "$HEALTH" | grep -qE '"graph_auth_ok"[[:space:]]*:[[:space:]]*true'; then
