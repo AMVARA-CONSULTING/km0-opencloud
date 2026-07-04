@@ -65,11 +65,45 @@ graph_auth_ok() {
   printf '%s' "$health" | grep -qE '"graph_auth_ok"[[:space:]]*:[[:space:]]*true'
 }
 
-read_expires_at() {
+read_env_kv() {
+  local key="$1"
   if [[ ! -f "$ENV_FILE" ]]; then
     return 1
   fi
-  grep -m1 '^GRAPH_SERVICE_APP_TOKEN_EXPIRES_AT=' "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true
+  grep -m1 "^${key}=" "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true
+}
+
+read_expires_at() {
+  read_env_kv "GRAPH_SERVICE_APP_TOKEN_EXPIRES_AT"
+}
+
+read_service_user() {
+  local user
+  user="$(read_env_kv "GRAPH_SERVICE_USER" || true)"
+  if [[ -n "$user" ]]; then
+    printf '%s' "$user"
+    return 0
+  fi
+  if [[ -n "${GRAPH_SERVICE_USER:-}" ]]; then
+    printf '%s' "$GRAPH_SERVICE_USER"
+  fi
+}
+
+wait_for_graph_auth() {
+  local max_wait="${REGISTER_API_HEALTH_WAIT_SEC:-30}"
+  local interval=2
+  local elapsed=0
+  local health=""
+  while [[ "$elapsed" -lt "$max_wait" ]]; do
+    health="$(health_json)"
+    if [[ -n "$health" ]] && graph_auth_ok "$health"; then
+      return 0
+    fi
+    sleep "$interval"
+    elapsed=$((elapsed + interval))
+  done
+  log "ERROR register-api did not report graph_auth_ok:true within ${max_wait}s (last: ${health:-empty})"
+  return 1
 }
 
 days_until_expiry() {
@@ -125,13 +159,21 @@ if [[ "$NEED_RENEW" -ne 1 ]]; then
   exit 0
 fi
 
+SERVICE_USER="$(read_service_user || true)"
+if [[ -z "$SERVICE_USER" ]]; then
+  SERVICE_USER="admin"
+fi
+
 log "INFO Starting register-api Graph token renewal (${REASON})"
-log "INFO Generating new token (expires-in ${EXPIRES_IN})"
-"$SETUP_SCRIPT" --expires-in "$EXPIRES_IN" --no-restart
+log "INFO Generating new token for user ${SERVICE_USER} (expires-in ${EXPIRES_IN})"
+"$SETUP_SCRIPT" --user "$SERVICE_USER" --expires-in "$EXPIRES_IN" --no-restart
 
 log "INFO Restarting register-api only"
 cd "$REGISTER_API_DIR"
 docker compose up -d --build register-api
+
+log "INFO Waiting for register-api health"
+wait_for_graph_auth
 
 log "INFO Verifying register-api health"
 "$VERIFY_SCRIPT"

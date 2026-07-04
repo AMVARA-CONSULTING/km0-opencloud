@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- register-api Graph token renewal: pass `GRAPH_SERVICE_USER` from `register-api/.env` to setup (fixes cron/force renewal when IDM has no `admin` user); poll `/health` until `graph_auth_ok` after restart.
 - Self-registration UX: register page maps API/HTTP errors to typed i18n messages (duplicate, validation, service unavailable, rate limit) instead of a generic failure; duplicate copy directs users who registered via Google to use Google sign-in (ES/CA/EN/DE).
 - register-api: validate email/password before Graph auth probe; parse Graph JSON for duplicate/conflict; return stable error codes (`validation`, `duplicate`, `service_unavailable`, `internal`).
 
