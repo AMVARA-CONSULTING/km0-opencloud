@@ -4,6 +4,12 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- register-api: KM0 Mail provision hook (`create_mail`, `mail_mode`, `desired_email`, `contact_email`), freemail blocklist, `/update-password` forward to km0-mail; joins `km0-mail_mailnet` for `mail-provision-api:8092`.
+- OpenCloud register page: optional **Create KM0 Mail account** checkbox (CA/ES/EN/DE i18n); custom-domain mail redirects to mail DNS wizard after signup.
+- `scripts/verify-register-api.sh`: checks `mail_provision_ok` on `/health`.
+
 ### Fixed
 
 - register-api Graph token renewal: pass `GRAPH_SERVICE_USER` from `register-api/.env` to setup (fixes cron/force renewal when IDM has no `admin` user); poll `/health` until `graph_auth_ok` after restart.
