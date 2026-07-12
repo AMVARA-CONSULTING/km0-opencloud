@@ -171,6 +171,24 @@
     .field input::placeholder {
       color: rgba(255, 255, 255, 0.35);
     }
+    .field--checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin: 0.5rem 0 1rem;
+    }
+    .field--checkbox input {
+      width: auto;
+      margin-top: 0.2rem;
+      accent-color: #7b3fe4;
+    }
+    .field--checkbox label {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+    }
     .form-error {
       display: none;
       margin: 0 0 0.85rem;
@@ -262,6 +280,10 @@
         <input type="password" id="km0-password-confirm" name="password_confirm" autocomplete="new-password" required
                data-i18n-placeholder="registerConfirmPasswordPlaceholder" />
       </div>
+      <div class="field field--checkbox">
+        <input type="checkbox" id="km0-create-mail" name="create_mail" />
+        <label for="km0-create-mail" data-i18n="registerCreateMailLabel">Crear también una cuenta de KM0 Mail (@km0digital.com o dominio propio)</label>
+      </div>
       <button type="submit" class="btn-submit" id="km0-register-submit" data-i18n="registerSubmit">Crear cuenta</button>
     </form>
 
@@ -279,6 +301,12 @@
 
       var EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       var SPECIAL_RE = /[!@#$%^&*(),.?":{}|<>\[\]\\/_+=\-~`]/;
+      var FREEMAIL_DOMAINS = {
+        'gmail.com': true, 'googlemail.com': true, 'outlook.com': true, 'hotmail.com': true,
+        'live.com': true, 'yahoo.com': true, 'icloud.com': true, 'proton.me': true,
+        'protonmail.com': true, 'aol.com': true, 'gmx.com': true, 'mail.com': true, 'yandex.com': true
+      };
+      var KM0_MAIL_DOMAIN = 'km0digital.com';
 
       var form = document.getElementById('km0-register-form');
       var errorEl = document.getElementById('km0-register-error');
@@ -322,8 +350,22 @@
             return 'registerErrorPasswordWeak';
           }
           if (err === 'validation') return 'registerErrorValidation';
+          if (err === 'freemail_blocked') return 'registerErrorFreemailMailbox';
+          if (err === 'invalid_domain') return 'registerErrorFreemailMailbox';
         }
         return 'registerErrorGeneric';
+      }
+
+      function mailModeForEmail(email) {
+        var domain = email.split('@')[1].toLowerCase();
+        return domain === KM0_MAIL_DOMAIN ? 'km0' : 'custom';
+      }
+
+      function validateMailCheckbox(email, createMail) {
+        if (!createMail) return null;
+        var domain = email.split('@')[1].toLowerCase();
+        if (FREEMAIL_DOMAINS[domain]) return 'registerErrorFreemailMailbox';
+        return null;
       }
 
       function startPostRegisterLogin(email, password) {
@@ -345,6 +387,7 @@
         var email = document.getElementById('km0-email').value.trim().toLowerCase();
         var password = document.getElementById('km0-password').value;
         var confirm = document.getElementById('km0-password-confirm').value;
+        var createMail = document.getElementById('km0-create-mail').checked;
 
         var clientErr = validateClient(email, password, confirm);
         if (clientErr) {
@@ -352,13 +395,26 @@
           return;
         }
 
+        var mailErr = validateMailCheckbox(email, createMail);
+        if (mailErr) {
+          showError(mailErr);
+          return;
+        }
+
         submitBtn.disabled = true;
         submitBtn.textContent = t('registerSubmitting');
+
+        var payload = { email: email, password: password };
+        if (createMail) {
+          payload.create_mail = true;
+          payload.desired_email = email;
+          payload.mail_mode = mailModeForEmail(email);
+        }
 
         fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, password: password }),
+          body: JSON.stringify(payload),
         })
           .then(function (resp) {
             return resp.json().catch(function () { return {}; }).then(function (body) {
@@ -367,6 +423,12 @@
           })
           .then(function (result) {
             if (result.status === 201) {
+              if (createMail && result.body.mail && result.body.mail.mail_mode === 'custom') {
+                redirecting = true;
+                location.href = 'https://mail.km0digital.com/domain.html?domain='
+                  + encodeURIComponent(email.split('@')[1]);
+                return;
+              }
               startPostRegisterLogin(email, password);
               return;
             }

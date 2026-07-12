@@ -427,10 +427,13 @@ New users can register at https://cloud.km0digital.com/register.html. The page p
 
 After registration, the user signs in via the existing Dex LDAP flow (`connector_id=ldap`) on `/login.html`.
 
+**Optional KM0 Mail:** check **Create KM0 Mail account** on the register form (or use `mail.km0digital.com/register`). register-api provisions the mailbox via km0-mail when `create_mail=true`. Freemail domains (Gmail, Outlook, …) are rejected as mailbox addresses but allowed as contact email.
+
 | Component | Path |
 |-----------|------|
 | Register page | `host-www/opencloud-auth/register.html` |
-| Registration API | `register-api/` (Docker on `127.0.0.1:8091`) |
+| Registration API | `register-api/` (Docker on `127.0.0.1:8091`, network `km0-mail_mailnet`) |
+| Mail registration UI | https://mail.km0digital.com/register (same API via nginx proxy) |
 | Nginx | `register.html`, `/api/register` + rate limit (`nginx/conf.d/opencloud-rate-limit.conf`) |
 
 **Operator setup (one-time):**
