@@ -11,11 +11,13 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- OpenCloud image pin `7.0.0` → `7.3.0` (`OC_DOCKER_TAG` in `.env` examples, runbook, README). Custom Dex + nginx login path unchanged; backup volumes before `docker compose up -d`. OpenCloud 7.3 requires explicit `IDM_LDAPS_CERT` / `IDM_LDAPS_KEY` when `IDM_LDAPS_ADDR` is set (Dex → IDM on :9235).
 - Auth surfaces (login/register/logout, Dex KM0 theme, favicons/logos): civic dark tokens (Paper/Snow/Mist/Ink/Signal), IBM Plex Sans + Bricolage Grotesque, canonical K0 lettermark at 72px; Dex LDAP copy as unified KM0 Account.
 - OpenCloud `loginUrl` / `post_logout_redirect_uri` and nginx Dex web auth redirects point at the auth hub; `verify-auth-pages.sh` smoke-checks hub + cloud redirects.
 
 ### Fixed
 
+- WOPI / collaboration after OpenCloud 7.3.0: set `COLLABORATION_EVENTS_ENDPOINT` and store nodes to `opencloud:9233` in `overrides/opencloud-compose/external-proxy/collabora.yml` (loopback NATS default caused nginx 502 on `wopi.*`).
 - Logout: Dex end-session redirects to hub login with `signed_out=1`; `id_token_hint` optional so logout still completes without a stored token.
 
 ### Added

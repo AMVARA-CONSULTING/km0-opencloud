@@ -17,7 +17,9 @@ Desde la raíz del repo `km0-opencloud`:
 ./scripts/apply-opencloud-compose-overrides.sh
 ```
 
-Copia `csp.yaml` y `external-proxy/opencloud.yml`, y aplica `patches/docker-compose.oidc-env.patch` con `patch -p1`.
+Copia `csp.yaml`, `external-proxy/opencloud.yml`, and `external-proxy/collabora.yml`, and applies `patches/docker-compose.oidc-env.patch` with `patch -p1`.
+
+`external-proxy/collabora.yml` also sets collaboration `EVENTS_ENDPOINT` / `STORE_NODES` to `opencloud:9233` (required from OpenCloud 7.3.0 so WOPI reaches OpenCloud NATS instead of loopback).
 
 ## Plantilla de entorno
 

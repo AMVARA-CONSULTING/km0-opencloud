@@ -24,7 +24,7 @@ Browser
 Nginx  (/etc/nginx/sites-available/opencloud)
    │  HTTP  http://127.0.0.1:9200  (loopback only)
    ▼
-OpenCloud container  (opencloudeu/opencloud-rolling:7.0.0, UID 1000:1000)
+OpenCloud container  (opencloudeu/opencloud-rolling:7.3.0, UID 1000:1000)
    │  internal gRPC + HTTP on 127.0.0.1 (ports 9140–9300 range, inside container only)
    ▼
 Docker volumes  (opencloud_opencloud-data  /  opencloud_opencloud-config)
