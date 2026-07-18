@@ -6,14 +6,17 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- Cloud session gate (`km0-session-gate.html`): `/`, `/login`, `/login.html`, and web `/dex/auth` check browser OIDC storage and forward to `/files` when a session exists, otherwise redirect to the auth hub.
 - Auth hub (`auth.km0digital.com`): cloud `/login`, `/register`, and `/logout` redirect to the hub; OIDC bridge `km0-oidc-start.html`, `km0-sso-snippet.js` injection, and TLS helper `scripts/issue-auth-km0digital-cert.sh`.
 - register-api: KM0 username registration model (`username` + optional `contact_email`, reserved-name checks) alongside legacy email/custom-domain flow; CORS allows `auth.km0digital.com`.
 
 ### Changed
 
+- Dex session lifetime: ID tokens 24h; refresh tokens 30 days idle / 90 days absolute; Web OIDC scope includes `offline_access` (`WEB_OIDC_SCOPE`, `config-dex.json`, `dex-auth.js`).
+- OpenCloud `loginUrl` points at the session gate; nginx login/Dex web redirects go through the gate before the auth hub; `verify-auth-pages.sh` asserts gate + `offline_access`.
 - OpenCloud image pin `7.0.0` → `7.3.0` (`OC_DOCKER_TAG` in `.env` examples, runbook, README). Custom Dex + nginx login path unchanged; backup volumes before `docker compose up -d`. OpenCloud 7.3 requires explicit `IDM_LDAPS_CERT` / `IDM_LDAPS_KEY` when `IDM_LDAPS_ADDR` is set (Dex → IDM on :9235).
 - Auth surfaces (login/register/logout, Dex KM0 theme, favicons/logos): civic dark tokens (Paper/Snow/Mist/Ink/Signal), IBM Plex Sans + Bricolage Grotesque, canonical K0 lettermark at 72px; Dex LDAP copy as unified KM0 Account.
-- OpenCloud `loginUrl` / `post_logout_redirect_uri` and nginx Dex web auth redirects point at the auth hub; `verify-auth-pages.sh` smoke-checks hub + cloud redirects.
+- OpenCloud `post_logout_redirect_uri` and logout redirects remain on the auth hub; earlier hub login routing is superseded by the session gate above.
 
 ### Fixed
 

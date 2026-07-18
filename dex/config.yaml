@@ -23,6 +23,13 @@ oauth2:
   responseTypes:
     - code
     - id_token
+# Longer Cloud sessions: short-lived ID tokens + refresh tokens (offline_access).
+# Web client requests offline_access via WEB_OIDC_SCOPE / config-dex.json / dex-auth.js.
+expiry:
+  idTokens: "24h"
+  refreshTokens:
+    validIfNotUsedFor: "720h"    # 30 days idle
+    absoluteLifetime: "2160h"    # 90 days absolute
 staticClients:
   - id: OPENCLOUD_WEB_CLIENT_ID_PLACEHOLDER
     name: OpenCloud Web

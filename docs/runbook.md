@@ -423,7 +423,9 @@ Authentication uses **Dex** as the sole OIDC issuer. **All** tokens (Google, App
 | OpenCloud built-in `idp` | Local LDAP users (admin, manually created accounts) |
 | OpenCloud | `OC_OIDC_ISSUER=https://cloud.km0digital.com/dex`, `WEB_OIDC_CLIENT_ID=opencloud-web` |
 
-**Single login landing:** https://cloud.km0digital.com/login.html (repo: `host-www/opencloud-auth/login.html`). CA | ES | EN | DE via `/dex/theme/i18n.js`.
+**Single login landing:** https://auth.km0digital.com/login (hub). Cloud entry points (`/`, `/login.html`, `/login`) serve **`/km0-session-gate.html`**, which auto-forwards to `/files` when an OpenCloud OIDC session exists in browser storage, otherwise redirects to the hub. CA | ES | EN | DE via hub `/i18n.js` and Dex `/dex/theme/i18n.js`.
+
+**Session lifetime:** Dex issues ID tokens for **24h** and refresh tokens valid **30 days idle / 90 days absolute**. Web OIDC scope includes `offline_access` (`WEB_OIDC_SCOPE` / `config-dex.json`) so OpenCloud Web can refresh without re-prompting.
 
 | Action on landing | Sets cookie | Redirect target |
 |-------------------|-------------|-----------------|
