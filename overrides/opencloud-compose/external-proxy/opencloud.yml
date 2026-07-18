@@ -9,7 +9,7 @@ services:
         # Keep built-in idp for local username/password login alongside Dex/Google OIDC
         OC_EXCLUDE_RUN_SERVICES: ""
         # config.json OIDC routing is handled by nginx (local vs Dex); keep login URL here
-        WEB_OPTION_LOGIN_URL: https://${OC_DOMAIN:-cloud.km0digital.com}/login.html
+        WEB_OPTION_LOGIN_URL: https://auth.km0digital.com/login?service=cloud
         WEB_OIDC_POST_LOGOUT_REDIRECT_URI: https://${OC_DOMAIN:-cloud.km0digital.com}/login.html
       # Docker embedded DNS often fails to resolve the public hostname from inside the container
       extra_hosts:

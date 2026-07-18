@@ -70,10 +70,12 @@ Verify after deploy:
 | Path | Method | Description |
 |------|--------|-------------|
 | `/health` | GET | Liveness + Graph + mail-provision status |
-| `/register` | POST | JSON `{ "email", "password", "create_mail?", "mail_mode?", "desired_email?", "contact_email?" }` |
+| `/register` | POST | KM0 model: JSON `{ "username", "password", "create_mail?", "contact_email?" }`. Legacy/custom-domain: `{ "email", "password", "create_mail?", "mail_mode?", "desired_email?", "contact_email?" }` |
 | `/update-password` | POST | JSON `{ "email", "password" }` → sync mailbox password in km0-mail |
 
-**Mail fields:** `create_mail=true` provisions a mailbox via km0-mail (freemail domains blocked as mailbox). Set `MAIL_PROVISION_API_TOKEN` in `.env` (same value as km0-mail). Container joins external network `km0-mail_mailnet`.
+**KM0 model (username):** login uid = `username`; mailbox = `<username>@km0digital.com` (mail_mode `km0`); `contact_email` optional and may be freemail (Gmail, etc.). `username` must match `^[a-z0-9]([a-z0-9._-]{1,30}[a-z0-9])$` and not be reserved (`RESERVED_USERNAMES`).
+
+**Legacy/custom fields:** when `username` is absent, `email` is both uid and IDM mail; `create_mail=true` provisions a mailbox via km0-mail (freemail domains blocked as mailbox). Set `MAIL_PROVISION_API_TOKEN` in `.env` (same value as km0-mail). Container joins external network `km0-mail_mailnet`.
 
 Nginx proxies public `POST /api/register` to `http://127.0.0.1:8091/register` (cloud and mail hostnames).
 

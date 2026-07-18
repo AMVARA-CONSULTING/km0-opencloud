@@ -31,6 +31,8 @@ staticClients:
       - 'https://ISSUER_HOST_PLACEHOLDER/'
       - 'https://ISSUER_HOST_PLACEHOLDER/oidc-callback.html'
       - 'https://ISSUER_HOST_PLACEHOLDER/oidc-silent-redirect.html'
+      - 'https://auth.km0digital.com/login'
+      - 'https://auth.km0digital.com/logout'
   # Fixed client IDs required by OpenCloud native apps (see OpenCloud external IdP docs).
   - id: OpenCloudDesktop
     name: OpenCloud Desktop
@@ -53,6 +55,7 @@ staticClients:
     name: KM0 Mail Webmail
     redirectURIs:
       - 'https://mail.km0digital.com/index.php/login/oauth'
+      - 'https://auth.km0digital.com/login'
     secret: KM0_MAIL_WEB_OAUTH_SECRET_PLACEHOLDER
   - id: km0-mail-dovecot
     name: KM0 Mail Dovecot introspection
@@ -67,7 +70,7 @@ connectors:
       rootCA: /etc/dex/opencloud-idm-ldap.crt
       bindDN: uid=libregraph,ou=sysusers,o=libregraph-idm
       bindPW: OPENCLOUD_IDM_BIND_PW_PLACEHOLDER
-      usernamePrompt: Username or email
+      usernamePrompt: Usuario
       userSearch:
         baseDN: ou=users,o=libregraph-idm
         filter: "(objectClass=inetOrgPerson)"
