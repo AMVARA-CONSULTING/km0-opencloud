@@ -1,0 +1,18 @@
+---
+services:
+  collaboration:
+    ports:
+      # expose the wopi server on localhost
+      - "127.0.0.1:9300:9300"
+    environment:
+      # OpenCloud 7.3.0+: collaboration added COLLABORATION_EVENTS_ENDPOINT (defaults 127.0.0.1:9233).
+      # MICRO_REGISTRY_ADDRESS=opencloud:9233 (weboffice overlay) registers the service, but the
+      # events bus + nats-js-kv store still target loopback inside this container → WOPI :9300 502.
+      OC_EVENTS_ENDPOINT: opencloud:9233
+      COLLABORATION_EVENTS_ENDPOINT: opencloud:9233
+      OC_PERSISTENT_STORE_NODES: opencloud:9233
+      COLLABORATION_STORE_NODES: opencloud:9233
+  collabora:
+    ports:
+      # expose the collabora server on localhost
+      - "127.0.0.1:9980:9980"

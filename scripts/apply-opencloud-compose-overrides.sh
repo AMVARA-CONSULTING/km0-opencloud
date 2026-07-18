@@ -22,6 +22,8 @@ install -D -m 0644 "${OVERRIDES}/config/opencloud/csp.yaml" \
   "${COMPOSE_DIR}/config/opencloud/csp.yaml"
 install -D -m 0644 "${OVERRIDES}/external-proxy/opencloud.yml" \
   "${COMPOSE_DIR}/external-proxy/opencloud.yml"
+install -D -m 0644 "${OVERRIDES}/external-proxy/collabora.yml" \
+  "${COMPOSE_DIR}/external-proxy/collabora.yml"
 
 cd "${COMPOSE_DIR}"
 if patch -p1 --forward --dry-run < "${PATCH}" >/dev/null 2>&1; then

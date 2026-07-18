@@ -13,7 +13,7 @@ Official docs: <https://docs.opencloud.eu/>
 | Debian | 13.5 (Trixie) | `/etc/` | Running |
 | Docker CE | 29.5.2 | `/etc/docker/daemon.json` | `systemctl status docker` |
 | Docker Compose plugin | v5.1.4 | — | bundled with Docker CE |
-| OpenCloud | rolling:7.0.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
+| OpenCloud | rolling:7.3.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
 | Collabora CODE | 25.04.x | `opencloud-compose/.env` (`COLLABORA_*`) | `docker compose ps collabora` |
 | WOPI (collaboration) | same as OpenCloud image | `opencloud-compose/.env` (`WOPISERVER_DOMAIN`) | `docker compose ps collaboration` |
 | Nginx (web) | 1.26.3 | `/etc/nginx/sites-available/km0` | `km0.amvara.de` → :9180 |
@@ -107,7 +107,7 @@ The upstream template with all available options is:
 | `COLLABORA_ADMIN_PASSWORD` | *(in `.env` only)* | Collabora admin UI at `/browser/dist/admin/admin.html` |
 | `COMPOSE_PROJECT_NAME` | `opencloud` | Prefixes Docker resource names: volumes become `opencloud_opencloud-data`, etc. |
 | `OC_DOMAIN` | `cloud.km0digital.com` | Hostname público de OpenCloud (no usar `km0.amvara.de`, que es la web). |
-| `OC_DOCKER_IMAGE` / `OC_DOCKER_TAG` | `opencloudeu/opencloud-rolling` / `7.0.0` | Pinned image. Change `OC_DOCKER_TAG` to upgrade. |
+| `OC_DOCKER_IMAGE` / `OC_DOCKER_TAG` | `opencloudeu/opencloud-rolling` / `7.3.0` | Pinned image. Change `OC_DOCKER_TAG` to upgrade. |
 | `INSECURE` | `false` | TLS validation enabled. Use `true` only with self-signed certs during lab setup. |
 | `INITIAL_ADMIN_PASSWORD` | *(ver `opencloud-compose/.env`)* | Solo en **primer arranque**. Después, cambiar en la UI (no en `.env`). |
 | `LOG_DRIVER` | `json-file` | Matches `/etc/docker/daemon.json`; limits log size to 10 MB × 3 files. |
@@ -352,18 +352,30 @@ docker compose up -d
 ```bash
 cd /opt/opencloud/opencloud-compose
 
-# 1. Review changelog: https://github.com/opencloud-eu/opencloud/tree/main/changelog
-# 2. Update OC_DOCKER_TAG in .env
+# 1. Review changelog: https://github.com/opencloud-eu/opencloud/releases
+# 2. Backup volumes (required — preserves data + config)
+BACKUP_ROOT=/var/backups/opencloud /opt/opencloud/scripts/backup-volumes.sh
+# 3. Update OC_DOCKER_TAG in .env (e.g. 7.3.0) and in overrides/.env.*.example
 nano .env
 
-# 3. Pull and restart
+# 4. Pull and restart (opencloud + collaboration share the same image tag)
 docker compose pull
 docker compose up -d
 
-# 4. Verify
+# 5. Verify product version + no fatal errors; Dex/nginx login must still work
+curl -s http://127.0.0.1:9200/status.php   # productversion matches OC_DOCKER_TAG
 docker compose ps
-docker compose logs --tail=50 opencloud | grep '"level":"(error|fatal)"'
+docker compose logs --tail=80 opencloud | grep -E '"level":"(error|fatal)"' || true
+curl -sI https://cloud.km0digital.com/dex/.well-known/openid-configuration | head -3
 ```
+
+Custom auth (nginx → Dex → OpenCloud `OC_OIDC_ISSUER`) is outside the OpenCloud image; do not change Dex/nginx for a routine tag bump unless release notes require it.
+
+> Already on 7.x: `sharing.service_account` in the config volume is required (applied at the 6→7 upgrade). Re-run `opencloud init --diff` only if upgrading from pre-7.0.
+
+> **7.3+ and Dex LDAPS:** OpenCloud 7.3 removed default `IDM_LDAPS_CERT` / `IDM_LDAPS_KEY`. If the override sets `IDM_LDAPS_ADDR=0.0.0.0:9235` (so Dex can reach IDM), also set:
+> `IDM_LDAPS_CERT=/var/lib/opencloud/idm/ldap.crt` and `IDM_LDAPS_KEY=/var/lib/opencloud/idm/ldap.key`
+> in `overrides/opencloud-compose/external-proxy/opencloud.yml`, then `./scripts/apply-opencloud-compose-overrides.sh`.
 
 ### Upgrade compose definitions (upstream)
 
@@ -394,6 +406,7 @@ apt update && apt upgrade -y
 | 2026-05-27 | Google OAuth on new domain | `OC_DOMAIN`, Dex issuer, `host-www/opencloud-auth`, nginx production vhost; legacy `cloud.km0.amvara.de` → 301 to new host |
 | 2026-05-21 | Reverted UI branding | Removed `km0` theme overlay; default OpenCloud logo/name in Web UI |
 | 2026-05-22 | Upgraded OpenCloud | `6.2.0` → `7.0.0`; added `sharing.service_account` in `opencloud.yaml` (7.x requirement) |
+| 2026-07-18 | Upgraded OpenCloud | `7.0.0` → `7.3.0` (volumes backed up first; Dex/nginx login unchanged) |
 
 ---
 
@@ -630,6 +643,30 @@ docker compose logs collabora collaboration | tail -50
 ```
 
 Verify `WOPISERVER_DOMAIN`, Nginx `server_name` on the wopi vhost, and `aliasgroup1` in the collabora container env.
+
+### WOPI / collaboration NATS after OpenCloud 7.3.0 upgrade
+
+Symptom: `https://wopi.km0digital.com/` returns **502**, collaboration logs show `error connecting to nats at 127.0.0.1:9233` even though `MICRO_REGISTRY_ADDRESS=opencloud:9233` is set.
+
+Cause: from **7.3.0**, collaboration gained `COLLABORATION_EVENTS_ENDPOINT` (and the store still uses `COLLABORATION_STORE_NODES`). Both default to **`127.0.0.1:9233`**, which is correct inside the main OpenCloud process (embedded NATS) but wrong inside the separate collaboration container. Registry registration can succeed while the events bus still retries on loopback and nginx keeps returning 502 for WOPI.
+
+Fix (KM0 override): `overrides/opencloud-compose/external-proxy/collabora.yml` sets:
+
+- `OC_EVENTS_ENDPOINT` / `COLLABORATION_EVENTS_ENDPOINT` → `opencloud:9233`
+- `OC_PERSISTENT_STORE_NODES` / `COLLABORATION_STORE_NODES` → `opencloud:9233`
+
+Apply and recreate:
+
+```bash
+./scripts/apply-opencloud-compose-overrides.sh
+cd opencloud-compose
+docker compose up -d --force-recreate collaboration
+docker logs --since 2m opencloud-collaboration-1
+curl -sI http://127.0.0.1:9300/ | head -3
+curl -sI https://wopi.km0digital.com/ | head -3
+```
+
+Expect: no repeating `127.0.0.1:9233` errors; loopback and public WOPI return HTTP (often **404** on `/` — that is healthy; must **not** be 502). OpenCloud must keep `NATS_NATS_HOST=0.0.0.0` from `weboffice/collabora.yml`.
 
 ### Nginx returns 502 Bad Gateway
 
