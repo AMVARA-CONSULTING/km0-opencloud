@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kilómetro 0 Digital — Iniciar sesión</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #0B1220;
+      color: #E6E9ED;
+    }
+    p { color: rgba(230, 233, 237, 0.65); }
+  </style>
+</head>
+<body>
+  <p data-i18n="registerSigningIn">Iniciando sesión…</p>
+  <script src="/dex-auth.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      var params = new URLSearchParams(location.search);
+      var connector = params.get('connector_id') || params.get('connector') || 'ldap';
+      var prompt = params.get('prompt') || '';
+      var sso = params.get('sso') || '';
+
+      if (sso === 'all' || sso === '1') {
+        try {
+          document.cookie = 'km0_sso_continue=1;domain=.km0digital.com;path=/;max-age=600;SameSite=Lax';
+        } catch (_) {}
+      }
+
+      if (prompt && window.KM0DexAuth && window.KM0DexAuth.startDexLoginWithPrompt) {
+        window.KM0DexAuth.startDexLoginWithPrompt(connector, prompt);
+        return;
+      }
+      if (window.KM0DexAuth && window.KM0DexAuth.startDexLogin) {
+        window.KM0DexAuth.startDexLogin(connector);
+        return;
+      }
+      location.replace('https://auth.km0digital.com/login?service=cloud');
+    })();
+  </script>
+</body>
+</html>

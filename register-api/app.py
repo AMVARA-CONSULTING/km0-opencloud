@@ -18,6 +18,17 @@ log = logging.getLogger("register-api")
 
 EMAIL_RE = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
 SPECIAL_RE = re.compile(r'[!@#$%^&*(),.?":{}|<>\[\]\\/_+=\-~`]')
+# Valid as both an IDM uid and an email local-part.
+USERNAME_RE = re.compile(r"^[a-z0-9]([a-z0-9._-]{1,30}[a-z0-9])$")
+RESERVED_USERNAMES = frozenset(
+    u.strip().lower()
+    for u in os.environ.get(
+        "RESERVED_USERNAMES",
+        "postmaster,noreply,no-reply,admin,administrator,root,abuse,webmaster,"
+        "hostmaster,mailer-daemon,support,info,security,billing",
+    ).split(",")
+    if u.strip()
+)
 
 MIN_LEN = int(os.environ.get("MIN_PASSWORD_LENGTH", "8"))
 MIN_SPECIAL = int(os.environ.get("MIN_SPECIAL_CHARACTERS", "1"))
@@ -136,6 +147,14 @@ def validate_email(email: str) -> str | None:
     return None
 
 
+def validate_username(username: str) -> str | None:
+    if not username or not USERNAME_RE.match(username):
+        return "invalid_username"
+    if username in RESERVED_USERNAMES:
+        return "username_reserved"
+    return None
+
+
 def validate_password(password: str) -> str | None:
     if len(password) < MIN_LEN:
         return "password_too_short"
@@ -148,6 +167,11 @@ def display_name_from_email(email: str) -> str:
     local = email.split("@", 1)[0]
     name = local.replace(".", " ").replace("_", " ").strip()
     return name.title() if name else email
+
+
+def display_name_from_username(username: str) -> str:
+    name = username.replace(".", " ").replace("_", " ").replace("-", " ").strip()
+    return name.title() if name else username
 
 
 def graph_auth_ok() -> bool:
@@ -181,12 +205,14 @@ def graph_error_code(status: int, body: str) -> str:
     return "graph_error"
 
 
-def graph_create_user(email: str, password: str) -> tuple[int, str | None, str | None]:
+def graph_create_user(
+    username: str, mailbox_email: str, password: str
+) -> tuple[int, str | None, str | None]:
     payload = json.dumps(
         {
-            "displayName": display_name_from_email(email),
-            "mail": email,
-            "onPremisesSamAccountName": email,
+            "displayName": display_name_from_username(username),
+            "mail": mailbox_email,
+            "onPremisesSamAccountName": username,
             "passwordProfile": {"password": password},
         }
     ).encode()
@@ -232,8 +258,11 @@ def validate_mail_request(
     login_email: str,
     data: dict,
 ) -> tuple[str | None, str | None, str | None, str | None]:
-    """Returns (mailbox_email, mail_mode, contact_email, error_code)."""
-    if not data.get("create_mail"):
+    """Returns (mailbox_email, mail_mode, contact_email, error_code).
+
+    KM0 hub: always provision mail alongside IDM unless explicitly opted out.
+    """
+    if data.get("create_mail") is False:
         return None, None, None, None
 
     mailbox_email = (data.get("desired_email") or login_email).strip().lower()
@@ -321,20 +350,40 @@ def register():
         return jsonify({"error": "invalid_content_type"}), 400
 
     data = request.get_json(silent=True) or {}
-    email = (data.get("email") or "").strip().lower()
     password = data.get("password") or ""
-
-    err = validate_email(email)
-    if err:
-        return jsonify({"error": err}), 400
+    username = (data.get("username") or "").strip().lower()
 
     err = validate_password(password)
     if err:
         return jsonify({"error": err}), 400
 
-    mailbox_email, mail_mode, contact_email, mail_err = validate_mail_request(email, data)
-    if mail_err:
-        return jsonify({"error": mail_err}), 400
+    # KM0 model: login uid = username, mailbox = <username>@km0digital.com.
+    # Legacy fallback: no username → email is both uid and IDM mail (custom-domain flow).
+    if username:
+        err = validate_username(username)
+        if err:
+            return jsonify({"error": err}), 400
+        login_uid = username
+        idm_mail = f"{username}@{MAIL_DOMAIN.lower()}"
+        contact_email = (data.get("contact_email") or "").strip().lower() or None
+        if contact_email:
+            cerr = validate_email(contact_email)
+            if cerr:
+                return jsonify({"error": "invalid_contact_email"}), 400
+        if data.get("create_mail") is False:
+            mailbox_email, mail_mode = None, None
+        else:
+            mailbox_email, mail_mode = idm_mail, "km0"
+    else:
+        email = (data.get("email") or "").strip().lower()
+        err = validate_email(email)
+        if err:
+            return jsonify({"error": err}), 400
+        login_uid = email
+        idm_mail = email
+        mailbox_email, mail_mode, contact_email, mail_err = validate_mail_request(email, data)
+        if mail_err:
+            return jsonify({"error": mail_err}), 400
 
     if not graph_configured():
         log.error("GRAPH_SERVICE_USER and GRAPH_SERVICE_APP_TOKEN not configured")
@@ -347,11 +396,11 @@ def register():
     if mailbox_email and not MAIL_PROVISION_TOKEN:
         return jsonify({"error": "mail_provision_not_configured"}), 503
 
-    status, reason, opencloud_uuid = graph_create_user(email, password)
+    status, reason, opencloud_uuid = graph_create_user(login_uid, idm_mail, password)
     if status != 201:
         return jsonify({"error": reason or "internal"}), status
 
-    response = {"ok": True}
+    response = {"ok": True, "username": login_uid}
     if mailbox_email:
         ok, mail_body = provision_mailbox(
             mailbox_email, password, opencloud_uuid, mail_mode, contact_email
@@ -373,7 +422,7 @@ def register():
             response["mail"]["error"] = mail_body.get("error", "mail_provision_failed")
             log.error(
                 "IDM user %s created but mail provision failed: %s",
-                email,
+                login_uid,
                 mail_body,
             )
 

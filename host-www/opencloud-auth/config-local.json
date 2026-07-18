@@ -7,7 +7,7 @@
     "client_id": "web",
     "response_type": "code",
     "scope": "openid profile email",
-    "post_logout_redirect_uri": "https://cloud.km0digital.com/logout"
+    "post_logout_redirect_uri": "https://auth.km0digital.com/login?service=cloud&signed_out=1"
   },
   "apps": [
     "files",
@@ -28,7 +28,7 @@
   ],
   "options": {
     "contextHelpersReadMore": true,
-    "loginUrl": "https://cloud.km0digital.com/login.html",
+    "loginUrl": "https://auth.km0digital.com/login?service=cloud",
     "tokenStorageLocal": true,
     "embed": {},
     "concurrentRequests": {

@@ -6,6 +6,20 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- Auth hub (`auth.km0digital.com`): cloud `/login`, `/register`, and `/logout` redirect to the hub; OIDC bridge `km0-oidc-start.html`, `km0-sso-snippet.js` injection, and TLS helper `scripts/issue-auth-km0digital-cert.sh`.
+- register-api: KM0 username registration model (`username` + optional `contact_email`, reserved-name checks) alongside legacy email/custom-domain flow; CORS allows `auth.km0digital.com`.
+
+### Changed
+
+- Auth surfaces (login/register/logout, Dex KM0 theme, favicons/logos): civic dark tokens (Paper/Snow/Mist/Ink/Signal), IBM Plex Sans + Bricolage Grotesque, canonical K0 lettermark at 72px; Dex LDAP copy as unified KM0 Account.
+- OpenCloud `loginUrl` / `post_logout_redirect_uri` and nginx Dex web auth redirects point at the auth hub; `verify-auth-pages.sh` smoke-checks hub + cloud redirects.
+
+### Fixed
+
+- Logout: Dex end-session redirects to hub login with `signed_out=1`; `id_token_hint` optional so logout still completes without a stored token.
+
+### Added
+
 - register-api: KM0 Mail provision hook (`create_mail`, `mail_mode`, `desired_email`, `contact_email`), freemail blocklist, `/update-password` forward to km0-mail; joins `km0-mail_mailnet` for `mail-provision-api:8092`.
 - OpenCloud register page: optional **Create KM0 Mail account** checkbox (CA/ES/EN/DE i18n); custom-domain mail redirects to mail DNS wizard after signup.
 - `scripts/verify-register-api.sh`: checks `mail_provision_ok` on `/health`.

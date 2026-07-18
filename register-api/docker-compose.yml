@@ -10,7 +10,7 @@ services:
       GRAPH_SERVICE_USER: ${GRAPH_SERVICE_USER:-}
       GRAPH_SERVICE_APP_TOKEN: ${GRAPH_SERVICE_APP_TOKEN:-}
       GRAPH_SERVICE_PASSWORD: ${GRAPH_SERVICE_PASSWORD:-}
-      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-https://cloud.km0digital.com,https://mail.km0digital.com}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-https://cloud.km0digital.com,https://mail.km0digital.com,https://auth.km0digital.com}
       MAIL_DOMAIN: ${MAIL_DOMAIN:-km0digital.com}
       MAIL_PROVISION_API_URL: ${MAIL_PROVISION_API_URL:-http://mail-provision-api:8092}
       MAIL_PROVISION_API_TOKEN: ${MAIL_PROVISION_API_TOKEN:-}

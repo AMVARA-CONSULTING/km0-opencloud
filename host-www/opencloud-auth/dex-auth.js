@@ -63,23 +63,25 @@
     return null;
   }
 
+  function postLogoutLoginUri() {
+    return 'https://auth.km0digital.com/login?service=cloud&signed_out=1&from_dex=1';
+  }
+
   function completeLogoutIfNeeded() {
     try {
       var params = new URLSearchParams(location.search);
       if (params.get('from_dex')) {
         clearAllAuthState();
+        if (location.pathname === '/logout' || location.pathname === '/logout.html') {
+          location.replace('https://auth.km0digital.com/login?service=cloud&signed_out=1');
+        }
         return false;
       }
       var idToken = getStoredIdToken();
-      if (!idToken) {
-        clearAllAuthState();
-        return false;
-      }
-      var postLogout = location.origin + '/logout?from_dex=1';
-      location.assign('/dex/logout?' + new URLSearchParams({
-        id_token_hint: idToken,
-        post_logout_redirect_uri: postLogout
-      }).toString());
+      var postLogout = postLogoutLoginUri();
+      var qs = new URLSearchParams({ post_logout_redirect_uri: postLogout });
+      if (idToken) qs.set('id_token_hint', idToken);
+      location.assign('/dex/logout?' + qs.toString());
       return true;
     } catch (_) {
       clearAllAuthState();
@@ -152,15 +154,14 @@
     return oidcParamsFromSearch(new URLSearchParams(location.search)) || oidcParamsFromBackParam();
   }
 
-  function startDexLogin(connectorId) {
+  function startDexLogin(connectorId, extraParams) {
     var resumed = oidcParamsFromUrl();
     if (!resumed) clearOidcBrowserState();
     setAuthModeCookie('dex');
 
     if (resumed) {
-      location.assign('/dex/auth?' + new URLSearchParams(Object.assign({}, resumed, {
-        connector_id: connectorId
-      })).toString());
+      var resumeParams = Object.assign({}, resumed, { connector_id: connectorId }, extraParams || {});
+      location.assign('/dex/auth?' + new URLSearchParams(resumeParams).toString());
       return;
     }
 
@@ -170,7 +171,7 @@
     generatePKCE().then(function (pkce) {
       var state = randomHex(16);
       storeSigninState(state, authority, 'opencloud-web', redirectUri, pkce.verifier);
-      location.assign('/dex/auth?' + new URLSearchParams({
+      var authParams = {
         client_id:             'opencloud-web',
         redirect_uri:          redirectUri,
         response_type:         'code',
@@ -179,8 +180,20 @@
         state:                 state,
         code_challenge:        pkce.challenge,
         code_challenge_method: 'S256'
-      }).toString());
+      };
+      if (extraParams) {
+        Object.keys(extraParams).forEach(function (k) {
+          if (extraParams[k]) authParams[k] = extraParams[k];
+        });
+      }
+      location.assign('/dex/auth?' + new URLSearchParams(authParams).toString());
     });
+  }
+
+  function startDexLoginWithPrompt(connectorId, prompt) {
+    var extra = {};
+    if (prompt) extra.prompt = prompt;
+    startDexLogin(connectorId, extra);
   }
 
   function storePendingLogin(login, password) {
@@ -224,6 +237,7 @@
 
   global.KM0DexAuth = {
     startDexLogin: startDexLogin,
+    startDexLoginWithPrompt: startDexLoginWithPrompt,
     setAuthModeCookie: setAuthModeCookie,
     clearOidcBrowserState: clearOidcBrowserState,
     clearAllAuthState: clearAllAuthState,
