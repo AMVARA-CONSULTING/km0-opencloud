@@ -1,7 +1,7 @@
 (function (global) {
   'use strict';
 
-  var OIDC_SCOPE = 'openid profile email';
+  var OIDC_SCOPE = 'openid profile email offline_access';
   var AUTH_COOKIE_MAX_AGE = 600;
   var PENDING_LOGIN_KEY = 'km0_pending_login';
   var PENDING_LOGIN_TTL_MS = 120000;

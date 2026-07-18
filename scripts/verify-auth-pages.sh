@@ -27,9 +27,15 @@ grep -q 'km0-username' /tmp/km0-hub-reg.html || fail "hub /register missing user
 grep -q 'km0-contact-email' /tmp/km0-hub-reg.html || fail "hub /register missing contact email field"
 pass "hub /register HTTP 200 + username/contact separation"
 
-loc="$(curl -sS -o /dev/null -w '%{redirect_url}' "${CLOUD_URL}/login.html")"
-[[ "$loc" == *"auth.km0digital.com/login"* ]] || fail "cloud /login.html redirect: ${loc}"
-pass "cloud /login.html → hub"
+loc="$(curl -sS -o /tmp/km0-cloud-login.html -w '%{redirect_url}' "${CLOUD_URL}/login.html")"
+login_code="$(curl -sS -o /tmp/km0-cloud-login.html -w '%{http_code}' "${CLOUD_URL}/login.html")"
+[[ "$login_code" == "200" ]] || fail "cloud /login.html returned ${login_code}"
+grep -q 'hasActiveOidcSession\|km0-session-gate\|Comprobando sesión' /tmp/km0-cloud-login.html || fail "cloud /login.html missing session gate"
+pass "cloud /login.html → session gate (HTTP 200)"
+
+gate_code="$(curl -sS -o /dev/null -w '%{http_code}' "${CLOUD_URL}/km0-session-gate.html")"
+[[ "$gate_code" == "200" ]] || fail "cloud /km0-session-gate.html returned ${gate_code}"
+pass "cloud /km0-session-gate.html HTTP 200"
 
 loc="$(curl -sS -o /dev/null -w '%{redirect_url}' "${CLOUD_URL}/register")"
 [[ "$loc" == *"auth.km0digital.com/register"* ]] || fail "cloud /register redirect: ${loc}"
@@ -41,9 +47,9 @@ android_code="$(curl -sS -o /tmp/km0-dex-android.html -w '%{http_code}' \
 pass "native Android /dex/auth HTTP 200 (not hub redirect)"
 
 web_loc="$(curl -sS -o /dev/null -w '%{redirect_url}' \
-  "${CLOUD_URL}/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2Foidc-callback.html&response_type=code&scope=openid%20profile%20email&code_challenge=test&code_challenge_method=S256&state=web")"
-[[ "$web_loc" == *"auth.km0digital.com/login"* ]] || fail "web /dex/auth redirect: ${web_loc}"
-pass "web /dex/auth → hub"
+  "${CLOUD_URL}/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2Foidc-callback.html&response_type=code&scope=openid%20profile%20email%20offline_access&code_challenge=test&code_challenge_method=S256&state=web")"
+[[ "$web_loc" == *"km0-session-gate.html"* ]] || fail "web /dex/auth redirect: ${web_loc}"
+pass "web /dex/auth → session gate"
 
 logout_loc="$(curl -sS -o /dev/null -w '%{redirect_url}' "${CLOUD_URL}/logout")"
 [[ "$logout_loc" == *"auth.km0digital.com/login"* ]] || fail "cloud /logout redirect: ${logout_loc}"
@@ -55,8 +61,12 @@ config_post_logout="$(curl -sS "${CLOUD_URL}/config.json" | python3 -c "import j
 pass "config.json post_logout → auth hub login"
 
 config_login_url="$(curl -sS "${CLOUD_URL}/config.json" | python3 -c "import json,sys; print(json.load(sys.stdin)['options']['loginUrl'])")"
-[[ "$config_login_url" == *"auth.km0digital.com/login"* ]] || fail "config loginUrl: ${config_login_url}"
-pass "config.json loginUrl → auth hub login"
+[[ "$config_login_url" == *"km0-session-gate.html"* ]] || fail "config loginUrl: ${config_login_url}"
+pass "config.json loginUrl → session gate"
+
+config_scope="$(curl -sS "${CLOUD_URL}/config.json" | python3 -c "import json,sys; print(json.load(sys.stdin)['openIdConnect']['scope'])")"
+[[ "$config_scope" == *"offline_access"* ]] || fail "config scope missing offline_access: ${config_scope}"
+pass "config.json scope includes offline_access"
 
 bridge_code="$(curl -sS -o /dev/null -w '%{http_code}' "${CLOUD_URL}/km0-oidc-start.html")"
 [[ "$bridge_code" == "200" ]] || fail "cloud km0-oidc-start.html returned ${bridge_code}"

@@ -365,7 +365,9 @@
               if (!v) continue;
               var token = v.access_token || v.id_token;
               if (!token) continue;
-              if (v.expires_at && v.expires_at * 1000 <= Date.now()) continue;
+              if (v.expires_at && v.expires_at * 1000 <= Date.now()) {
+                if (!v.refresh_token) continue;
+              }
               return true;
             } catch (_) {}
           }

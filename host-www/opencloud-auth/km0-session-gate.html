@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kilómetro 0 Digital — Sesión</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #0B1220;
+      color: #E6E9ED;
+    }
+    p { color: rgba(230, 233, 237, 0.65); }
+  </style>
+</head>
+<body>
+  <p data-i18n="registerSigningIn">Comprobando sesión…</p>
+  <script src="/dex-auth.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var HUB_LOGIN = 'https://auth.km0digital.com/login';
+
+      /* OpenCloud web stores oidc-client-ts under oc_oAuth.user: (tokenStorageLocal). */
+      function hasActiveOidcSession() {
+        var stores = [localStorage, sessionStorage];
+        var keyPrefixes = ['oc_oAuth.user:', 'oidc.user:'];
+        for (var s = 0; s < stores.length; s++) {
+          var store = stores[s];
+          var keys;
+          try { keys = Object.keys(store); } catch (_) { continue; }
+          for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var matched = false;
+            for (var p = 0; p < keyPrefixes.length; p++) {
+              if (k.indexOf(keyPrefixes[p]) === 0) { matched = true; break; }
+            }
+            if (!matched) continue;
+            try {
+              var v = JSON.parse(store.getItem(k));
+              if (!v) continue;
+              var token = v.access_token || v.id_token;
+              if (!token) continue;
+              if (v.expires_at && v.expires_at * 1000 <= Date.now()) continue;
+              /* Refresh token can keep the SPA session alive after access token expiry. */
+              if (v.refresh_token) return true;
+              return true;
+            } catch (_) {}
+          }
+        }
+        return false;
+      }
+
+      function hubLoginUrl(params) {
+        params = params || new URLSearchParams(location.search);
+        if (!params.get('service')) params.set('service', 'cloud');
+        params.set('session_checked', '1');
+        return HUB_LOGIN + '?' + params.toString();
+      }
+
+      try {
+        var params = new URLSearchParams(location.search);
+        var signedOut = params.get('signed_out') === '1' || params.get('from_dex') === '1';
+        var oidcResume = window.KM0DexAuth && window.KM0DexAuth.oidcParamsFromUrl
+          ? window.KM0DexAuth.oidcParamsFromUrl()
+          : null;
+
+        if (signedOut) {
+          location.replace(hubLoginUrl(params));
+          return;
+        }
+
+        /* Active Cloud session and no in-flight OIDC resume → skip login. */
+        if (!oidcResume && hasActiveOidcSession()) {
+          location.replace('/files');
+          return;
+        }
+
+        location.replace(hubLoginUrl(params));
+      } catch (_) {
+        location.replace(HUB_LOGIN + '?service=cloud&session_checked=1');
+      }
+    })();
+  </script>
+</body>
+</html>
