@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- Runbook: known OpenCloud limitation — public-link subfolder ZIP (`/archiver` → `download.zip` 404); per-file / logged-in WebDAV workaround; optional upstream issue draft `docs/issue-public-share-folder-zip-archiver.md`.
 - Cloud session gate (`km0-session-gate.html`): `/`, `/login`, `/login.html`, and web `/dex/auth` check browser OIDC storage and forward to `/files` when a session exists, otherwise redirect to the auth hub.
 - Auth hub (`auth.km0digital.com`): cloud `/login`, `/register`, and `/logout` redirect to the hub; OIDC bridge `km0-oidc-start.html`, `km0-sso-snippet.js` injection, and TLS helper `scripts/issue-auth-km0digital-cert.sh`.
 - register-api: KM0 username registration model (`username` + optional `contact_email`, reserved-name checks) alongside legacy email/custom-domain flow; CORS allows `auth.km0digital.com`.

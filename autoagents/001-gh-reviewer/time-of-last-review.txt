@@ -113,3 +113,8 @@
 
 2026-07-18T17:12:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
 
+2026-07-19T18:54:00Z UTC | direct chat (operator) | FEAT: 0 | NEW: 2 | public-share folder ZIP archiver (download.zip) | tasks: NEW-0-20260719-1854-public-share-folder-zip-archiver-triage.md, NEW-0-20260719-1854-public-share-folder-zip-upstream-escalate.md
+2026-07-19T19:19:00Z UTC | operator request | parked NEW→triage (do not implement) | TRIAGE-20260719-1854-public-share-folder-zip-*.md under autoagents/tasks/triage/
+2026-07-19T19:24:00Z UTC | operator | restored NEW workaround-docs; start loop 1h | NEW-0-20260719-1924-public-share-folder-zip-workaround-docs.md
+2026-07-19T19:25:09Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
