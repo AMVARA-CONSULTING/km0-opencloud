@@ -702,6 +702,29 @@ The `INITIAL_ADMIN_PASSWORD` env var only applies on **first init**. To reset af
 docker exec -it opencloud-opencloud-1 opencloud idm resetpassword
 ```
 
+### Public link: subfolder ZIP download fails (`download.zip`)
+
+**Symptom:** On a passwordless **public folder** share, individual files download fine, but downloading a **subfolder** as ZIP fails. The browser may report that `download.zip` was not available; the SPA console often stays clean (attachment/HTTP failure, not a front-end crash).
+
+**Cause (vendor):** OpenCloud `/archiver` with a public-share token returns **404** and still sends `Content-Disposition: attachment; filename*=UTF-8''download.zip`. Gateway logs typically show `request is not for a nested resource` / `could not find space`. Seen on OpenCloud **7.3.0** (reva `v2.47.0`). Same class as upstream [opencloud#2401](https://github.com/opencloud-eu/opencloud/issues/2401) and [opencloud#1712](https://github.com/opencloud-eu/opencloud/issues/1712) after public-share scope hardening. **KM0 nginx only proxies** — do not add an nginx “fix” for `/archiver`.
+
+**Workaround for users / support:**
+
+1. Download files **one by one** from the public link, or
+2. Use a logged-in WebDAV / desktop sync client on the owner account.
+
+**Optional operator check** (replace placeholders; never commit real share tokens):
+
+```bash
+# Single file on the public share — expect HTTP 200
+curl -sI "https://cloud.km0digital.com/remote.php/dav/public-files/<PUBLIC_TOKEN>/<FILE>" | head -5
+
+# Subfolder ZIP via archiver — expect HTTP 404 + Content-Disposition download.zip
+curl -sI "https://cloud.km0digital.com/archiver?id=<FILE_ID>&public-token=<PUBLIC_TOKEN>" | head -10
+```
+
+Draft text for filing upstream (no live tokens): `docs/issue-public-share-folder-zip-archiver.md`.
+
 ---
 
 ## References
