@@ -88,7 +88,7 @@
       activateMailSignInLink: 'Iniciar sesión en Cloud',
       activateMailSuccessTitle: 'Buzón listo',
       activateMailSuccessBody:
-        '<p>Tu buzón <strong>@km0digital.com</strong> está activo. Entra en Roundcube con ese usuario y la contraseña que acabas de elegir.</p><p>Cloud sigue con tu IdP OIDC (Google, Apple u otro). El correo no usa el token OIDC: usa la contraseña del buzón o LDAP OAuth tras el enlace de identidad en Mail.</p>',
+        '<p>Tu buzón <strong>@km0digital.com</strong> está activo. Entra en Roundcube con ese usuario y la contraseña que acabas de elegir (no uses Google para el correo).</p><p>Abre el correo de verificación en la bandeja y confirma el enlace. Hasta entonces puedes leer, pero el envío permanece bloqueado. Después, opcionalmente, SSO LDAP en Mail.</p>',
       activateMailOpenRoundcube: 'Abrir Roundcube',
       activateMailBackCloud: 'Volver a Cloud',
       activateMailErrorUnauthorized: 'Sesión no válida o caducada. Vuelve a iniciar sesión en Cloud e inténtalo de nuevo.',
@@ -192,7 +192,7 @@
       activateMailSignInLink: 'Iniciar sessió a Cloud',
       activateMailSuccessTitle: 'Bústia a punt',
       activateMailSuccessBody:
-        '<p>La teva bústia <strong>@km0digital.com</strong> està activa. Entra a Roundcube amb aquest usuari i la contrasenya que acabes de triar.</p><p>Cloud continua amb el teu IdP OIDC (Google, Apple o un altre). El correu no fa servir el token OIDC: usa la contrasenya de la bústia o LDAP OAuth després de l\'enllaç d\'identitat a Mail.</p>',
+        '<p>La teva bústia <strong>@km0digital.com</strong> està activa. Entra a Roundcube amb aquest usuari i la contrasenya que acabes de triar (no facis servir Google per al correu).</p><p>Obre el correu de verificació a la safata i confirma l\'enllaç. Mentrestant pots llegir, però l\'enviament resta bloquejat. Després, opcionalment, SSO LDAP a Mail.</p>',
       activateMailOpenRoundcube: 'Obrir Roundcube',
       activateMailBackCloud: 'Tornar a Cloud',
       activateMailErrorUnauthorized: 'Sessió no vàlida o caducada. Torna a iniciar sessió a Cloud i prova-ho de nou.',
@@ -296,7 +296,7 @@
       activateMailSignInLink: 'Sign in to Cloud',
       activateMailSuccessTitle: 'Mailbox ready',
       activateMailSuccessBody:
-        '<p>Your <strong>@km0digital.com</strong> mailbox is active. Sign in to Roundcube with that username and the password you just chose.</p><p>Cloud still uses your OIDC IdP (Google, Apple, or another). Mail does not use the OIDC token: use the mailbox password, or LDAP OAuth after Mail identity linking.</p>',
+        '<p>Your <strong>@km0digital.com</strong> mailbox is active. Sign in to Roundcube with that username and the password you just chose (do not use Google for mail).</p><p>Open the verification email in your inbox and confirm the link. You can read mail before that, but sending stays blocked. Optionally use LDAP SSO for Mail afterward.</p>',
       activateMailOpenRoundcube: 'Open Roundcube',
       activateMailBackCloud: 'Back to Cloud',
       activateMailErrorUnauthorized: 'Invalid or expired session. Sign in to Cloud again and retry.',
@@ -401,7 +401,7 @@
       activateMailSignInLink: 'Bei Cloud anmelden',
       activateMailSuccessTitle: 'Postfach bereit',
       activateMailSuccessBody:
-        '<p>Ihr <strong>@km0digital.com</strong>-Postfach ist aktiv. Melden Sie sich in Roundcube mit diesem Benutzernamen und dem gewählten Passwort an.</p><p>Cloud nutzt weiterhin Ihren OIDC-IdP (Google, Apple oder einen anderen). Mail nutzt nicht das OIDC-Token: verwenden Sie das Postfachpasswort oder LDAP-OAuth nach der Identitätsverknüpfung in Mail.</p>',
+        '<p>Ihr <strong>@km0digital.com</strong>-Postfach ist aktiv. Melden Sie sich in Roundcube mit diesem Benutzernamen und dem gewählten Passwort an (nicht Google für Mail).</p><p>Öffnen Sie die Bestätigungs-E-Mail im Postfach und bestätigen Sie den Link. Lesen geht vorher; Senden bleibt gesperrt. Danach optional LDAP-SSO für Mail.</p>',
       activateMailOpenRoundcube: 'Roundcube öffnen',
       activateMailBackCloud: 'Zurück zu Cloud',
       activateMailErrorUnauthorized: 'Ungültige oder abgelaufene Sitzung. Melden Sie sich erneut bei Cloud an und versuchen Sie es erneut.',

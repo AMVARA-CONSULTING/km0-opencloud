@@ -16,6 +16,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- Activate-mail success UX (#23): Roundcube CTA opens password login (`?_task=login&activated=1`); i18n (ES/CA/EN/DE) tells users not to use Google for mail, to confirm the verification link (send blocked until then), and optional LDAP SSO afterward.
 - Dex session lifetime: ID tokens 24h; refresh tokens 30 days idle / 90 days absolute; Web OIDC scope includes `offline_access` (`WEB_OIDC_SCOPE`, `config-dex.json`, `dex-auth.js`).
 - OpenCloud `loginUrl` points at the session gate; nginx login/Dex web redirects go through the gate before the auth hub; `verify-auth-pages.sh` asserts gate + `offline_access`.
 - OpenCloud image pin `7.0.0` → `7.3.0` (`OC_DOCKER_TAG` in `.env` examples, runbook, README). Custom Dex + nginx login path unchanged; backup volumes before `docker compose up -d`. OpenCloud 7.3 requires explicit `IDM_LDAPS_CERT` / `IDM_LDAPS_KEY` when `IDM_LDAPS_ADDR` is set (Dex → IDM on :9235).
