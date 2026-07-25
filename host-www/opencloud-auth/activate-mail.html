@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="activateMailPageTitle">Kilómetro 0 Digital — Activar KM0 Mail</title>
+  <meta name="description" content="Activa KM0 Mail para tu cuenta OpenCloud" data-i18n-meta="activateMailMetaDescription" />
+  <link rel="canonical" href="https://cloud.km0digital.com/activate-mail.html" />
+  <meta property="og:title" content="Kilómetro 0 Digital — Activar KM0 Mail" />
+  <meta property="og:description" content="Activa KM0 Mail para tu cuenta OpenCloud" />
+  <meta property="og:url" content="https://cloud.km0digital.com/activate-mail.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="KM0 Digital Cloud" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #0B1220;
+      --snow: #141B28;
+      --mist: #2A3344;
+      --ink: #E6E9ED;
+      --ink-muted: rgba(230, 233, 237, 0.65);
+      --signal: #2DD4BF;
+      --signal-hover: #5EEAD4;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    .card {
+      position: relative;
+      width: min(440px, 92vw);
+      padding: 2.5rem 2rem 2rem;
+      border-radius: 12px;
+      background: var(--snow);
+      border: 1px solid var(--mist);
+      text-align: center;
+    }
+    .km0-lang-switch {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid var(--mist);
+      background: transparent;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .km0-lang-switch__btn {
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--ink-muted);
+      cursor: pointer;
+      font: inherit;
+      padding: 6px 10px;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .km0-lang-switch__btn:hover { color: var(--ink); }
+    .km0-lang-switch__btn--active {
+      background: var(--mist);
+      color: var(--ink);
+    }
+    .km0-lang-switch__btn:focus-visible {
+      outline: 2px solid var(--signal);
+      outline-offset: 2px;
+    }
+    .logo {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 1.25rem;
+      display: block;
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin: 0 0 0.75rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-family: 'Bricolage Grotesque', 'IBM Plex Sans', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .tagline {
+      margin: 0 0 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .intro {
+      margin: 0 0 1.25rem;
+      color: var(--ink-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .session-banner {
+      display: none;
+      margin: 0 0 1.25rem;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--mist);
+      color: var(--ink-muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .session-banner--visible { display: block; }
+    .session-banner a {
+      color: var(--signal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .session-banner a:hover { color: var(--signal-hover); text-decoration: underline; }
+    .activate-form {
+      text-align: left;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .field { margin-bottom: 0.85rem; }
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin-bottom: 0.35rem;
+    }
+    .field-hint {
+      margin: 0.35rem 0 0;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      line-height: 1.4;
+    }
+    .username-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .username-row input {
+      border-radius: 8px 0 0 8px;
+      flex: 1;
+      min-width: 0;
+    }
+    .username-suffix {
+      display: flex;
+      align-items: center;
+      padding: 0 0.85rem;
+      border: 1px solid var(--mist);
+      border-left: 0;
+      border-radius: 0 8px 8px 0;
+      background: var(--paper);
+      color: var(--ink-muted);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+    .field input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--mist);
+      background: var(--paper);
+      color: var(--ink);
+      font: inherit;
+      font-size: 0.9rem;
+      transition: border-color 0.2s ease;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--signal);
+      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
+    }
+    .field input::placeholder {
+      color: rgba(230, 233, 237, 0.35);
+    }
+    .form-error {
+      display: none;
+      margin: 0 0 0.85rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      background: rgba(255, 80, 80, 0.12);
+      border: 1px solid rgba(255, 80, 80, 0.3);
+      color: #ffb4b4;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .form-error--visible { display: block; }
+    .form-success {
+      display: none;
+      text-align: left;
+      margin: 0 0 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(45, 212, 191, 0.35);
+      background: rgba(45, 212, 191, 0.08);
+      color: var(--ink);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .form-success--visible { display: block; }
+    .form-success h2 {
+      margin: 0 0 0.5rem;
+      font-family: 'Bricolage Grotesque', 'IBM Plex Sans', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+    .form-success p { margin: 0 0 0.75rem; color: var(--ink-muted); }
+    .form-success a {
+      color: var(--signal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .form-success a:hover { color: var(--signal-hover); text-decoration: underline; }
+    .btn-submit {
+      width: 100%;
+      margin-top: 0.25rem;
+      padding: 0.85rem 2rem;
+      border: 0;
+      border-radius: 8px;
+      background: var(--signal);
+      color: var(--paper);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s var(--ease);
+    }
+    .btn-submit:hover:not(:disabled) { background: var(--signal-hover); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-submit:focus-visible {
+      outline: 2px solid var(--signal);
+      outline-offset: 2px;
+    }
+    .secondary-link {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--signal);
+      text-decoration: none;
+    }
+    .secondary-link:hover { color: var(--signal-hover); }
+    footer {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+    }
+    footer a {
+      color: var(--ink-muted);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--signal); }
+    .is-hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <nav class="km0-lang-switch" role="navigation" aria-label="Idioma">
+      <button type="button" class="km0-lang-switch__btn" data-lang="ca" aria-pressed="false">CA</button>
+      <button type="button" class="km0-lang-switch__btn km0-lang-switch__btn--active" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" class="km0-lang-switch__btn" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" class="km0-lang-switch__btn" data-lang="de" aria-pressed="false">DE</button>
+    </nav>
+    <img class="logo" src="/logo.svg" alt="Kilómetro 0 Digital" width="72" height="72" />
+    <p class="eyebrow" data-i18n="loginEyebrow">Kilómetro 0 Digital</p>
+    <h1 data-i18n="activateMailTitle">Activar KM0 Mail</h1>
+    <p class="tagline" data-i18n="landingTagline">Origen local · Impacto digital</p>
+    <p class="intro" data-i18n="activateMailIntro">Elige un usuario KM0 y una contraseña para tu buzón. Cloud sigue con tu IdP (Google, Apple u otro OIDC); el correo usa esta contraseña en Roundcube.</p>
+
+    <div class="session-banner" id="km0-session-banner" role="status"></div>
+    <div class="form-success" id="km0-activate-success" role="status">
+      <h2 data-i18n="activateMailSuccessTitle">Buzón listo</h2>
+      <div data-i18n-html="activateMailSuccessBody"></div>
+      <p>
+        <a id="km0-roundcube-link" href="https://mail.km0digital.com/" data-i18n="activateMailOpenRoundcube">Abrir Roundcube</a>
+        ·
+        <a href="/files" data-i18n="activateMailBackCloud">Volver a Cloud</a>
+      </p>
+    </div>
+
+    <form class="activate-form" id="km0-activate-form" novalidate>
+      <div class="form-error" id="km0-activate-error" role="alert"></div>
+      <div class="field">
+        <label for="km0-username" data-i18n="activateMailUsernameLabel">Usuario KM0</label>
+        <div class="username-row">
+          <input type="text" id="km0-username" name="username" autocomplete="username" required
+                 spellcheck="false" autocapitalize="off"
+                 data-i18n-placeholder="activateMailUsernamePlaceholder" />
+          <span class="username-suffix">@km0digital.com</span>
+        </div>
+        <p class="field-hint" data-i18n="activateMailUsernameHint">Será tu dirección de correo KM0.</p>
+      </div>
+      <div class="field">
+        <label for="km0-password" data-i18n="activateMailPasswordLabel">Contraseña del buzón</label>
+        <input type="password" id="km0-password" name="password" autocomplete="new-password" required minlength="8"
+               data-i18n-placeholder="activateMailPasswordPlaceholder" />
+      </div>
+      <div class="field">
+        <label for="km0-password-confirm" data-i18n="activateMailConfirmPasswordLabel">Confirmar contraseña</label>
+        <input type="password" id="km0-password-confirm" name="password_confirm" autocomplete="new-password" required
+               data-i18n-placeholder="activateMailConfirmPasswordPlaceholder" />
+      </div>
+      <div class="field">
+        <label for="km0-contact" data-i18n="activateMailContactLabel">Correo de contacto (opcional)</label>
+        <input type="email" id="km0-contact" name="contact_email" autocomplete="email"
+               data-i18n-placeholder="activateMailContactPlaceholder" />
+        <p class="field-hint" data-i18n="activateMailContactHint">Tu correo del IdP (Gmail, iCloud, etc.) está bien; no es el buzón.</p>
+      </div>
+      <button type="submit" class="btn-submit" id="km0-activate-submit" data-i18n="activateMailSubmit">Activar correo</button>
+    </form>
+
+    <a class="secondary-link" href="/login.html?service=cloud" data-i18n="activateMailSignInLink">Iniciar sesión en Cloud</a>
+
+    <footer>
+      <a href="https://km0digital.com/" target="_blank" rel="noopener">km0digital.com</a>
+    </footer>
+  </div>
+  <script src="/dex/theme/i18n.js"></script>
+  <script src="/dex-auth.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var USERNAME_RE = /^[a-z0-9]([a-z0-9._-]{1,30}[a-z0-9])$/;
+      var SPECIAL_RE = /[!@#$%^&*(),.?":{}|<>\[\]\\/_+=\-~`]/;
+      var EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      var HUB_LOGIN = 'https://auth.km0digital.com/login?service=cloud&session_checked=1';
+      var MAIL_HOME = 'https://mail.km0digital.com/';
+
+      var form = document.getElementById('km0-activate-form');
+      var errorEl = document.getElementById('km0-activate-error');
+      var successEl = document.getElementById('km0-activate-success');
+      var sessionBanner = document.getElementById('km0-session-banner');
+      var submitBtn = document.getElementById('km0-activate-submit');
+      var contactInput = document.getElementById('km0-contact');
+      var roundcubeLink = document.getElementById('km0-roundcube-link');
+
+      function t(key) {
+        if (window.KM0LoginI18n && window.KM0LoginI18n.t) {
+          return window.KM0LoginI18n.t(key);
+        }
+        return key;
+      }
+
+      function showError(key) {
+        errorEl.textContent = t(key);
+        errorEl.classList.add('form-error--visible');
+      }
+
+      function hideError() {
+        errorEl.textContent = '';
+        errorEl.classList.remove('form-error--visible');
+      }
+
+      function getAccessToken() {
+        if (window.KM0DexAuth && window.KM0DexAuth.getStoredAccessToken) {
+          return window.KM0DexAuth.getStoredAccessToken();
+        }
+        return null;
+      }
+
+      function getOidcUser() {
+        if (window.KM0DexAuth && window.KM0DexAuth.getStoredOidcUser) {
+          return window.KM0DexAuth.getStoredOidcUser();
+        }
+        return null;
+      }
+
+      function validateClient(username, password, confirm, contact) {
+        if (!USERNAME_RE.test(username)) return 'activateMailErrorUsernameInvalid';
+        if (password !== confirm) return 'activateMailErrorPasswordMismatch';
+        if (password.length < 8 || !SPECIAL_RE.test(password)) {
+          return 'activateMailErrorPasswordWeak';
+        }
+        if (contact && !EMAIL_RE.test(contact)) return 'activateMailErrorContactInvalid';
+        return null;
+      }
+
+      function errorKeyFromResponse(status, body) {
+        if (status === 401 || status === 403) return 'activateMailErrorUnauthorized';
+        if (status === 429) return 'activateMailErrorRateLimit';
+        var err = body && body.error;
+        if (status === 409 || err === 'duplicate') return 'activateMailErrorDuplicate';
+        if (status === 503 || err === 'service_unavailable' || err === 'mail_provision_not_configured') {
+          return 'activateMailErrorServiceUnavailable';
+        }
+        if (status === 400) {
+          if (err === 'invalid_username') return 'activateMailErrorUsernameInvalid';
+          if (err === 'username_reserved') return 'activateMailErrorUsernameReserved';
+          if (err === 'password_too_short' || err === 'password_needs_special') {
+            return 'activateMailErrorPasswordWeak';
+          }
+          if (err === 'invalid_contact_email') return 'activateMailErrorContactInvalid';
+          if (err === 'validation') return 'activateMailErrorValidation';
+        }
+        return 'activateMailErrorGeneric';
+      }
+
+      function showNeedSession() {
+        sessionBanner.innerHTML = t('activateMailNeedSession') +
+          ' <a href="' + HUB_LOGIN + '">' + t('activateMailSignInLink') + '</a>';
+        sessionBanner.classList.add('session-banner--visible');
+        form.classList.add('is-hidden');
+        submitBtn.disabled = true;
+      }
+
+      function showSuccess(mailboxEmail) {
+        form.classList.add('is-hidden');
+        successEl.classList.add('form-success--visible');
+        if (mailboxEmail) {
+          roundcubeLink.href = MAIL_HOME;
+          roundcubeLink.title = mailboxEmail;
+        }
+        if (window.KM0LoginI18n && window.KM0LoginI18n.getLocale) {
+          /* re-apply HTML success copy after locale may have changed */
+          var bodyEl = successEl.querySelector('[data-i18n-html="activateMailSuccessBody"]');
+          if (bodyEl) bodyEl.innerHTML = t('activateMailSuccessBody');
+        }
+      }
+
+      var oidcUser = getOidcUser();
+      var accessToken = getAccessToken();
+      if (!accessToken) {
+        showNeedSession();
+      } else if (oidcUser && oidcUser.profile && oidcUser.profile.email && !contactInput.value) {
+        contactInput.value = oidcUser.profile.email;
+      }
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        hideError();
+
+        var token = getAccessToken();
+        if (!token) {
+          showNeedSession();
+          showError('activateMailErrorNoToken');
+          return;
+        }
+
+        var username = document.getElementById('km0-username').value.trim().toLowerCase();
+        var password = document.getElementById('km0-password').value;
+        var confirm = document.getElementById('km0-password-confirm').value;
+        var contact = contactInput.value.trim().toLowerCase();
+
+        var clientErr = validateClient(username, password, confirm, contact);
+        if (clientErr) {
+          showError(clientErr);
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = t('activateMailSubmitting');
+
+        var payload = { username: username, password: password };
+        if (contact) payload.contact_email = contact;
+
+        fetch('/api/activate-mail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: JSON.stringify(payload),
+        })
+          .then(function (resp) {
+            return resp.json().catch(function () { return {}; }).then(function (body) {
+              return { status: resp.status, body: body };
+            });
+          })
+          .then(function (result) {
+            if (result.status === 201 || result.status === 200) {
+              var mailbox = (result.body && result.body.email) || (username + '@km0digital.com');
+              showSuccess(mailbox);
+              return;
+            }
+            showError(errorKeyFromResponse(result.status, result.body));
+            submitBtn.disabled = false;
+            submitBtn.textContent = t('activateMailSubmit');
+          })
+          .catch(function () {
+            showError('activateMailErrorGeneric');
+            submitBtn.disabled = false;
+            submitBtn.textContent = t('activateMailSubmit');
+          });
+      });
+    })();
+  </script>
+</body>
+</html>

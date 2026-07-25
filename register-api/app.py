@@ -43,6 +43,10 @@ MAIL_PROVISION_URL = os.environ.get(
     "MAIL_PROVISION_API_URL", "http://host.docker.internal:8092"
 ).rstrip("/")
 MAIL_PROVISION_TOKEN = os.environ.get("MAIL_PROVISION_API_TOKEN", "")
+# Optional shared secret for hub→register-api activate-mail (server-side).
+# When set, hub may call with Bearer <token> + opencloud_uuid after proving session ownership.
+# Prefer end-user Bearer (OpenCloud access token) so uuid comes from Graph /me.
+ACTIVATE_MAIL_SERVICE_TOKEN = os.environ.get("ACTIVATE_MAIL_SERVICE_TOKEN", "")
 
 ALLOWED_ORIGINS = frozenset(
     origin.strip()
@@ -78,14 +82,19 @@ def graph_auth_header() -> str:
     return "Basic " + base64.b64encode(creds.encode()).decode()
 
 
-def graph_request(method: str, path: str, data: bytes | None = None) -> tuple[int, str]:
+def graph_request(
+    method: str,
+    path: str,
+    data: bytes | None = None,
+    authorization: str | None = None,
+) -> tuple[int, str]:
     req = urllib.request.Request(
         f"{GRAPH_URL}{path}",
         data=data,
         method=method,
         headers={
             "Content-Type": "application/json",
-            "Authorization": graph_auth_header(),
+            "Authorization": authorization or graph_auth_header(),
         },
     )
     try:
@@ -93,6 +102,96 @@ def graph_request(method: str, path: str, data: bytes | None = None) -> tuple[in
             return resp.status, resp.read().decode("utf-8", errors="replace")
     except urllib.error.HTTPError as exc:
         return exc.code, exc.read().decode("utf-8", errors="replace")
+
+
+def graph_get_user(user_id: str) -> tuple[int, dict | None]:
+    status, body = graph_request("GET", f"/graph/v1.0/users/{user_id}")
+    if status != 200:
+        return status, None
+    try:
+        return status, json.loads(body)
+    except json.JSONDecodeError:
+        return 500, None
+
+
+def graph_patch_user(user_id: str, payload: dict) -> tuple[int, str | None]:
+    raw = json.dumps(payload).encode()
+    try:
+        status, body = graph_request("PATCH", f"/graph/v1.0/users/{user_id}", raw)
+        if status in (200, 204):
+            return status, None
+        code = graph_error_code(status, body)
+        if code == "auth_failed":
+            return 503, "service_unavailable"
+        if code == "duplicate":
+            return 409, "duplicate"
+        if code == "validation":
+            return 400, "validation"
+        if status == 404:
+            return 404, "not_found"
+        log.warning("Graph PATCH user failed status=%s body=%s", status, body[:200])
+        return 500, "internal"
+    except urllib.error.URLError as exc:
+        log.warning("Graph API unreachable: %s", exc.reason)
+        return 503, "service_unavailable"
+    except Exception:
+        log.exception("Graph PATCH user failed")
+        return 500, "internal"
+
+
+def bearer_token_from_request() -> str | None:
+    auth = request.headers.get("Authorization", "")
+    if not auth.startswith("Bearer "):
+        return None
+    token = auth[7:].strip()
+    return token or None
+
+
+def resolve_activate_caller(data: dict) -> tuple[dict | None, str | None]:
+    """Prove caller owns an OpenCloud user.
+
+    Authz modes (first match):
+    1. End-user Bearer = OpenCloud/Dex access token → Graph GET /me (preferred).
+    2. Bearer = ACTIVATE_MAIL_SERVICE_TOKEN + body.opencloud_uuid → Graph GET /users/{uuid}
+       (hub must already have verified the browser session owns that uuid).
+    """
+    token = bearer_token_from_request()
+    if not token:
+        return None, "unauthorized"
+
+    if (
+        ACTIVATE_MAIL_SERVICE_TOKEN
+        and len(token) == len(ACTIVATE_MAIL_SERVICE_TOKEN)
+        and secrets.compare_digest(token, ACTIVATE_MAIL_SERVICE_TOKEN)
+    ):
+        uuid = (data.get("opencloud_uuid") or "").strip()
+        if not uuid:
+            return None, "missing_opencloud_uuid"
+        status, user = graph_get_user(uuid)
+        if status == 404 or not user:
+            return None, "not_found"
+        if status != 200:
+            return None, "service_unavailable"
+        return user, None
+
+    status, body = graph_request(
+        "GET", "/graph/v1.0/me", authorization=f"Bearer {token}"
+    )
+    if status in (401, 403):
+        return None, "unauthorized"
+    if status != 200:
+        log.warning("Graph /me with user bearer failed status=%s", status)
+        return None, "service_unavailable"
+    try:
+        user = json.loads(body)
+    except json.JSONDecodeError:
+        return None, "service_unavailable"
+    if not user.get("id"):
+        return None, "unauthorized"
+    claimed = (data.get("opencloud_uuid") or "").strip()
+    if claimed and claimed != user.get("id"):
+        return None, "forbidden"
+    return user, None
 
 
 def mail_request(method: str, path: str, data: dict | None = None) -> tuple[int, dict]:
@@ -133,6 +232,16 @@ def check_origin() -> bool:
 
 def domain_of(email: str) -> str:
     return email.split("@", 1)[1].lower()
+
+
+def is_km0_mailbox(email: str) -> bool:
+    return bool(email) and domain_of(email) == MAIL_DOMAIN.lower()
+
+
+def mail_account_active(email: str) -> bool:
+    """True when km0-mail already has an active row for this mailbox address."""
+    status, body = mail_request("GET", f"/account/{email}/status")
+    return status == 200 and body.get("active") is True
 
 
 def is_freemail_domain(domain: str) -> bool:
@@ -456,6 +565,194 @@ def update_password():
     if status == 200:
         return jsonify({"ok": True, "email": email}), 200
     return jsonify({"error": body.get("error", "mail_update_failed")}), status
+
+
+@app.route("/activate-mail", methods=["POST"])
+def activate_mail():
+    """Activate KM0 Mail for an existing OpenCloud user (no new Graph user).
+
+    Authz: end-user Bearer (Graph /me) or ACTIVATE_MAIL_SERVICE_TOKEN + opencloud_uuid.
+    See register-api README.
+
+    Identity rule (#24 / Design A): do **not** rewrite Graph ``mail`` to the KM0
+    mailbox. OIDC-first users (Google, Apple, or any future freemail connector)
+    keep ``onPremisesSamAccountName`` = IdP email (freemail) and
+    ``PROXY_USER_OIDC_CLAIM=email`` matches ``PROXY_USER_CS3_CLAIM=username``.
+    Patching ``mail`` to ``@km0`` would (a) break Dex LDAP Cloud rematch when
+    the email claim no longer equals username, and (b) be undone by OpenCloud
+    ``UpdateUserIfNeeded`` on the next OIDC login. Mailbox address lives in
+    km0-mail (``contact_email`` + ``opencloud_uuid``); Roundcube LDAP OAuth
+    freemail→mailbox mapping is km0-mail #9/#12.
+    """
+    if not check_origin():
+        return jsonify({"error": "forbidden"}), 403
+
+    if request.content_type and "application/json" not in request.content_type:
+        return jsonify({"error": "invalid_content_type"}), 400
+
+    data = request.get_json(silent=True) or {}
+    caller, auth_err = resolve_activate_caller(data)
+    if auth_err:
+        code = {
+            "unauthorized": 401,
+            "forbidden": 403,
+            "not_found": 404,
+            "missing_opencloud_uuid": 400,
+            "service_unavailable": 503,
+        }.get(auth_err, 401)
+        return jsonify({"error": auth_err}), code
+
+    username = (data.get("username") or "").strip().lower()
+    password = data.get("password") or ""
+    err = validate_username(username)
+    if err:
+        return jsonify({"error": err}), 400
+    err = validate_password(password)
+    if err:
+        return jsonify({"error": err}), 400
+
+    mailbox_email = f"{username}@{MAIL_DOMAIN.lower()}"
+    # Freemail cannot be the mailbox; mailbox is always @MAIL_DOMAIN.
+    if is_freemail_domain(domain_of(mailbox_email)):
+        return jsonify({"error": "freemail_blocked"}), 400
+
+    contact_email = (data.get("contact_email") or "").strip().lower() or None
+    if contact_email:
+        cerr = validate_email(contact_email)
+        if cerr:
+            return jsonify({"error": "invalid_contact_email"}), 400
+    else:
+        # Prefer existing Graph mail when it is the OIDC freemail (not the KM0 mailbox).
+        existing_mail = (caller.get("mail") or "").strip().lower()
+        if existing_mail and not is_km0_mailbox(existing_mail):
+            contact_email = existing_mail
+
+    if not graph_configured():
+        return jsonify({"error": "service_unavailable"}), 503
+    if not graph_auth_ok():
+        return jsonify({"error": "service_unavailable"}), 503
+    if not MAIL_PROVISION_TOKEN:
+        return jsonify({"error": "mail_provision_not_configured"}), 503
+
+    opencloud_uuid = caller.get("id")
+    current_mail = (caller.get("mail") or "").strip().lower()
+    sam = (caller.get("onPremisesSamAccountName") or "").strip().lower()
+
+    # Idempotent: mailbox already provisioned for this address (mail-provision is source of truth).
+    already_this_mailbox = mail_account_active(mailbox_email)
+
+    # Legacy #23: Graph mail was rewritten to a different @km0 address — keep that mailbox.
+    if (
+        not already_this_mailbox
+        and is_km0_mailbox(current_mail)
+        and current_mail != mailbox_email
+    ):
+        return (
+            jsonify(
+                {
+                    "ok": True,
+                    "status": "exists",
+                    "username": current_mail.split("@", 1)[0],
+                    "email": current_mail,
+                    "opencloud_uuid": opencloud_uuid,
+                    "mail": {
+                        "ok": True,
+                        "email": current_mail,
+                        "mail_mode": "km0",
+                        "status": "exists",
+                    },
+                }
+            ),
+            200,
+        )
+
+    # Username / mailbox taken by a different Graph user (register-first collision).
+    if not already_this_mailbox:
+        for key in (username, mailbox_email):
+            status, other = graph_get_user(key)
+            if status == 200 and other and other.get("id") != opencloud_uuid:
+                return jsonify({"error": "duplicate"}), 409
+
+    # Never change onPremisesSamAccountName (OIDC rematch key under CS3 username).
+    patch: dict = {"passwordProfile": {"password": password}}
+    # Heal #23 rewrites: restore IdP/freemail Graph mail when contact_email is known.
+    if (
+        contact_email
+        and not is_km0_mailbox(contact_email)
+        and is_km0_mailbox(current_mail)
+    ):
+        patch["mail"] = contact_email
+        log.info(
+            "activate-mail restoring Graph mail uuid=%s from %s to contact %s (sam=%s)",
+            opencloud_uuid,
+            current_mail,
+            contact_email,
+            sam or "?",
+        )
+
+    status, reason = graph_patch_user(opencloud_uuid, patch)
+    if status not in (200, 204):
+        return jsonify({"error": reason or "internal"}), status
+
+    ok, mail_body = provision_mailbox(
+        mailbox_email, password, opencloud_uuid, "km0", contact_email
+    )
+    mail_status = mail_body.get("status") if ok else None
+    http_code = 200 if already_this_mailbox or mail_status == "exists" else 201
+    response = {
+        "ok": True,
+        "status": "exists" if http_code == 200 else "created",
+        "username": username,
+        "email": mailbox_email,
+        "opencloud_uuid": opencloud_uuid,
+        "graph_mail_preserved": True,
+        "mail": {
+            "ok": ok,
+            "email": mailbox_email,
+            "mail_mode": "km0",
+        },
+    }
+    if contact_email:
+        response["contact_email"] = contact_email
+    if "mail" in patch:
+        response["graph_mail_restored"] = patch["mail"]
+    if ok:
+        response["mail"].update(
+            {
+                k: mail_body[k]
+                for k in ("status", "verification_status")
+                if k in mail_body
+            }
+        )
+        # Keep mailbox password in sync (same path as /update-password).
+        if mail_status == "exists":
+            sync_status, sync_body = mail_request(
+                "POST",
+                "/update-password",
+                {"email": mailbox_email, "password": password},
+            )
+            if sync_status != 200:
+                log.warning(
+                    "activate-mail password sync failed for %s: %s",
+                    mailbox_email,
+                    sync_body,
+                )
+                response["mail"]["password_sync"] = False
+                response["mail"]["password_sync_error"] = sync_body.get(
+                    "error", "mail_update_failed"
+                )
+            else:
+                response["mail"]["password_sync"] = True
+    else:
+        response["mail"]["error"] = mail_body.get("error", "mail_provision_failed")
+        log.error(
+            "activate-mail Graph ok but provision failed uuid=%s mail=%s body=%s",
+            opencloud_uuid,
+            mailbox_email,
+            mail_body,
+        )
+
+    return jsonify(response), http_code
 
 
 if __name__ == "__main__":

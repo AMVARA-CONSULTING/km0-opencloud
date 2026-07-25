@@ -6,6 +6,9 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- Apple / OIDC parity for activate-mail + login (#26): wizard and API docs are IdP-agnostic (not Google-only); login reveals Apple CTA only when Dex has the connector (`probeDexConnector('apple')`, hidden when unset); same hub deep-link `https://cloud.km0digital.com/activate-mail.html` for Google and Apple; runbook provider parity table (Google \| Apple \| LDAP).
+- Cloud-origin **Activate KM0 Mail** wizard (`/activate-mail.html`): reads Bearer from `oc_oAuth.user:`, posts to `/api/activate-mail`, CA/ES/EN/DE i18n; canonical hub deep-link `https://cloud.km0digital.com/activate-mail.html` (km0-mail #14 / #25).
+- register-api `POST /activate-mail`: existing OpenCloud (Google/OIDC) users activate `username@km0digital.com` without creating a Graph user; Bearer `/me` or optional hub service token + uuid; freemail contact allowed; nginx `/api/activate-mail`; coordinates with km0-mail #10 / hub #11 (#23).
 - Runbook: known OpenCloud limitation — public-link subfolder ZIP (`/archiver` → `download.zip` 404); per-file / logged-in WebDAV workaround; optional upstream issue draft `docs/issue-public-share-folder-zip-archiver.md`.
 - Cloud session gate (`km0-session-gate.html`): `/`, `/login`, `/login.html`, and web `/dex/auth` check browser OIDC storage and forward to `/files` when a session exists, otherwise redirect to the auth hub.
 - Auth hub (`auth.km0digital.com`): cloud `/login`, `/register`, and `/logout` redirect to the hub; OIDC bridge `km0-oidc-start.html`, `km0-sso-snippet.js` injection, and TLS helper `scripts/issue-auth-km0digital-cert.sh`.
@@ -21,6 +24,8 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- register-api `POST /activate-mail` no longer rewrites Graph `mail` to `@km0digital.com` (#24 Design A). OIDC-first users (Google/Apple/…) keep freemail Graph `mail` / username so OpenCloud `PROXY_USER_OIDC_CLAIM=email` rematches the same `openCloudUUID`; mailbox stays in km0-mail with `contact_email`. Optional `contact_email` restores Graph `mail` if a prior activate (#23) had patched it. Roundcube LDAP OAuth freemail→mailbox mapping remains km0-mail #9/#12.
+- Session gate: honor `?service=mail` when an OpenCloud OIDC session exists — redirect to hub `/sso-continue` (Roundcube `prompt=none`) instead of `/files`; `service=cloud` / default still auto-enters `/files`; OIDC resume still goes to the hub (#22).
 - WOPI / collaboration after OpenCloud 7.3.0: set `COLLABORATION_EVENTS_ENDPOINT` and store nodes to `opencloud:9233` in `overrides/opencloud-compose/external-proxy/collabora.yml` (loopback NATS default caused nginx 502 on `wopi.*`).
 - Logout: Dex end-session redirects to hub login with `signed_out=1`; `id_token_hint` optional so logout still completes without a stored token.
 
