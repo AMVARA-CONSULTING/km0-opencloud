@@ -294,7 +294,7 @@
       <h2 data-i18n="activateMailSuccessTitle">Buzón listo</h2>
       <div data-i18n-html="activateMailSuccessBody"></div>
       <p>
-        <a id="km0-roundcube-link" href="https://mail.km0digital.com/" data-i18n="activateMailOpenRoundcube">Abrir Roundcube</a>
+        <a id="km0-roundcube-link" href="https://mail.km0digital.com/index.php?_task=login&amp;activated=1" data-i18n="activateMailOpenRoundcube">Abrir Roundcube</a>
         ·
         <a href="/files" data-i18n="activateMailBackCloud">Volver a Cloud</a>
       </p>
@@ -347,7 +347,7 @@
       var SPECIAL_RE = /[!@#$%^&*(),.?":{}|<>\[\]\\/_+=\-~`]/;
       var EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       var HUB_LOGIN = 'https://auth.km0digital.com/login?service=cloud&session_checked=1';
-      var MAIL_HOME = 'https://mail.km0digital.com/';
+      var MAIL_PASSWORD_LOGIN = 'https://mail.km0digital.com/index.php?_task=login&activated=1';
 
       var form = document.getElementById('km0-activate-form');
       var errorEl = document.getElementById('km0-activate-error');
@@ -356,6 +356,9 @@
       var submitBtn = document.getElementById('km0-activate-submit');
       var contactInput = document.getElementById('km0-contact');
       var roundcubeLink = document.getElementById('km0-roundcube-link');
+      if (roundcubeLink) {
+        roundcubeLink.href = MAIL_PASSWORD_LOGIN;
+      }
 
       function t(key) {
         if (window.KM0LoginI18n && window.KM0LoginI18n.t) {
@@ -429,9 +432,9 @@
       function showSuccess(mailboxEmail) {
         form.classList.add('is-hidden');
         successEl.classList.add('form-success--visible');
-        if (mailboxEmail) {
-          roundcubeLink.href = MAIL_HOME;
-          roundcubeLink.title = mailboxEmail;
+        if (roundcubeLink) {
+          roundcubeLink.href = MAIL_PASSWORD_LOGIN;
+          if (mailboxEmail) roundcubeLink.title = mailboxEmail;
         }
         if (window.KM0LoginI18n && window.KM0LoginI18n.getLocale) {
           /* re-apply HTML success copy after locale may have changed */
