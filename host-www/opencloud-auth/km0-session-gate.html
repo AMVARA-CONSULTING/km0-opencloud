@@ -31,6 +31,7 @@
       'use strict';
 
       var HUB_LOGIN = 'https://auth.km0digital.com/login';
+      var MAIL_SSO_CONTINUE = 'https://auth.km0digital.com/sso-continue';
 
       /* OpenCloud web stores oidc-client-ts under oc_oAuth.user: (tokenStorageLocal). */
       function hasActiveOidcSession() {
@@ -83,6 +84,11 @@
 
         /* Active Cloud session and no in-flight OIDC resume → skip login. */
         if (!oidcResume && hasActiveOidcSession()) {
+          /* Mail: reuse Cloud OIDC session via hub SSO continue (Roundcube prompt=none). */
+          if (params.get('service') === 'mail') {
+            location.replace(MAIL_SSO_CONTINUE);
+            return;
+          }
           location.replace('/files');
           return;
         }

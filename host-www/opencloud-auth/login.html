@@ -337,6 +337,22 @@
         });
       }
 
+      /* Reveal Apple only when Dex has the connector (APPLE_CLIENT_* set). */
+      var appleRow = document.getElementById('km0-login-apple-row');
+      if (appleRow && window.KM0DexAuth.probeDexConnector) {
+        window.KM0DexAuth.probeDexConnector('apple').then(function (ok) {
+          if (!ok) return;
+          appleRow.hidden = false;
+          try {
+            var intro = document.querySelector('[data-i18n="landingDescription"], [data-i18n="landingDescriptionWithApple"]');
+            if (intro && window.KM0LoginI18n && window.KM0LoginI18n.t) {
+              intro.setAttribute('data-i18n', 'landingDescriptionWithApple');
+              intro.textContent = window.KM0LoginI18n.t('landingDescriptionWithApple');
+            }
+          } catch (_) {}
+        });
+      }
+
       var localBtn = document.getElementById('km0-local-login');
       if (localBtn) {
         localBtn.addEventListener('click', function () {

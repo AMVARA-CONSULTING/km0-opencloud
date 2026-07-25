@@ -33,9 +33,50 @@ login_code="$(curl -sS -o /tmp/km0-cloud-login.html -w '%{http_code}' "${CLOUD_U
 grep -q 'hasActiveOidcSession\|km0-session-gate\|Comprobando sesión' /tmp/km0-cloud-login.html || fail "cloud /login.html missing session gate"
 pass "cloud /login.html → session gate (HTTP 200)"
 
-gate_code="$(curl -sS -o /dev/null -w '%{http_code}' "${CLOUD_URL}/km0-session-gate.html")"
+gate_code="$(curl -sS -o /tmp/km0-session-gate.html -w '%{http_code}' "${CLOUD_URL}/km0-session-gate.html")"
 [[ "$gate_code" == "200" ]] || fail "cloud /km0-session-gate.html returned ${gate_code}"
-pass "cloud /km0-session-gate.html HTTP 200"
+grep -q "get('service') === 'mail'" /tmp/km0-session-gate.html || fail "session gate missing service=mail branch"
+grep -q 'sso-continue' /tmp/km0-session-gate.html || fail "session gate missing sso-continue for mail"
+grep -q "/files" /tmp/km0-session-gate.html || fail "session gate missing /files for cloud"
+pass "cloud /km0-session-gate.html HTTP 200 (mail→sso-continue, cloud→/files)"
+
+activate_code="$(curl -sS -o /tmp/km0-activate-mail.html -w '%{http_code}' "${CLOUD_URL}/activate-mail.html")"
+[[ "$activate_code" == "200" ]] || fail "cloud /activate-mail.html returned ${activate_code}"
+grep -q 'km0-activate-form' /tmp/km0-activate-mail.html || fail "activate-mail.html missing form"
+grep -q "/api/activate-mail" /tmp/km0-activate-mail.html || fail "activate-mail.html missing API path"
+grep -q 'Authorization' /tmp/km0-activate-mail.html || fail "activate-mail.html missing Bearer Authorization"
+grep -q 'data-i18n="activateMailTitle"' /tmp/km0-activate-mail.html || fail "activate-mail.html missing i18n title"
+grep -qi 'IdP\|OIDC' /tmp/km0-activate-mail.html || fail "activate-mail.html missing OIDC/IdP-neutral copy (#26)"
+pass "cloud /activate-mail.html HTTP 200 (wizard + Bearer activate path)"
+
+activate_short="$(curl -sS -o /dev/null -w '%{redirect_url}' "${CLOUD_URL}/activate-mail")"
+[[ "$activate_short" == *"/activate-mail.html"* ]] || fail "cloud /activate-mail redirect: ${activate_short}"
+pass "cloud /activate-mail → activate-mail.html"
+
+# Apple CTA (#26): probe helper + asset starts hidden; Dex returns 400 when unset / 302 when live.
+dex_auth_code="$(curl -sS -o /tmp/km0-dex-auth.js -w '%{http_code}' "${CLOUD_URL}/dex-auth.js")"
+[[ "$dex_auth_code" == "200" ]] || fail "cloud /dex-auth.js returned ${dex_auth_code}"
+grep -q 'probeDexConnector' /tmp/km0-dex-auth.js || fail "dex-auth.js missing probeDexConnector (#26)"
+pass "cloud /dex-auth.js has probeDexConnector (Apple reveal)"
+
+apple_probe="$(curl -sS -o /dev/null -w '%{http_code}' \
+  "${CLOUD_URL}/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2F&response_type=code&scope=openid%20profile%20email&connector_id=apple&state=km0-verify")"
+if [[ "$apple_probe" == "400" ]]; then
+  pass "Dex apple connector unset (HTTP 400) — Apple CTA must stay hidden"
+elif [[ "$apple_probe" == "302" ]]; then
+  pass "Dex apple connector live (HTTP 302) — login should reveal Apple CTA"
+else
+  fail "unexpected Dex apple probe HTTP ${apple_probe} (want 400 unset or 302 live)"
+fi
+
+LOGIN_ASSET="${KM0_AUTH_WWW:-/var/www/opencloud-auth}/login.html"
+if [[ -f "$LOGIN_ASSET" ]]; then
+  grep -q 'id="km0-login-apple-row" hidden' "$LOGIN_ASSET" \
+    || fail "${LOGIN_ASSET} Apple row must start with hidden (#26)"
+  grep -q 'probeDexConnector' "$LOGIN_ASSET" \
+    || fail "${LOGIN_ASSET} missing Apple probeDexConnector call (#26)"
+  pass "login.html Apple row starts hidden + probe present"
+fi
 
 loc="$(curl -sS -o /dev/null -w '%{redirect_url}' "${CLOUD_URL}/register")"
 [[ "$loc" == *"auth.km0digital.com/register"* ]] || fail "cloud /register redirect: ${loc}"

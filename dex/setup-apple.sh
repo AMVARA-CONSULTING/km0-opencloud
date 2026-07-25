@@ -87,14 +87,23 @@ else
   echo "Warning: Apple connector not found in Dex logs. Check: docker logs opencloud-dex" >&2
 fi
 
+# Hybrid login (host-www) reveals the Apple CTA via KM0DexAuth.probeDexConnector('apple')
+# when this connector is live (HTTP 302). No secrets are exposed; when APPLE_CLIENT_* is
+# unset the probe returns 400 and the button stays hidden.
+AUTH_WWW="${KM0_AUTH_WWW:-/var/www/opencloud-auth}"
+if [ -d "/opt/opencloud/host-www/opencloud-auth" ]; then
+  rsync -a /opt/opencloud/host-www/opencloud-auth/ "${AUTH_WWW}/" 2>/dev/null || true
+fi
+
 if curl -fsS "https://cloud.km0digital.com/dex/auth?client_id=opencloud-web&redirect_uri=https%3A%2F%2Fcloud.km0digital.com%2Foidc-callback.html&response_type=code&scope=openid+profile+email&state=test&code_challenge=E9Melhoa2OwvFrEMTIguAEAOvqlb6vJxRFnGlK4K3k&code_challenge_method=S256" 2>/dev/null | grep -q Apple; then
   echo "Dex login page lists Apple."
 else
-  echo "Open https://cloud.km0digital.com/ and confirm Apple appears on the login screen."
+  echo "Open https://cloud.km0digital.com/ (or auth hub) and confirm Apple appears when the CTA probe succeeds."
 fi
 
 echo ""
 echo "Apple Developer — Services ID Return URL must include:"
 echo "  https://cloud.km0digital.com/dex/callback"
 echo ""
-echo "Done. Re-test login at https://cloud.km0digital.com/"
+echo "Activate-mail deep-link (same for Google/Apple): https://cloud.km0digital.com/activate-mail.html"
+echo "Done. Re-test login at https://cloud.km0digital.com/ / https://auth.km0digital.com/login"

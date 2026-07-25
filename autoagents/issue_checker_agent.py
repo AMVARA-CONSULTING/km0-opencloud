@@ -32,11 +32,18 @@ def _gh(*args: str) -> subprocess.CompletedProcess[str]:
     )
 
 
+# Skip if any active/archived-in-queue task already tracks this issue.
+_TASK_STATUSES = ("FEAT", "WIP", "UNTESTED", "TESTING", "CLOSED")
+_AGENT_IN_FLIGHT = frozenset(
+    {"agent:planned", "agent:wip", "agent:untested", "agent:testing"}
+)
+
+
 def has_task_file(issue_num: int) -> bool:
     if not os.path.isdir(TASKS_DIR):
         return False
-    prefix = f"FEAT-{issue_num}-"
-    return any(f.startswith(prefix) for f in os.listdir(TASKS_DIR))
+    prefixes = tuple(f"{status}-{issue_num}-" for status in _TASK_STATUSES)
+    return any(f.startswith(prefixes) for f in os.listdir(TASKS_DIR))
 
 
 def get_open_issues() -> list[dict]:
@@ -151,15 +158,16 @@ def run_workflow() -> bool:
             break
         num = issue["number"]
         if has_task_file(num):
-            print(f"  skip #{num} — FEAT file exists")
+            print(f"  skip #{num} — task file already exists (FEAT/WIP/UNTESTED/…)")
             continue
         details = fetch_issue_details(num)
         if not details:
             print(f"  skip #{num} — could not fetch details")
             continue
         labels = [l.get("name", "") for l in details.get("labels", [])]
-        if "agent:planned" in labels:
-            print(f"  skip #{num} — agent:planned")
+        busy = _AGENT_IN_FLIGHT.intersection(labels)
+        if busy:
+            print(f"  skip #{num} — already labeled {sorted(busy)[0]}")
             continue
         path = create_task(details)
         basename = os.path.basename(path)

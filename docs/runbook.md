@@ -423,7 +423,7 @@ Authentication uses **Dex** as the sole OIDC issuer. **All** tokens (Google, App
 | OpenCloud built-in `idp` | Local LDAP users (admin, manually created accounts) |
 | OpenCloud | `OC_OIDC_ISSUER=https://cloud.km0digital.com/dex`, `WEB_OIDC_CLIENT_ID=opencloud-web` |
 
-**Single login landing:** https://auth.km0digital.com/login (hub). Cloud entry points (`/`, `/login.html`, `/login`) serve **`/km0-session-gate.html`**, which auto-forwards to `/files` when an OpenCloud OIDC session exists in browser storage, otherwise redirects to the hub. CA | ES | EN | DE via hub `/i18n.js` and Dex `/dex/theme/i18n.js`.
+**Single login landing:** https://auth.km0digital.com/login (hub). Cloud entry points (`/`, `/login.html`, `/login`) serve **`/km0-session-gate.html`**. With an OpenCloud OIDC session in browser storage and no in-flight OIDC resume: `service=cloud` (or empty) → `/files`; `service=mail` → hub `/sso-continue` (Roundcube OAuth `prompt=none`). Without a session → hub login (`session_checked=1`). CA | ES | EN | DE via hub `/i18n.js` and Dex `/dex/theme/i18n.js`.
 
 **Session lifetime:** Dex issues ID tokens for **24h** and refresh tokens valid **30 days idle / 90 days absolute**. Web OIDC scope includes `offline_access` (`WEB_OIDC_SCOPE` / `config-dex.json`) so OpenCloud Web can refresh without re-prompting.
 
@@ -444,12 +444,37 @@ After registration, the user signs in via the existing Dex LDAP flow (`connector
 
 **Optional KM0 Mail:** check **Create KM0 Mail account** on the register form (or use `mail.km0digital.com/register`). register-api provisions the mailbox via km0-mail when `create_mail=true`. Freemail domains (Gmail, Outlook, …) are rejected as mailbox addresses but allowed as contact email.
 
+**Activate Mail (existing Cloud users):** OIDC-first users (Google, Apple when enabled, or any freemail IdP) who already have a Graph/IDM account can call `POST /api/activate-mail` (register-api `/activate-mail`) to choose `username` → `username@km0digital.com`, link `opencloud_uuid`, set LDAP + mailbox password, and keep the IdP email as `contact_email`. Requires `Authorization: Bearer <OpenCloud access_token>` (Graph `/me`) or optional hub `ACTIVATE_MAIL_SERVICE_TOKEN` + uuid after the hub proves session ownership. Does not create a duplicate Graph user. Mail-provision details: km0-mail #10.
+
+**Activate Mail wizard (cloud origin, #25 / #26):** Hub on `auth.km0digital.com` cannot read Cloud `oc_oAuth.user:` storage. End users activate via the **cloud-origin** page (same deep-link for every IdP):
+
+| | |
+|--|--|
+| **Canonical URL (hub deep-link)** | `https://cloud.km0digital.com/activate-mail.html` |
+| Short redirect | `https://cloud.km0digital.com/activate-mail` → same page |
+| Source | `host-www/opencloud-auth/activate-mail.html` |
+| API | Browser Bearer → `POST /api/activate-mail` |
+
+Hub CTA (km0-mail #14) should deep-link to that URL when `service=mail` and the user has Cloud OIDC but no mailbox yet — **Google or Apple** (when Apple connector is live). Do **not** open unauthenticated activate. Session-gate `?service=mail` → hub `/sso-continue` (#22) stays for LDAP-capable mail SSO; wizard is the no-mailbox path.
+
+**Activate Mail + OIDC rematch (#24 / #26):** OpenCloud matches OIDC `email` to CS3 `username` (`PROXY_USER_OIDC_CLAIM=email`, `PROXY_USER_CS3_CLAIM=username`). OIDC-first accounts use IdP email as `onPremisesSamAccountName`. `activate-mail` must **not** rewrite Graph `mail` to the KM0 mailbox (that also fights OpenCloud `UpdateUserIfNeeded` on the next Google **or Apple** login). Mailbox address is stored only in km0-mail. If Graph `mail` was already patched to `@km0` by an older activate, re-run with `contact_email=<idp-email>` to restore freemail on Graph. Rejected alternatives: B (custom account-link bridge), C (upstream multi-email linking — not available). Roundcube LDAP OAuth needing token `email`=mailbox is km0-mail #9/#12.
+
+**Provider parity (activate-mail / Cloud login):**
+
+| Path | Google | Apple (optional) | LDAP (local) |
+|------|--------|------------------|--------------|
+| Cloud sign-in | Dex `connector_id=google` | Dex `connector_id=apple` when `APPLE_CLIENT_*` set; CTA hidden otherwise (`probeDexConnector`) | Dex `connector_id=ldap` |
+| Rematch after activate | IdP email stays Graph `mail` / SAM (#24) | Same uuid guarantee (#26) | Username/password; mailbox password for Roundcube |
+| Activate wizard deep-link | `https://cloud.km0digital.com/activate-mail.html` | Same URL | Same URL (after Cloud session) |
+| Hub `service=mail` intent | Deep-link wizard or `/sso-continue` (#22) | Same | Prefer `/sso-continue` when mailbox exists |
+
 | Component | Path |
 |-----------|------|
 | Register page | `host-www/opencloud-auth/register.html` |
+| Activate Mail wizard | `host-www/opencloud-auth/activate-mail.html` → `/activate-mail.html` |
 | Registration API | `register-api/` (Docker on `127.0.0.1:8091`, network `km0-mail_mailnet`) |
 | Mail registration UI | https://mail.km0digital.com/register (same API via nginx proxy) |
-| Nginx | `register.html`, `/api/register` + rate limit (`nginx/conf.d/opencloud-rate-limit.conf`) |
+| Nginx | `register.html`, `/activate-mail.html`, `/api/register` + `/api/activate-mail` + rate limit (`nginx/conf.d/opencloud-rate-limit.conf`) |
 
 **Operator setup (one-time):**
 

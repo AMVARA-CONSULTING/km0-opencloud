@@ -40,7 +40,7 @@
     } catch (_) {}
   }
 
-  function getStoredIdToken() {
+  function getStoredOidcUser() {
     var stores = [localStorage, sessionStorage];
     var keyPrefixes = ['oc_oAuth.user:', 'oidc.user:'];
     for (var s = 0; s < stores.length; s++) {
@@ -56,11 +56,27 @@
         if (!matched) continue;
         try {
           var v = JSON.parse(store.getItem(k));
-          if (v && v.id_token) return v.id_token;
+          if (!v) continue;
+          var token = v.access_token || v.id_token;
+          if (!token) continue;
+          if (v.expires_at && v.expires_at * 1000 <= Date.now() && !v.refresh_token) {
+            continue;
+          }
+          return v;
         } catch (_) {}
       }
     }
     return null;
+  }
+
+  function getStoredIdToken() {
+    var user = getStoredOidcUser();
+    return user && user.id_token ? user.id_token : null;
+  }
+
+  function getStoredAccessToken() {
+    var user = getStoredOidcUser();
+    return user && user.access_token ? user.access_token : null;
   }
 
   function postLogoutLoginUri() {
@@ -196,6 +212,29 @@
     startDexLogin(connectorId, extra);
   }
 
+  /**
+   * Probe whether a Dex connector is registered (no secrets).
+   * Live connector → 302/opaque redirect; missing → 400.
+   * Used to reveal optional CTAs (e.g. Apple) only when configured.
+   */
+  function probeDexConnector(connectorId) {
+    var redirectUri = encodeURIComponent(
+      (typeof location !== 'undefined' && location.origin ? location.origin : 'https://cloud.km0digital.com') + '/'
+    );
+    var url = '/dex/auth?client_id=opencloud-web'
+      + '&redirect_uri=' + redirectUri
+      + '&response_type=code&scope=openid%20profile%20email'
+      + '&connector_id=' + encodeURIComponent(connectorId)
+      + '&state=km0-probe-' + encodeURIComponent(connectorId);
+    return fetch(url, { method: 'GET', redirect: 'manual', credentials: 'same-origin' })
+      .then(function (res) {
+        if (res.type === 'opaqueredirect') return true;
+        if (res.status >= 300 && res.status < 400) return true;
+        return false;
+      })
+      .catch(function () { return false; });
+  }
+
   function storePendingLogin(login, password) {
     try {
       sessionStorage.setItem(PENDING_LOGIN_KEY, JSON.stringify({
@@ -238,12 +277,16 @@
   global.KM0DexAuth = {
     startDexLogin: startDexLogin,
     startDexLoginWithPrompt: startDexLoginWithPrompt,
+    probeDexConnector: probeDexConnector,
     setAuthModeCookie: setAuthModeCookie,
     clearOidcBrowserState: clearOidcBrowserState,
     clearAllAuthState: clearAllAuthState,
     completeLogoutIfNeeded: completeLogoutIfNeeded,
     oidcParamsFromUrl: oidcParamsFromUrl,
     storePendingLogin: storePendingLogin,
-    autoSubmitPendingLogin: autoSubmitPendingLogin
+    autoSubmitPendingLogin: autoSubmitPendingLogin,
+    getStoredOidcUser: getStoredOidcUser,
+    getStoredAccessToken: getStoredAccessToken,
+    getStoredIdToken: getStoredIdToken
   };
 })(window);
