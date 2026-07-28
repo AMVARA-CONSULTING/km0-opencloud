@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- autoagents Redmine time sync: parse `WIP-` stamps and Markdown `**Closed at (UTC):**`; skip time logging when Closed at is missing (no `now()` fallback); coders refresh `YYYYMMDD-HHMM` on FEAT/NEW→WIP so duration excludes queue wait.
+
 ### Added
 
 - Apple / OIDC parity for activate-mail + login (#26): wizard and API docs are IdP-agnostic (not Google-only); login reveals Apple CTA only when Dex has the connector (`probeDexConnector('apple')`, hidden when unset); same hub deep-link `https://cloud.km0digital.com/activate-mail.html` for Google and Apple; runbook provider parity table (Google \| Apple \| LDAP).
