@@ -2016,3 +2016,861 @@
 
 2026-07-28T23:10:48Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
 
+2026-07-28T23:16:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-28T23:21:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-28T23:26:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-28T23:31:52Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-28T23:37:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-28T23:42:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-28T23:47:20Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-28T23:52:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-28T23:57:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:02:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:07:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:13:03Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:18:12Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:23:21Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:28:30Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:33:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:38:48Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:43:56Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:49:05Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:54:14Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T00:59:23Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:04:32Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:09:41Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:14:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:19:58Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:25:07Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:30:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:35:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:40:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:45:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:50:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T01:56:02Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:01:11Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:06:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:11:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:16:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:21:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:26:56Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:32:05Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:37:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:42:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:47:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:52:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T02:57:49Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:02:58Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:08:07Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:13:15Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:18:24Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:23:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:28:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:33:52Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:39:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:44:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:49:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:54:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T03:59:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:04:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:09:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:15:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:20:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:25:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:30:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:35:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:40:48Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:45:57Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:51:06Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T04:56:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:01:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:06:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:11:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:16:52Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:22:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:27:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:32:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:37:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:42:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:47:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:52:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T05:58:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:03:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:08:23Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:13:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:18:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:23:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:28:59Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:34:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:39:17Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:44:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:49:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:54:45Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T06:59:54Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:05:03Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:10:12Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:15:21Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:20:30Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:25:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:30:48Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:35:58Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:41:06Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:46:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:51:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T07:56:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:01:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:06:52Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:12:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:17:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:22:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:27:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:32:38Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:37:47Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:42:56Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:48:05Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:53:14Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T08:58:23Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:03:33Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:08:42Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:13:51Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:19:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:24:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:29:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:34:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:39:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:44:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:49:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T09:55:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:00:14Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:05:23Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:10:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:15:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:20:52Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:26:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:31:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:36:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:41:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:46:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:51:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T10:56:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:02:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:07:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:12:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:17:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:22:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:27:49Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:32:57Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:38:06Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:43:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:48:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:53:33Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T11:58:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:03:52Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:09:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:14:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:19:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:24:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:29:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:34:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:39:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:45:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:50:14Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T12:55:23Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:00:32Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:05:41Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:10:51Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:16:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:21:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:26:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:31:30Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:36:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:41:49Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:46:58Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:52:07Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T13:57:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:02:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:07:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:12:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:17:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:23:03Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:28:12Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:33:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:38:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:43:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:48:49Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:53:59Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T14:59:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:04:17Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:09:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:14:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:19:45Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:24:54Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:30:03Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:35:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:40:23Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:45:33Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:50:42Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T15:55:51Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:01:00Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:06:09Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:11:18Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:16:27Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:21:36Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:26:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:31:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:37:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:42:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:47:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:52:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T16:57:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:02:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:07:59Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:13:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:18:17Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:23:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:28:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:33:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:38:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:44:02Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:49:11Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:54:21Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T17:59:30Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:04:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:09:48Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:14:57Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:20:07Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:25:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:30:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:35:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:40:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:45:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:51:03Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T18:56:12Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:01:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:06:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:11:41Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:16:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:21:59Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:27:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:32:17Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:37:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:42:36Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:47:45Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:52:54Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T19:58:03Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:03:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:08:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:13:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:18:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:23:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:28:59Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:34:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:39:18Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:44:27Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:49:36Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:54:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T20:59:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:05:02Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:10:11Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:15:20Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:20:30Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:25:38Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:30:47Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:35:56Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:41:06Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:46:15Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:51:24Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T21:56:33Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:01:42Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:06:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:11:59Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:17:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:22:17Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:27:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:32:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:37:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:42:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:48:02Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:53:11Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T22:58:20Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:03:29Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:08:38Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:13:47Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:18:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:24:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:29:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:34:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:39:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:44:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:49:49Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-29T23:54:58Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:00:07Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:05:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:10:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:15:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:20:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:25:52Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:31:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:36:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:41:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:46:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:51:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T00:56:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:01:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:07:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:12:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:17:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:22:32Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:27:41Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:32:51Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:38:00Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:43:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:48:18Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:53:27Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T01:58:36Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:03:45Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:08:54Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:14:03Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:19:13Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:24:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:29:31Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:34:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:39:49Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:44:58Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:50:07Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T02:55:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:00:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:05:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:10:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:15:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:21:02Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:26:11Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:31:20Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:36:29Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:41:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:46:48Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:51:57Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T03:57:06Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:02:15Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:07:24Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:12:33Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:17:42Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:22:51Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:28:00Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:33:09Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:38:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:43:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:48:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:53:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T04:58:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:04:04Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:09:12Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:14:22Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:19:30Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:24:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:29:48Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:34:57Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:40:06Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:45:14Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:50:24Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T05:55:33Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:00:41Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:05:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:11:00Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:16:09Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:21:18Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:26:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:31:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:36:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:41:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:47:02Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:52:11Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T06:57:20Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:02:29Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:07:38Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:12:47Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:17:56Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:23:05Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:28:14Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:33:23Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:38:32Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:43:41Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:48:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:53:59Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T07:59:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:04:17Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:09:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:14:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:19:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:24:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:30:02Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:35:11Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:40:21Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:45:30Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:50:39Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T08:55:48Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:00:57Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:06:06Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:11:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:16:25Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:21:34Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:26:43Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:31:52Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:37:01Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:42:10Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:47:19Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:52:28Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T09:57:37Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:02:46Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:07:55Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:13:05Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:18:14Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:23:23Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:28:32Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:33:40Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:38:50Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:43:59Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:49:08Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:54:16Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T10:59:26Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:04:35Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:09:44Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:14:53Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:20:02Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:25:11Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:30:20Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:35:29Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:40:38Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:45:47Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:50:56Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T11:56:05Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
+2026-07-30T12:01:18Z UTC | 001 local (no cursor-agent) | FEAT: 0 | NEW: 0 | G001_GH_OK=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+
