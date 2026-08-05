@@ -4,9 +4,13 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- autoagents Redmine sync: duration is note-only (*Time taken*); no longer POSTs `/time_entries.json` or uses `REDMINE_ACTIVITY_ID`.
+
 ### Fixed
 
-- autoagents Redmine time sync: parse `WIP-` stamps and Markdown `**Closed at (UTC):**`; skip time logging when Closed at is missing (no `now()` fallback); coders refresh `YYYYMMDD-HHMM` on FEAT/NEW→WIP so duration excludes queue wait.
+- autoagents Redmine notes: parse `WIP-` stamps and Markdown `**Closed at (UTC):**`; omit *Time taken* when Closed at is missing (no `now()` fallback); coders refresh `YYYYMMDD-HHMM` on FEAT/NEW→WIP so duration excludes queue wait.
 
 ### Added
 
