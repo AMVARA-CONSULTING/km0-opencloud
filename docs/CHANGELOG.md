@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- Sync Dex static `dex/web/static/dex-auth.js` with the auth-hub copy (OIDC token helpers, `probeDexConnector`) so password/error pages served from Dex stay current after restart.
 - Authelia SMTP notifier: `skip_verify` for Postfix submission (local/self-signed CN=localhost); startup check address `postmaster@km0digital.com`; gitignore `secrets/noreply.smtp.password`.
 - Authelia compose: stop mounting `.env` as `env_file` (avoids `AUTHELIA_REDIS_PASSWORD` being treated as Authelia config); mount writable `authelia-data` before read-only config/assets overlays.
 
