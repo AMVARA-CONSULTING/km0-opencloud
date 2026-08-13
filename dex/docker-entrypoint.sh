@@ -5,25 +5,28 @@ set -eu
 : "${GOOGLE_CLIENT_ID:?GOOGLE_CLIENT_ID required}"
 : "${GOOGLE_CLIENT_SECRET:?GOOGLE_CLIENT_SECRET required}"
 : "${OPENCLOUD_WEB_CLIENT_ID:=opencloud-web}"
+# Local login + optional 2FA is delegated to Authelia (OIDC connector).
+: "${AUTHELIA_ISSUER:=https://id.km0digital.com}"
+: "${AUTHELIA_OIDC_CLIENT_SECRET:?AUTHELIA_OIDC_CLIENT_SECRET required (see /opt/opencloud/authelia setup)}"
 
 ISSUER_HOST="${DEX_ISSUER#https://}"
 ISSUER_HOST="${ISSUER_HOST%%/*}"
 
 cp /etc/dex/config.yaml.template /etc/dex/config.yaml
 
-# OpenCloud IDM LDAP CA (generated on first opencloud init)
+# OpenCloud IDM LDAP CA (generated on first opencloud init).
+# Only required for the BREAK-GLASS ldap connector (disabled by default); Authelia
+# owns LDAP now, so a missing cert is non-fatal.
 if [ -f /opencloud-data/idm/ldap.crt ]; then
   cp /opencloud-data/idm/ldap.crt /etc/dex/opencloud-idm-ldap.crt
-elif [ ! -f /etc/dex/opencloud-idm-ldap.crt ]; then
-  echo "opencloud-idm ldap.crt not found under /opencloud-data/idm/" >&2
-  exit 1
 fi
 
-# IDM bind password: dex/.env OPENCLOUD_IDM_BIND_PW or opencloud.yaml idm_password
+# IDM bind password: dex/.env OPENCLOUD_IDM_BIND_PW or opencloud.yaml idm_password.
+# Non-fatal now (only the break-glass ldap connector uses it).
 if [ -z "${OPENCLOUD_IDM_BIND_PW:-}" ] && [ -f /etc/opencloud-config/opencloud.yaml ]; then
   OPENCLOUD_IDM_BIND_PW=$(awk '/^idm:/{f=1} f&&/^[a-z]/&&!/^idm:/{exit} f&&/idm_password:/{print $2; exit}' /etc/opencloud-config/opencloud.yaml)
 fi
-: "${OPENCLOUD_IDM_BIND_PW:?OPENCLOUD_IDM_BIND_PW or opencloud.yaml idm_password required for LDAP login}"
+: "${OPENCLOUD_IDM_BIND_PW:=}"
 
 OPENCLOUD_LDAP_HOST="${OPENCLOUD_LDAP_HOST:-opencloud}"
 # YAML single-quoted; escape ' for YAML and \& for sed replacement (& in password breaks sed)
@@ -36,6 +39,11 @@ sed -i "s|GOOGLE_CLIENT_SECRET_PLACEHOLDER|${GOOGLE_CLIENT_SECRET}|g" /etc/dex/c
 sed -i "s|OPENCLOUD_WEB_CLIENT_ID_PLACEHOLDER|${OPENCLOUD_WEB_CLIENT_ID}|g" /etc/dex/config.yaml
 sed -i "s|OPENCLOUD_LDAP_HOST_PLACEHOLDER|${OPENCLOUD_LDAP_HOST}|g" /etc/dex/config.yaml
 sed -i "s|OPENCLOUD_IDM_BIND_PW_PLACEHOLDER|'${ldap_bind_pw}'|g" /etc/dex/config.yaml
+
+# Authelia OIDC connector (local login + optional 2FA)
+authelia_secret=$(printf '%s' "${AUTHELIA_OIDC_CLIENT_SECRET}" | sed 's/[&/\]/\\&/g')
+sed -i "s|AUTHELIA_ISSUER_PLACEHOLDER|${AUTHELIA_ISSUER}|g" /etc/dex/config.yaml
+sed -i "s|AUTHELIA_OIDC_CLIENT_SECRET_PLACEHOLDER|${authelia_secret}|g" /etc/dex/config.yaml
 
 # km0-mail SSO (optional — secrets from km0-mail .env)
 if [ -n "${KM0_MAIL_WEB_OAUTH_SECRET:-}" ] && [ -n "${KM0_MAIL_DOVECOT_OAUTH_SECRET:-}" ]; then
