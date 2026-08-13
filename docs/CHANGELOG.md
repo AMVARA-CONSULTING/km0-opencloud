@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- autoagents Redmine sync: completion notes wrap Autoagents body in Textile `{{collapse(tasks/<CLOSED-file>)}}` (*Posted by* stays outside).
 - autoagents Redmine sync: duration is note-only (*Time taken*); no longer POSTs `/time_entries.json` or uses `REDMINE_ACTIVITY_ID`.
 
 ### Fixed
