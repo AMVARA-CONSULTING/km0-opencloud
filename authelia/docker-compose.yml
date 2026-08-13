@@ -1,0 +1,73 @@
+name: km0-authelia
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: authelia-redis
+    restart: unless-stopped
+    command:
+      - 'redis-server'
+      - '--save'
+      - ''
+      - '--appendonly'
+      - 'no'
+      - '--requirepass'
+      - '${AUTHELIA_REDIS_PASSWORD:?run scripts/setup-authelia-secrets.sh first}'
+    volumes:
+      - redis-data:/data
+    networks:
+      - default
+
+  # One-shot: copia la CA del LDAPS de OpenCloud IDM al volumen de certificados.
+  # Evita depender de un shell dentro de la imagen de Authelia.
+  authelia-init:
+    image: alpine:3.20
+    container_name: authelia-init
+    user: '0:0'
+    command:
+      - '/bin/sh'
+      - '-c'
+      - 'cp /opencloud-data/idm/ldap.crt /certs/opencloud-idm-ldap.crt && chmod 0644 /certs/opencloud-idm-ldap.crt'
+    volumes:
+      - opencloud_opencloud-data:/opencloud-data:ro
+      - authelia-certs:/certs
+    restart: 'no'
+
+  authelia:
+    image: authelia/authelia:4.38
+    container_name: authelia
+    restart: unless-stopped
+    depends_on:
+      authelia-init:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
+    env_file:
+      - .env
+    volumes:
+      # Config renderizada con secretos (gitignored) — generada por el setup.
+      - ./configuration.gen.yml:/config/configuration.yml:ro
+      - ./secrets:/secrets:ro
+      - ./assets:/config/assets:ro
+      - authelia-data:/config
+      - authelia-certs:/certs:ro
+    ports:
+      - '127.0.0.1:9091:9091'
+    networks:
+      - default
+      - opencloud-net
+
+networks:
+  # Red de OpenCloud (para llegar al LDAPS opencloud:9235). Externa.
+  opencloud-net:
+    external: true
+    name: opencloud_opencloud-net
+  default:
+
+volumes:
+  redis-data:
+  authelia-data:
+  authelia-certs:
+  # Volumen de datos de OpenCloud (contiene idm/ldap.crt). Externo.
+  opencloud_opencloud-data:
+    external: true

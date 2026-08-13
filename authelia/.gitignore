@@ -1,0 +1,7 @@
+# Secretos y ficheros renderizados — nunca en Git
+.env
+configuration.gen.yml
+secrets/authelia.secrets.env
+secrets/oidc.jwks.key.pem
+assets/logo.png
+assets/favicon.ico
