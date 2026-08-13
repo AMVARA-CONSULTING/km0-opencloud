@@ -79,8 +79,17 @@
     return user && user.access_token ? user.access_token : null;
   }
 
-  function postLogoutLoginUri() {
-    return 'https://auth.km0digital.com/login?service=cloud&signed_out=1&from_dex=1';
+  var AUTHELIA_ORIGIN = 'https://id.km0digital.com';
+  var HUB_ORIGIN = 'https://auth.km0digital.com';
+
+  function autheliaLogoutUrl(returnTo) {
+    var rd = returnTo || (HUB_ORIGIN + '/login?service=cloud&signed_out=1');
+    return AUTHELIA_ORIGIN + '/km0-logout?rd=' + encodeURIComponent(rd);
+  }
+
+  function postLogoutHubUri() {
+    // Land back on hub /logout so from_dex can clear Authelia next.
+    return HUB_ORIGIN + '/logout?from_dex=1&service=cloud';
   }
 
   function completeLogoutIfNeeded() {
@@ -88,20 +97,21 @@
       var params = new URLSearchParams(location.search);
       if (params.get('from_dex')) {
         clearAllAuthState();
-        if (location.pathname === '/logout' || location.pathname === '/logout.html') {
-          location.replace('https://auth.km0digital.com/login?service=cloud&signed_out=1');
-        }
-        return false;
+        var finalLogin = HUB_ORIGIN + '/login?service=cloud&signed_out=1';
+        location.replace(autheliaLogoutUrl(finalLogin));
+        return true;
       }
       var idToken = getStoredIdToken();
-      var postLogout = postLogoutLoginUri();
+      clearAllAuthState();
+      var postLogout = postLogoutHubUri();
       var qs = new URLSearchParams({ post_logout_redirect_uri: postLogout });
       if (idToken) qs.set('id_token_hint', idToken);
       location.assign('/dex/logout?' + qs.toString());
       return true;
     } catch (_) {
       clearAllAuthState();
-      return false;
+      location.assign(autheliaLogoutUrl());
+      return true;
     }
   }
 
