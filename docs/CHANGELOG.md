@@ -15,6 +15,7 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- KM0 Authelia (`authelia/`): optional opt-in 2FA (TOTP / WebAuthn) for `cloud.km0digital.com` via Authelia as an OIDC provider behind Dex, validating passwords against OpenCloud IDM LDAP and enforcing the second factor for members of the `2fa-enabled` group. Portal at `id.km0digital.com`; idempotent `scripts/setup-authelia-secrets.sh` renders `configuration.gen.yml` and persists gitignored secrets; `deploy-authelia.sh` and `issue-id-km0digital-cert.sh` for rollout.
 - Apple / OIDC parity for activate-mail + login (#26): wizard and API docs are IdP-agnostic (not Google-only); login reveals Apple CTA only when Dex has the connector (`probeDexConnector('apple')`, hidden when unset); same hub deep-link `https://cloud.km0digital.com/activate-mail.html` for Google and Apple; runbook provider parity table (Google \| Apple \| LDAP).
 - Cloud-origin **Activate KM0 Mail** wizard (`/activate-mail.html`): reads Bearer from `oc_oAuth.user:`, posts to `/api/activate-mail`, CA/ES/EN/DE i18n; canonical hub deep-link `https://cloud.km0digital.com/activate-mail.html` (km0-mail #14 / #25).
 - register-api `POST /activate-mail`: existing OpenCloud (Google/OIDC) users activate `username@km0digital.com` without creating a Graph user; Bearer `/me` or optional hub service token + uuid; freemail contact allowed; nginx `/api/activate-mail`; coordinates with km0-mail #10 / hub #11 (#23).
