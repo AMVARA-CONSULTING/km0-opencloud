@@ -33,19 +33,6 @@
       var connector = params.get('connector_id') || params.get('connector') || 'ldap';
       var prompt = params.get('prompt') || '';
       var sso = params.get('sso') || '';
-      var reauth = params.get('reauth') || '';
-
-      // Force account switch: Dex does NOT forward prompt=login to its upstream OIDC
-      // provider (Authelia), so a live authelia_session cookie would silently re-auth
-      // the previous user. Purge the Authelia session first (top-level nav to the
-      // same-origin logout bridge that clears the HttpOnly cookie), then come back
-      // here without reauth to run the normal Dex login against a fresh session.
-      if (reauth === '1') {
-        params.delete('reauth');
-        var back = location.origin + location.pathname + '?' + params.toString();
-        location.replace('https://id.km0digital.com/km0-logout?rd=' + encodeURIComponent(back));
-        return;
-      }
 
       if (sso === 'all' || sso === '1') {
         try {

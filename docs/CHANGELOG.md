@@ -4,37 +4,17 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
-### Added
-
-- Authelia portal KM0 skin on `id.km0digital.com`: nginx serves `/km0-authelia.css` + `/km0-title.js` and injects them into HTML; CA/ES/EN/DE `assets/locales/*/portal.json`; `server.asset_path` for logo/favicon/locales.
-
 ### Changed
 
-- nginx: serve `/dex-auth.js` with `no-cache` (`expires -1`) instead of a 1h public cache so browsers always fetch the latest auth-hub helper after a deploy.
-- Logout now fully clears the IdP session by chaining hub `/logout` → Dex → Authelia: cloud `/logout` and `post_logout_redirect_uri` (Dex/local `config-*.json`) point at `auth.km0digital.com/logout`; `dex-auth.js` redirects through a new Authelia `/km0-logout` bridge (`authelia/nginx/km0-logout.html`) so the Authelia session cookie is cleared before landing on the signed-out login page.
-- Authelia: disable password reset against OpenCloud IDM (recovery stays 2FA-focused).
-
-### Fixed
-
-- Sync Dex static `dex/web/static/dex-auth.js` with the auth-hub copy (OIDC token helpers, `probeDexConnector`) so password/error pages served from Dex stay current after restart.
-- Authelia SMTP notifier: `skip_verify` for Postfix submission (local/self-signed CN=localhost); startup check address `postmaster@km0digital.com`; gitignore `secrets/noreply.smtp.password`.
-- Authelia compose: stop mounting `.env` as `env_file` (avoids `AUTHELIA_REDIS_PASSWORD` being treated as Authelia config); mount writable `authelia-data` before read-only config/assets overlays.
-
-### Changed
-
-- Dex KM0 local login: Authelia OIDC connector keeps `id: ldap` (and auth hub defaults) for URL/cache/bookmark compatibility; backend remains Authelia → OpenCloud IDM so password logins still pass through optional 2FA. Google connector unchanged.
 - autoagents Redmine sync: completion notes wrap Autoagents body in Textile `{{collapse(tasks/<CLOSED-file>)}}` (*Posted by* stays outside).
 - autoagents Redmine sync: duration is note-only (*Time taken*); no longer POSTs `/time_entries.json` or uses `REDMINE_ACTIVITY_ID`.
 
 ### Fixed
 
-- Dex Authelia connector: renamed the config placeholder `AUTHELIA_ISSUER_PLACEHOLDER` → `AUTHELIA_ISS_PLACEHOLDER` in `dex/config.yaml` and `dex/docker-entrypoint.sh` so the `sed` substitution no longer collides with the `AUTHELIA_ISSUER` env-var name substring.
 - autoagents Redmine notes: parse `WIP-` stamps and Markdown `**Closed at (UTC):**`; omit *Time taken* when Closed at is missing (no `now()` fallback); coders refresh `YYYYMMDD-HHMM` on FEAT/NEW→WIP so duration excludes queue wait.
 
 ### Added
 
-- Self-service 2FA opt-in (`/security.html`): Cloud-origin page (linked from nginx `/security`) that toggles the caller's membership in the `2fa-enabled` IDM group via register-api `POST /api/enable-2fa` / `/api/disable-2fa` and reads `GET /api/2fa-status`. Endpoints authorize the end-user Bearer via Graph `/me` (same rules as `/activate-mail`); the group is auto-created on first use and is overridable with `TWO_FA_GROUP_NAME`. Members get the Authelia `two_factor` policy; everyone else stays `one_factor`.
-- KM0 Authelia (`authelia/`): optional opt-in 2FA (TOTP / WebAuthn) for `cloud.km0digital.com` via Authelia as an OIDC provider behind Dex, validating passwords against OpenCloud IDM LDAP and enforcing the second factor for members of the `2fa-enabled` group. Portal at `id.km0digital.com`; idempotent `scripts/setup-authelia-secrets.sh` renders `configuration.gen.yml` and persists gitignored secrets; `deploy-authelia.sh` and `issue-id-km0digital-cert.sh` for rollout.
 - Apple / OIDC parity for activate-mail + login (#26): wizard and API docs are IdP-agnostic (not Google-only); login reveals Apple CTA only when Dex has the connector (`probeDexConnector('apple')`, hidden when unset); same hub deep-link `https://cloud.km0digital.com/activate-mail.html` for Google and Apple; runbook provider parity table (Google \| Apple \| LDAP).
 - Cloud-origin **Activate KM0 Mail** wizard (`/activate-mail.html`): reads Bearer from `oc_oAuth.user:`, posts to `/api/activate-mail`, CA/ES/EN/DE i18n; canonical hub deep-link `https://cloud.km0digital.com/activate-mail.html` (km0-mail #14 / #25).
 - register-api `POST /activate-mail`: existing OpenCloud (Google/OIDC) users activate `username@km0digital.com` without creating a Graph user; Bearer `/me` or optional hub service token + uuid; freemail contact allowed; nginx `/api/activate-mail`; coordinates with km0-mail #10 / hub #11 (#23).

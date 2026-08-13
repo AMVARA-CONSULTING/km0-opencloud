@@ -32,18 +32,9 @@ https://cloud.km0digital.com/dex/callback
 
 Also add the OpenCloud web client redirect URIs shown in Google Console (`/`, `/oidc-callback.html`, `/oidc-silent-redirect.html`). A `redirect_uri_mismatch` error means the Console list does not match Dex’s `redirectURI` (check with `docker exec opencloud-dex grep redirectURI /etc/dex/config.yaml`).
 
-## Local username/password + optional 2FA (Authelia)
+## Local username/password (OpenCloud IDM LDAP)
 
-Local login goes through the Dex **`authelia`** OIDC connector → Authelia
-(`https://id.km0digital.com`), which validates against the built-in OpenCloud IDM
-(`ldaps://opencloud:9235`, base `ou=users,o=libregraph-idm`) and adds an optional
-2nd factor (TOTP / WebAuthn) for users in the LDAP group `2fa-enabled`. Users
-sign in with the same **uid** and password as in OpenCloud Settings. Set
-`AUTHELIA_OIDC_CLIENT_SECRET` in `dex/.env` (see `/opt/opencloud/authelia`).
-
-The direct Dex `ldap` connector is kept **commented (break-glass)** in
-`config.yaml`: re-enable it temporarily only if Authelia is down (it bypasses
-2FA), then comment it out again.
+Dex connector `ldap` authenticates against the built-in OpenCloud IDM (`ldaps://opencloud:9235`, base `ou=users,o=libregraph-idm`). Users sign in with the same **uid** and password as in OpenCloud Settings.
 
 Requirements:
 
