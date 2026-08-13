@@ -73,10 +73,12 @@ staticClients:
 # only: re-enable temporarily if Authelia is down so the admin can sign in with
 # password alone, then comment it out again (it bypasses 2FA).
 connectors:
-  # --- BREAK-GLASS: OpenCloud IDM LDAP (bypasses Authelia/2FA — keep disabled) ---
+  # --- BREAK-GLASS: OpenCloud IDM LDAP direct (bypasses Authelia/2FA — keep disabled) ---
+  # If Authelia is down, uncomment below and temporarily comment the OIDC `ldap`
+  # connector. Use a distinct id (`ldap-direct`) so it does not clash.
   # - type: ldap
-  #   id: ldap
-  #   name: OpenCloud
+  #   id: ldap-direct
+  #   name: OpenCloud (direct)
   #   config:
   #     host: OPENCLOUD_LDAP_HOST_PLACEHOLDER:9235
   #     rootCA: /etc/dex/opencloud-idm-ldap.crt
@@ -92,8 +94,10 @@ connectors:
   #       nameAttr: displayName
   #       preferredUsernameAttr: uid
   # Local username/password + optional 2FA via Authelia (OIDC).
+  # Connector id stays `ldap` for URL/cache compatibility (hub, SPA, bookmarks
+  # historically used connector_id=ldap). The backend is Authelia → OpenCloud IDM.
   - type: oidc
-    id: authelia
+    id: ldap
     name: KM0
     config:
       issuer: AUTHELIA_ISS_PLACEHOLDER

@@ -30,7 +30,7 @@
     (function () {
       'use strict';
       var params = new URLSearchParams(location.search);
-      var connector = params.get('connector_id') || params.get('connector') || 'authelia';
+      var connector = params.get('connector_id') || params.get('connector') || 'ldap';
       var prompt = params.get('prompt') || '';
       var sso = params.get('sso') || '';
 
