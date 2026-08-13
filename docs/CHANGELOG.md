@@ -4,6 +4,14 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Authelia portal KM0 skin on `id.km0digital.com`: nginx serves `/km0-authelia.css` + `/km0-title.js` and injects them into HTML; CA/ES/EN/DE `assets/locales/*/portal.json`; `server.asset_path` for logo/favicon/locales.
+
+### Changed
+
+- Authelia: disable password reset against OpenCloud IDM (recovery stays 2FA-focused).
+
 ### Fixed
 
 - Sync Dex static `dex/web/static/dex-auth.js` with the auth-hub copy (OIDC token helpers, `probeDexConnector`) so password/error pages served from Dex stay current after restart.
