@@ -378,7 +378,7 @@
         submitBtn.textContent = t('registerSigningIn');
         window.KM0DexAuth.storePendingLogin(email, password);
         window.KM0DexAuth.clearOidcBrowserState();
-        window.KM0DexAuth.startDexLogin('ldap');
+        window.KM0DexAuth.startDexLogin('authelia');
       }
 
       form.addEventListener('submit', function (ev) {

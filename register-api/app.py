@@ -39,6 +39,9 @@ GRAPH_PASS = os.environ.get("GRAPH_SERVICE_PASSWORD", "")
 LISTEN_PORT = int(os.environ.get("PORT", "8091"))
 
 MAIL_DOMAIN = os.environ.get("MAIL_DOMAIN", "km0digital.com")
+# Optional 2FA opt-in: users in this OpenCloud IDM group get `two_factor` policy
+# in Authelia (see /opt/opencloud/authelia). Managed via /enable-2fa /disable-2fa.
+TWO_FA_GROUP_NAME = os.environ.get("TWO_FA_GROUP_NAME", "2fa-enabled")
 MAIL_PROVISION_URL = os.environ.get(
     "MAIL_PROVISION_API_URL", "http://host.docker.internal:8092"
 ).rstrip("/")
@@ -753,6 +756,143 @@ def activate_mail():
         )
 
     return jsonify(response), http_code
+
+
+_two_fa_group_id_cache: str | None = None
+
+
+def two_fa_group_id() -> str | None:
+    """Resolve (and lazily create) the `2fa-enabled` OpenCloud IDM group id."""
+    global _two_fa_group_id_cache
+    if _two_fa_group_id_cache:
+        return _two_fa_group_id_cache
+
+    status, body = graph_request("GET", "/graph/v1.0/groups")
+    if status == 200:
+        try:
+            for grp in json.loads(body).get("value", []):
+                if (grp.get("displayName") or "").lower() == TWO_FA_GROUP_NAME.lower():
+                    _two_fa_group_id_cache = grp.get("id")
+                    return _two_fa_group_id_cache
+        except json.JSONDecodeError:
+            pass
+
+    payload = json.dumps({"displayName": TWO_FA_GROUP_NAME}).encode()
+    status, body = graph_request("POST", "/graph/v1.0/groups", payload)
+    if status == 201:
+        try:
+            _two_fa_group_id_cache = json.loads(body).get("id")
+            return _two_fa_group_id_cache
+        except json.JSONDecodeError:
+            return None
+    log.warning("2fa group ensure failed status=%s body=%s", status, body[:200])
+    return None
+
+
+def two_fa_is_member(user_id: str) -> bool | None:
+    gid = two_fa_group_id()
+    if not gid:
+        return None
+    status, body = graph_request("GET", f"/graph/v1.0/groups/{gid}/members")
+    if status != 200:
+        return None
+    try:
+        return any(m.get("id") == user_id for m in json.loads(body).get("value", []))
+    except json.JSONDecodeError:
+        return None
+
+
+def two_fa_set_member(user_id: str, enable: bool) -> tuple[int, str | None]:
+    gid = two_fa_group_id()
+    if not gid:
+        return 503, "service_unavailable"
+    if enable:
+        ref = json.dumps(
+            {"@odata.id": f"{GRAPH_URL}/graph/v1.0/users/{user_id}"}
+        ).encode()
+        status, body = graph_request(
+            "POST", f"/graph/v1.0/groups/{gid}/members/$ref", ref
+        )
+        if status in (200, 201, 204):
+            return 200, None
+        if status in (400, 409) and "already" in (body or "").lower():
+            return 200, None
+        log.warning("2fa add member failed status=%s body=%s", status, (body or "")[:200])
+        return 500, "internal"
+
+    status, body = graph_request(
+        "DELETE", f"/graph/v1.0/groups/{gid}/members/{user_id}/$ref"
+    )
+    if status in (200, 204):
+        return 200, None
+    if status == 404:
+        return 200, None  # not a member — already disabled
+    log.warning("2fa remove member failed status=%s body=%s", status, (body or "")[:200])
+    return 500, "internal"
+
+
+def _resolve_2fa_caller() -> tuple[dict | None, int, str | None]:
+    """Authz for 2FA endpoints (reuses activate-mail rules)."""
+    data = request.get_json(silent=True) or {}
+    caller, auth_err = resolve_activate_caller(data)
+    if auth_err:
+        code = {
+            "unauthorized": 401,
+            "forbidden": 403,
+            "not_found": 404,
+            "missing_opencloud_uuid": 400,
+            "service_unavailable": 503,
+        }.get(auth_err, 401)
+        return None, code, auth_err
+    return caller, 200, None
+
+
+def _toggle_2fa(enable: bool):
+    if not check_origin():
+        return jsonify({"error": "forbidden"}), 403
+    if not graph_configured() or not graph_auth_ok():
+        return jsonify({"error": "service_unavailable"}), 503
+
+    caller, code, auth_err = _resolve_2fa_caller()
+    if auth_err:
+        return jsonify({"error": auth_err}), code
+
+    user_id = caller.get("id")
+    if not user_id:
+        return jsonify({"error": "unauthorized"}), 401
+
+    status, reason = two_fa_set_member(user_id, enable)
+    if status != 200:
+        return jsonify({"error": reason or "internal"}), status
+    return jsonify({"ok": True, "enabled": enable, "opencloud_uuid": user_id}), 200
+
+
+@app.route("/enable-2fa", methods=["POST"])
+def enable_2fa():
+    return _toggle_2fa(True)
+
+
+@app.route("/disable-2fa", methods=["POST"])
+def disable_2fa():
+    return _toggle_2fa(False)
+
+
+@app.route("/2fa-status", methods=["GET"])
+def status_2fa():
+    if not check_origin():
+        return jsonify({"error": "forbidden"}), 403
+    if not graph_configured() or not graph_auth_ok():
+        return jsonify({"error": "service_unavailable"}), 503
+
+    caller, code, auth_err = _resolve_2fa_caller()
+    if auth_err:
+        return jsonify({"error": auth_err}), code
+
+    user_id = caller.get("id")
+    member = two_fa_is_member(user_id)
+    if member is None:
+        return jsonify({"error": "service_unavailable"}), 503
+    return jsonify({"ok": True, "enabled": member, "opencloud_uuid": user_id}), 200
 
 
 if __name__ == "__main__":

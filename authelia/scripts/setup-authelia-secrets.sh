@@ -88,6 +88,17 @@ sed -i \
   -e "s|__SMTP_PASSWORD__|$(esc "${smtp_pass}")|g" \
   -e "s|__OIDC_DEX_CLIENT_SECRET__|$(esc "${OIDC_DEX_CLIENT_SECRET}")|g" \
   "${RENDERED}"
+
+# La clave OIDC (JWKS) debe ir EN LÍNEA en el YAML (bloque literal `key: |`).
+# Inyectamos el PEM indentado 10 espacios y borramos el placeholder.
+INDENTED_KEY="$(mktemp)"
+awk '{ print "          " $0 }' "${JWKS_KEY}" > "${INDENTED_KEY}"
+sed -i -e "/__OIDC_JWKS_KEY_PEM__/{
+  r ${INDENTED_KEY}
+  d
+}" "${RENDERED}"
+rm -f "${INDENTED_KEY}"
+
 chmod 600 "${RENDERED}"
 echo "Renderizado ${RENDERED}"
 
