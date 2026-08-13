@@ -40,7 +40,6 @@ webauthn:
 # Recuperación / reset por email (enlace firmado).
 identity_validation:
   reset_password:
-    jwt_lifetime: '10m'
     jwt_secret: '__RESET_JWT_SECRET__'
 
 authentication_backend:
@@ -58,7 +57,7 @@ authentication_backend:
       minimum_version: 'TLS1.2'
     base_dn: 'o=libregraph-idm'
     additional_users_dn: 'ou=users'
-    users_filter: '(&(uid={input})(objectClass=inetOrgPerson))'
+    users_filter: '(&({username_attribute}={input})(objectClass=inetOrgPerson))'
     additional_groups_dn: 'ou=groups'
     groups_filter: '(&(member={dn})(objectClass=groupOfNames))'
     attributes:
@@ -86,7 +85,6 @@ session:
   cookies:
     - domain: 'km0digital.com'
       authelia_url: 'https://id.km0digital.com'
-      default_redirect_url: 'https://cloud.km0digital.com'
       name: 'authelia_session'
       expiration: '7d'
       inactivity: '7d'
@@ -131,7 +129,8 @@ identity_providers:
       - key_id: 'km0-oidc'
         algorithm: 'RS256'
         use: 'sig'
-        key: '/secrets/oidc.jwks.key.pem'
+        key: |
+          __OIDC_JWKS_KEY_PEM__
     # Opt-in: one_factor por defecto, two_factor solo si el usuario está en el
     # grupo LDAP `2fa-enabled`.
     authorization_policies:
