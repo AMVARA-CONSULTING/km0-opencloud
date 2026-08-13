@@ -143,7 +143,7 @@ identity_providers:
     clients:
       - client_id: 'dex'
         client_name: 'KM0 Cloud'
-        client_secret: '$plaintext$__OIDC_DEX_CLIENT_SECRET__'
+        client_secret: '__OIDC_DEX_CLIENT_SECRET_HASH__'
         public: false
         authorization_policy: 'cloud_optional_2fa'
         require_pkce: false
