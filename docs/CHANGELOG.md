@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- Dex local login now routes through the Authelia OIDC connector (`id: authelia`, "KM0") instead of the direct OpenCloud IDM `ldap` connector, so password logins pass through optional 2FA. The `ldap` connector is retained commented as a break-glass fallback (bypasses 2FA — re-enable only during an Authelia outage). Google connector unchanged.
 - autoagents Redmine sync: completion notes wrap Autoagents body in Textile `{{collapse(tasks/<CLOSED-file>)}}` (*Posted by* stays outside).
 - autoagents Redmine sync: duration is note-only (*Time taken*); no longer POSTs `/time_entries.json` or uses `REDMINE_ACTIVITY_ID`.
 
