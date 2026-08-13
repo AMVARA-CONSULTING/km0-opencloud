@@ -76,6 +76,21 @@ fi
 # 5) Render configuration.gen.yml (sed con delimitador | y escape seguro).
 esc() { printf '%s' "$1" | sed -e 's/[\\&|]/\\&/g'; }
 
+# Hash pbkdf2 del secreto de cliente OIDC (Authelia deprecia el texto plano).
+# Dex sigue usando el secreto EN PLANO; Authelia guarda solo el hash.
+AUTHELIA_IMAGE="${AUTHELIA_IMAGE:-authelia/authelia:4.38}"
+hash_client_secret() {
+  if command -v docker >/dev/null 2>&1; then
+    local out
+    out=$(docker run --rm "${AUTHELIA_IMAGE}" authelia crypto hash generate pbkdf2 \
+      --variant sha512 --password "$1" 2>/dev/null | awk -F': ' '/Digest/{print $2}')
+    if [ -n "${out}" ]; then printf '%s' "${out}"; return 0; fi
+  fi
+  echo "AVISO: docker no disponible — usando client_secret en texto plano (deprecado)." >&2
+  printf '$plaintext$%s' "$1"
+}
+client_secret_hash="$(hash_client_secret "${OIDC_DEX_CLIENT_SECRET}")"
+
 cp "${TEMPLATE}" "${RENDERED}"
 sed -i \
   -e "s|__SESSION_SECRET__|$(esc "${SESSION_SECRET}")|g" \
@@ -86,7 +101,7 @@ sed -i \
   -e "s|__LDAP_BIND_PW__|$(esc "${ldap_pw}")|g" \
   -e "s|__SMTP_USERNAME__|$(esc "${smtp_user}")|g" \
   -e "s|__SMTP_PASSWORD__|$(esc "${smtp_pass}")|g" \
-  -e "s|__OIDC_DEX_CLIENT_SECRET__|$(esc "${OIDC_DEX_CLIENT_SECRET}")|g" \
+  -e "s|__OIDC_DEX_CLIENT_SECRET_HASH__|$(esc "${client_secret_hash}")|g" \
   "${RENDERED}"
 
 # La clave OIDC (JWKS) debe ir EN LÍNEA en el YAML (bloque literal `key: |`).
