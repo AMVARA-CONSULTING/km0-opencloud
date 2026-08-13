@@ -10,6 +10,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- nginx: serve `/dex-auth.js` with `no-cache` (`expires -1`) instead of a 1h public cache so browsers always fetch the latest auth-hub helper after a deploy.
 - Logout now fully clears the IdP session by chaining hub `/logout` → Dex → Authelia: cloud `/logout` and `post_logout_redirect_uri` (Dex/local `config-*.json`) point at `auth.km0digital.com/logout`; `dex-auth.js` redirects through a new Authelia `/km0-logout` bridge (`authelia/nginx/km0-logout.html`) so the Authelia session cookie is cleared before landing on the signed-out login page.
 - Authelia: disable password reset against OpenCloud IDM (recovery stays 2FA-focused).
 
