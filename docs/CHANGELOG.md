@@ -4,6 +4,11 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- Authelia SMTP notifier: `skip_verify` for Postfix submission (local/self-signed CN=localhost); startup check address `postmaster@km0digital.com`; gitignore `secrets/noreply.smtp.password`.
+- Authelia compose: stop mounting `.env` as `env_file` (avoids `AUTHELIA_REDIS_PASSWORD` being treated as Authelia config); mount writable `authelia-data` before read-only config/assets overlays.
+
 ### Changed
 
 - Dex local login now routes through the Authelia OIDC connector (`id: authelia`, "KM0") instead of the direct OpenCloud IDM `ldap` connector, so password logins pass through optional 2FA. The `ldap` connector is retained commented as a break-glass fallback (bypasses 2FA — re-enable only during an Authelia outage). Google connector unchanged.
