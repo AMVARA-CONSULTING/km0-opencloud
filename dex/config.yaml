@@ -96,7 +96,7 @@ connectors:
     id: authelia
     name: KM0
     config:
-      issuer: AUTHELIA_ISSUER_PLACEHOLDER
+      issuer: AUTHELIA_ISS_PLACEHOLDER
       clientID: dex
       clientSecret: AUTHELIA_OIDC_CLIENT_SECRET_PLACEHOLDER
       redirectURI: ISSUER_PLACEHOLDER/callback
