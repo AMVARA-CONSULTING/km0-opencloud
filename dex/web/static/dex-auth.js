@@ -40,7 +40,7 @@
     } catch (_) {}
   }
 
-  function getStoredOidcUser() {
+  function getStoredIdToken() {
     var stores = [localStorage, sessionStorage];
     var keyPrefixes = ['oc_oAuth.user:', 'oidc.user:'];
     for (var s = 0; s < stores.length; s++) {
@@ -56,40 +56,15 @@
         if (!matched) continue;
         try {
           var v = JSON.parse(store.getItem(k));
-          if (!v) continue;
-          var token = v.access_token || v.id_token;
-          if (!token) continue;
-          if (v.expires_at && v.expires_at * 1000 <= Date.now() && !v.refresh_token) {
-            continue;
-          }
-          return v;
+          if (v && v.id_token) return v.id_token;
         } catch (_) {}
       }
     }
     return null;
   }
 
-  function getStoredIdToken() {
-    var user = getStoredOidcUser();
-    return user && user.id_token ? user.id_token : null;
-  }
-
-  function getStoredAccessToken() {
-    var user = getStoredOidcUser();
-    return user && user.access_token ? user.access_token : null;
-  }
-
-  var AUTHELIA_ORIGIN = 'https://id.km0digital.com';
-  var HUB_ORIGIN = 'https://auth.km0digital.com';
-
-  function autheliaLogoutUrl(returnTo) {
-    var rd = returnTo || (HUB_ORIGIN + '/login?service=cloud&signed_out=1');
-    return AUTHELIA_ORIGIN + '/km0-logout?rd=' + encodeURIComponent(rd);
-  }
-
-  function postLogoutHubUri() {
-    // Land back on hub /logout so from_dex can clear Authelia next.
-    return HUB_ORIGIN + '/logout?from_dex=1&service=cloud';
+  function postLogoutLoginUri() {
+    return 'https://auth.km0digital.com/login?service=cloud&signed_out=1&from_dex=1';
   }
 
   function completeLogoutIfNeeded() {
@@ -97,21 +72,20 @@
       var params = new URLSearchParams(location.search);
       if (params.get('from_dex')) {
         clearAllAuthState();
-        var finalLogin = HUB_ORIGIN + '/login?service=cloud&signed_out=1';
-        location.replace(autheliaLogoutUrl(finalLogin));
-        return true;
+        if (location.pathname === '/logout' || location.pathname === '/logout.html') {
+          location.replace('https://auth.km0digital.com/login?service=cloud&signed_out=1');
+        }
+        return false;
       }
       var idToken = getStoredIdToken();
-      clearAllAuthState();
-      var postLogout = postLogoutHubUri();
+      var postLogout = postLogoutLoginUri();
       var qs = new URLSearchParams({ post_logout_redirect_uri: postLogout });
       if (idToken) qs.set('id_token_hint', idToken);
       location.assign('/dex/logout?' + qs.toString());
       return true;
     } catch (_) {
       clearAllAuthState();
-      location.assign(autheliaLogoutUrl());
-      return true;
+      return false;
     }
   }
 
@@ -222,29 +196,6 @@
     startDexLogin(connectorId, extra);
   }
 
-  /**
-   * Probe whether a Dex connector is registered (no secrets).
-   * Live connector → 302/opaque redirect; missing → 400.
-   * Used to reveal optional CTAs (e.g. Apple) only when configured.
-   */
-  function probeDexConnector(connectorId) {
-    var redirectUri = encodeURIComponent(
-      (typeof location !== 'undefined' && location.origin ? location.origin : 'https://cloud.km0digital.com') + '/'
-    );
-    var url = '/dex/auth?client_id=opencloud-web'
-      + '&redirect_uri=' + redirectUri
-      + '&response_type=code&scope=openid%20profile%20email'
-      + '&connector_id=' + encodeURIComponent(connectorId)
-      + '&state=km0-probe-' + encodeURIComponent(connectorId);
-    return fetch(url, { method: 'GET', redirect: 'manual', credentials: 'same-origin' })
-      .then(function (res) {
-        if (res.type === 'opaqueredirect') return true;
-        if (res.status >= 300 && res.status < 400) return true;
-        return false;
-      })
-      .catch(function () { return false; });
-  }
-
   function storePendingLogin(login, password) {
     try {
       sessionStorage.setItem(PENDING_LOGIN_KEY, JSON.stringify({
@@ -287,16 +238,12 @@
   global.KM0DexAuth = {
     startDexLogin: startDexLogin,
     startDexLoginWithPrompt: startDexLoginWithPrompt,
-    probeDexConnector: probeDexConnector,
     setAuthModeCookie: setAuthModeCookie,
     clearOidcBrowserState: clearOidcBrowserState,
     clearAllAuthState: clearAllAuthState,
     completeLogoutIfNeeded: completeLogoutIfNeeded,
     oidcParamsFromUrl: oidcParamsFromUrl,
     storePendingLogin: storePendingLogin,
-    autoSubmitPendingLogin: autoSubmitPendingLogin,
-    getStoredOidcUser: getStoredOidcUser,
-    getStoredAccessToken: getStoredAccessToken,
-    getStoredIdToken: getStoredIdToken
+    autoSubmitPendingLogin: autoSubmitPendingLogin
   };
 })(window);

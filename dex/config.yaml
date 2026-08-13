@@ -67,51 +67,25 @@ staticClients:
   - id: km0-mail-dovecot
     name: KM0 Mail Dovecot introspection
     secret: KM0_MAIL_DOVECOT_OAUTH_SECRET_PLACEHOLDER
-# Local username/password now goes through Authelia (OIDC connector below), which
-# validates against the same OpenCloud IDM LDAP and adds optional 2FA (group
-# `2fa-enabled`). The direct `ldap` connector is kept commented for BREAK-GLASS
-# only: re-enable temporarily if Authelia is down so the admin can sign in with
-# password alone, then comment it out again (it bypasses 2FA).
+# Local username/password via OpenCloud built-in IDM LDAP (not static Dex passwords).
 connectors:
-  # --- BREAK-GLASS: OpenCloud IDM LDAP direct (bypasses Authelia/2FA — keep disabled) ---
-  # If Authelia is down, uncomment below and temporarily comment the OIDC `ldap`
-  # connector. Use a distinct id (`ldap-direct`) so it does not clash.
-  # - type: ldap
-  #   id: ldap-direct
-  #   name: OpenCloud (direct)
-  #   config:
-  #     host: OPENCLOUD_LDAP_HOST_PLACEHOLDER:9235
-  #     rootCA: /etc/dex/opencloud-idm-ldap.crt
-  #     bindDN: uid=libregraph,ou=sysusers,o=libregraph-idm
-  #     bindPW: OPENCLOUD_IDM_BIND_PW_PLACEHOLDER
-  #     usernamePrompt: Usuario
-  #     userSearch:
-  #       baseDN: ou=users,o=libregraph-idm
-  #       filter: "(objectClass=inetOrgPerson)"
-  #       username: uid
-  #       idAttr: openCloudUUID
-  #       emailAttr: mail
-  #       nameAttr: displayName
-  #       preferredUsernameAttr: uid
-  # Local username/password + optional 2FA via Authelia (OIDC).
-  # Connector id stays `ldap` for URL/cache compatibility (hub, SPA, bookmarks
-  # historically used connector_id=ldap). The backend is Authelia → OpenCloud IDM.
-  - type: oidc
+  - type: ldap
     id: ldap
-    name: KM0
+    name: OpenCloud
     config:
-      issuer: AUTHELIA_ISS_PLACEHOLDER
-      clientID: dex
-      clientSecret: AUTHELIA_OIDC_CLIENT_SECRET_PLACEHOLDER
-      redirectURI: ISSUER_PLACEHOLDER/callback
-      scopes:
-        - openid
-        - profile
-        - email
-        - groups
-      insecureSkipEmailVerified: true
-      getUserInfo: true
-      userNameKey: preferred_username
+      host: OPENCLOUD_LDAP_HOST_PLACEHOLDER:9235
+      rootCA: /etc/dex/opencloud-idm-ldap.crt
+      bindDN: uid=libregraph,ou=sysusers,o=libregraph-idm
+      bindPW: OPENCLOUD_IDM_BIND_PW_PLACEHOLDER
+      usernamePrompt: Usuario
+      userSearch:
+        baseDN: ou=users,o=libregraph-idm
+        filter: "(objectClass=inetOrgPerson)"
+        username: uid
+        idAttr: openCloudUUID
+        emailAttr: mail
+        nameAttr: displayName
+        preferredUsernameAttr: uid
   - type: google
     id: google
     name: Google

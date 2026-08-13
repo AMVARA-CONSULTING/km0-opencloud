@@ -73,15 +73,6 @@ Verify after deploy:
 | `/register` | POST | KM0 model: JSON `{ "username", "password", "create_mail?", "contact_email?" }`. Legacy/custom-domain: `{ "email", "password", "create_mail?", "mail_mode?", "desired_email?", "contact_email?" }` |
 | `/activate-mail` | POST | Existing OpenCloud user → KM0 mailbox (no new Graph user). See below. |
 | `/update-password` | POST | JSON `{ "email", "password" }` → sync mailbox password in km0-mail |
-| `/enable-2fa` | POST | Bearer (Cloud session) → adds caller to IDM group `2fa-enabled` (opt-in 2FA in Authelia). |
-| `/disable-2fa` | POST | Bearer (Cloud session) → removes caller from `2fa-enabled`. |
-| `/2fa-status` | GET | Bearer (Cloud session) → `{ "enabled": bool }` for the caller. |
-
-**Optional 2FA (opt-in):** the `2fa-enabled` group is auto-created on first use.
-Users in it get the `two_factor` policy in Authelia (`/opt/opencloud/authelia`);
-everyone else stays `one_factor` (password only). Authz is the same as
-`/activate-mail` (end-user Bearer via Graph `/me`). Group name overridable with
-`TWO_FA_GROUP_NAME`.
 
 **KM0 model (username):** login uid = `username`; mailbox = `<username>@km0digital.com` (mail_mode `km0`); `contact_email` optional and may be freemail (Gmail, etc.). `username` must match `^[a-z0-9]([a-z0-9._-]{1,30}[a-z0-9])$` and not be reserved (`RESERVED_USERNAMES`).
 

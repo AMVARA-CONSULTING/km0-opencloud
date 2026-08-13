@@ -17,7 +17,6 @@ services:
       ACTIVATE_MAIL_SERVICE_TOKEN: ${ACTIVATE_MAIL_SERVICE_TOKEN:-}
       MIN_PASSWORD_LENGTH: ${MIN_PASSWORD_LENGTH:-8}
       MIN_SPECIAL_CHARACTERS: ${MIN_SPECIAL_CHARACTERS:-1}
-      TWO_FA_GROUP_NAME: ${TWO_FA_GROUP_NAME:-2fa-enabled}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
