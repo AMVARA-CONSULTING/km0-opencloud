@@ -18,6 +18,11 @@ dex-data/
 # Backups
 *.tar.gz
 backup*/
+*.bak
+*.bak.*
+
+# Authelia local runtime (secrets, generated config)
+authelia/
 
 # autoagents secrets
 autoagents/.env
