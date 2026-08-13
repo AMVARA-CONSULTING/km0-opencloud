@@ -1,18 +1,23 @@
 # Branding del portal Authelia (tema KM0)
 
-Authelia carga automáticamente estos ficheros si existen en este directorio
-(montado como `/config/assets`):
+Authelia se sirve en `https://id.km0digital.com` con la marca KM0:
 
-- `logo.png` — logo mostrado en el portal de login/2FA.
-- `favicon.ico` — favicon del portal.
+| Qué | Dónde |
+|-----|--------|
+| Logo / favicon | `logo.png`, `favicon.ico` (vía `server.asset_path`) |
+| Textos CA/ES/EN/DE | `locales/<lang>/portal.json` |
+| Skin visual (card civic-dark) | nginx injecta `/km0-authelia.css` + `/km0-title.js` |
 
-`scripts/setup-authelia-secrets.sh` copia `logo.png` desde el tema de Dex
-(`/opt/opencloud/dex/web/themes/km0/logo.png`) si está disponible. El favicon
-`.ico` debe generarse a partir de `favicon.svg` del mismo tema, p. ej.:
+Tras cambiar assets o CSS:
 
 ```bash
-convert -background none /opt/opencloud/dex/web/themes/km0/favicon.svg \
-  -define icon:auto-resize=64,32,16 /opt/opencloud/authelia/assets/favicon.ico
+# assets/locales/logo → reiniciar Authelia
+cd /opt/opencloud/authelia && docker compose up -d --force-recreate authelia
+
+# CSS/title → solo reload nginx (vhost ya apunta aquí)
+sudo nginx -t && sudo systemctl reload nginx
 ```
 
-Ambos ficheros están en `.gitignore` (son binarios derivados del tema).
+El login local **tiene** que pasar por Authelia (OIDC) para poder ofrecer 2FA;
+ya no se muestra el formulario Dex antiguo. El skin KM0 hace que la pantalla
+se vea como el hub (fondo navy, card, logo, tipografía).

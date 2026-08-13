@@ -1,0 +1,139 @@
+/* KM0 Authelia skin — match auth hub / Dex civic-dark login card */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --paper: #0B1220;
+  --snow: #141B28;
+  --mist: #2A3344;
+  --ink: #E6E9ED;
+  --ink-muted: rgba(230, 233, 237, 0.65);
+  --signal: #2DD4BF;
+  --signal-hover: #5EEAD4;
+  color-scheme: dark;
+}
+
+html, body {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide Authelia chrome that breaks KM0 look */
+.MuiAppBar-root,
+a[href*="authelia.com"],
+#root a[href="https://www.authelia.com"] {
+  display: none !important;
+}
+
+#root {
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+/* Center card like hub login */
+.MuiContainer-root {
+  max-width: 440px !important;
+  margin: 2.5rem auto !important;
+  padding: 2.5rem 2rem 2rem !important;
+  background: var(--snow) !important;
+  border: 1px solid var(--mist) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+img[alt="Logo"],
+img[alt="Authelia"] {
+  width: 72px !important;
+  height: 72px !important;
+  margin: 0 auto 1rem !important;
+  object-fit: contain !important;
+}
+
+.MuiTypography-h5,
+.MuiTypography-h6 {
+  font-family: 'Bricolage Grotesque', 'IBM Plex Sans', sans-serif !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.MuiTypography-body1,
+.MuiTypography-body2,
+.MuiFormLabel-root,
+.MuiFormControlLabel-label,
+.MuiTypography-caption {
+  color: var(--ink-muted) !important;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif !important;
+}
+
+.MuiInputBase-root,
+.MuiOutlinedInput-root {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  border-radius: 8px !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: var(--mist) !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--signal) !important;
+  border-width: 1px !important;
+}
+
+.MuiInputBase-input {
+  color: var(--ink) !important;
+}
+
+.MuiButton-containedPrimary,
+.MuiButton-contained {
+  background: var(--signal) !important;
+  color: var(--paper) !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  min-height: 44px !important;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif !important;
+}
+
+.MuiButton-containedPrimary:hover,
+.MuiButton-contained:hover {
+  background: var(--signal-hover) !important;
+}
+
+.MuiButton-text,
+.MuiLink-root,
+a {
+  color: var(--signal) !important;
+  text-transform: none !important;
+}
+
+.MuiCheckbox-root {
+  color: var(--mist) !important;
+}
+
+.MuiCheckbox-root.Mui-checked {
+  color: var(--signal) !important;
+}
+
+.MuiPaper-root {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Eyebrow-style subtitle under title via ::before on the card */
+.MuiContainer-root::before {
+  content: "Kilómetro 0 Digital";
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0.25rem 0 0.75rem;
+  text-align: center;
+}

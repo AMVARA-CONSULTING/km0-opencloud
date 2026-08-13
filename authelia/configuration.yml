@@ -18,6 +18,8 @@ certificates_directory: '/certs'
 
 server:
   address: 'tcp://0.0.0.0:9091'
+  # Logo / favicon / locales KM0 (ver assets/).
+  asset_path: '/config/assets'
 
 log:
   level: 'info'
@@ -44,8 +46,9 @@ identity_validation:
 
 authentication_backend:
   refresh_interval: '5m'
+  # Password reset against OpenCloud IDM is unreliable; keep recovery focused on 2FA.
   password_reset:
-    disable: false
+    disable: true
   ldap:
     implementation: 'custom'
     address: 'ldaps://opencloud:9235'

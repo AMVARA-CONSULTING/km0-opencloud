@@ -1,6 +1,5 @@
 # KM0 Authelia portal — id.km0digital.com
-# Proxy al contenedor Authelia (127.0.0.1:9091). Deploy del cert:
-#   /opt/opencloud/authelia/scripts/issue-id-km0digital-cert.sh
+# Proxy al contenedor Authelia (127.0.0.1:9091) + skin KM0 (CSS/title inject).
 
 server {
     listen 80;
@@ -32,6 +31,21 @@ server {
 
     client_max_body_size 2m;
 
+    # KM0 skin assets (served by nginx, not Authelia)
+    location = /km0-authelia.css {
+        alias /opt/opencloud/authelia/nginx/km0-authelia.css;
+        default_type text/css;
+        expires 1h;
+        add_header Cache-Control "public";
+    }
+
+    location = /km0-title.js {
+        alias /opt/opencloud/authelia/nginx/km0-title.js;
+        default_type application/javascript;
+        expires 1h;
+        add_header Cache-Control "public";
+    }
+
     location / {
         proxy_pass http://127.0.0.1:9091;
         proxy_http_version 1.1;
@@ -45,6 +59,14 @@ server {
 
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
+
+        # Allow sub_filter on HTML (disable upstream gzip for this hop)
+        proxy_set_header Accept-Encoding "";
+        sub_filter_once off;
+        sub_filter_types text/html;
+        sub_filter '</head>' '<link rel="stylesheet" href="/km0-authelia.css" /><script src="/km0-title.js"></script></head>';
+        sub_filter 'content="Authelia login portal for your apps"' 'content="Inicio de sesión KM0 — Kilómetro 0 Digital"';
+        sub_filter '<title>Login - Authelia</title>' '<title>Kilómetro 0 Digital — Iniciar sesión</title>';
     }
 
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
