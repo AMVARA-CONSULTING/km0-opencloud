@@ -3,5 +3,6 @@
 configuration.gen.yml
 secrets/authelia.secrets.env
 secrets/oidc.jwks.key.pem
+secrets/noreply.smtp.password
 assets/logo.png
 assets/favicon.ico

@@ -42,14 +42,14 @@ services:
         condition: service_completed_successfully
       redis:
         condition: service_started
-    env_file:
-      - .env
+    # Secrets live in configuration.gen.yml — do not pass .env (avoids
+    # AUTHELIA_REDIS_PASSWORD being treated as an Authelia config env).
     volumes:
-      # Config renderizada con secretos (gitignored) — generada por el setup.
+      # Writable /config volume first; overlay config + assets on top.
+      - authelia-data:/config
       - ./configuration.gen.yml:/config/configuration.yml:ro
       - ./secrets:/secrets:ro
       - ./assets:/config/assets:ro
-      - authelia-data:/config
       - authelia-certs:/certs:ro
     ports:
       - '127.0.0.1:9091:9091'

@@ -108,6 +108,7 @@ storage:
 # Notificaciones (verificación de identidad / reset de 2FA) vía SMTP de km0-mail.
 # Requiere un buzón noreply@km0digital.com (SASL en submission 587).
 notifier:
+  # Postfix submission uses a local/self-signed cert (CN=localhost); skip verify.
   disable_startup_check: false
   smtp:
     address: 'submission://mail.km0digital.com:587'
@@ -116,9 +117,10 @@ notifier:
     password: '__SMTP_PASSWORD__'
     sender: 'KM0 Digital <noreply@km0digital.com>'
     subject: '[KM0] {title}'
-    startup_check_address: 'noreply@km0digital.com'
+    startup_check_address: 'postmaster@km0digital.com'
     tls:
       server_name: 'mail.km0digital.com'
+      skip_verify: true
       minimum_version: 'TLS1.2'
 
 identity_providers:
