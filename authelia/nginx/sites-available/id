@@ -46,6 +46,13 @@ server {
         add_header Cache-Control "public";
     }
 
+    # Logout bridge: POST /api/logout (clear HttpOnly session) then redirect.
+    location = /km0-logout {
+        alias /opt/opencloud/authelia/nginx/km0-logout.html;
+        default_type text/html;
+        add_header Cache-Control "no-store";
+    }
+
     location / {
         proxy_pass http://127.0.0.1:9091;
         proxy_http_version 1.1;
