@@ -12,6 +12,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- Dex Authelia connector: renamed the config placeholder `AUTHELIA_ISSUER_PLACEHOLDER` → `AUTHELIA_ISS_PLACEHOLDER` in `dex/config.yaml` and `dex/docker-entrypoint.sh` so the `sed` substitution no longer collides with the `AUTHELIA_ISSUER` env-var name substring.
 - autoagents Redmine notes: parse `WIP-` stamps and Markdown `**Closed at (UTC):**`; omit *Time taken* when Closed at is missing (no `now()` fallback); coders refresh `YYYYMMDD-HHMM` on FEAT/NEW→WIP so duration excludes queue wait.
 
 ### Added

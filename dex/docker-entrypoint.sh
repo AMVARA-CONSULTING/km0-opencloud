@@ -42,7 +42,7 @@ sed -i "s|OPENCLOUD_IDM_BIND_PW_PLACEHOLDER|'${ldap_bind_pw}'|g" /etc/dex/config
 
 # Authelia OIDC connector (local login + optional 2FA)
 authelia_secret=$(printf '%s' "${AUTHELIA_OIDC_CLIENT_SECRET}" | sed 's/[&/\]/\\&/g')
-sed -i "s|AUTHELIA_ISSUER_PLACEHOLDER|${AUTHELIA_ISSUER}|g" /etc/dex/config.yaml
+sed -i "s|AUTHELIA_ISS_PLACEHOLDER|${AUTHELIA_ISSUER}|g" /etc/dex/config.yaml
 sed -i "s|AUTHELIA_OIDC_CLIENT_SECRET_PLACEHOLDER|${authelia_secret}|g" /etc/dex/config.yaml
 
 # km0-mail SSO (optional — secrets from km0-mail .env)
