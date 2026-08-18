@@ -14,7 +14,7 @@ Official docs: <https://docs.opencloud.eu/>
 | Docker CE | 29.5.2 | `/etc/docker/daemon.json` | `systemctl status docker` |
 | Docker Compose plugin | v5.1.4 | — | bundled with Docker CE |
 | OpenCloud | rolling:7.4.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
-| Collabora CODE | 25.04.10.3.1 | `opencloud-compose/weboffice/collabora.yml` | `docker compose ps collabora` |
+| Collabora CODE | 26.04.2.4.1 | `opencloud-compose/weboffice/collabora.yml` | `docker compose ps collabora` |
 | WOPI (collaboration) | same as OpenCloud image | `opencloud-compose/.env` (`WOPISERVER_DOMAIN`) | `docker compose ps collaboration` |
 | Nginx (web) | 1.26.3 | `/etc/nginx/sites-available/km0` | `km0.amvara.de` → :9180 |
 | Nginx (OpenCloud) | 1.26.3 | `/etc/nginx/sites-available/opencloud` | `cloud.km0digital.com` → :9200 |
@@ -140,6 +140,7 @@ The upstream template with all available options is:
 - `server_name collabora.km0digital.com`
 - `:443 ssl` — forwards to `http://127.0.0.1:9980`
 - Shared snippet: `nginx/snippets/collabora-proxy.conf` (long timeouts, WebSocket upgrade)
+- CODE 26+: explicit `location ^~ /cool/ws` (compact WebSocket) and `location ^~ /co/collab`, plus catch-all `/` for discovery/browser/legacy WS
 
 **WOPI** (`/etc/nginx/sites-available/wopi`):
 
@@ -408,7 +409,8 @@ apt update && apt upgrade -y
 | 2026-05-22 | Upgraded OpenCloud | `6.2.0` → `7.0.0`; added `sharing.service_account` in `opencloud.yaml` (7.x requirement) |
 | 2026-07-18 | Upgraded OpenCloud | `7.0.0` → `7.3.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-08-18 | Upgraded OpenCloud | `7.3.0` → `7.4.0` (volumes backed up first; Dex/nginx login unchanged) |
-| 2026-08-18 | Upgraded Collabora CODE | `25.04.9.4.1` → `25.04.10.3.1` (stayed on 25.04; skipped CODE 26 proxy/WS layout) |
+| 2026-08-18 | Upgraded Collabora CODE | `25.04.10.3.1` → `26.04.2.4.1` (distroless + proof-key volume; nginx compact `/cool/ws` + `/co/collab`; skipped red `26.04.3.1.1`) |
+| 2026-08-18 | Upgraded Collabora CODE | `25.04.9.4.1` → `25.04.10.3.1` (same 25.04; later jumped to 26.04.2.4.1) |
 | 2026-08-18 | Upgraded Dex | `v2.42.0` → `v2.45.1` (dex service only; OIDC clients unchanged) |
 
 ---

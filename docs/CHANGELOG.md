@@ -6,8 +6,9 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- Collabora CODE pin `25.04.10.3.1` → `26.04.2.4.1` (skipped `26.04.3.1.1` “red” unfinished cut). Distroless image: default `coolwsd --use-env-vars` (no bash/`start-collabora-online.sh`); one-shot `collabora-proof-key` (alpine/openssl) + volume mount at `/etc/coolwsd/proof_key`; healthcheck `coolwsd --probe --use-env-vars`. Nginx Collabora vhost adds explicit `^~ /cool/ws` and `^~ /co/collab` for compact WebSocket. Live pin lives in gitignored `opencloud-compose/weboffice/collabora.yml`. OpenCloud user data volumes not touched.
 - OpenCloud image pin `7.3.0` → `7.4.0` (`OC_DOCKER_TAG` in `.env` examples, runbook, README). Custom Dex + nginx login path unchanged; backup volumes before `docker compose up -d`. KM0 7.3+ NATS (`opencloud:9233`) and IDM LDAPS cert/key overrides kept.
-- Collabora CODE pin `25.04.9.4.1` → `25.04.10.3.1` (same 25.04 series). Did not jump to CODE 26.04 (new compact WebSocket URL / proxy layout).
+- Collabora CODE pin `25.04.9.4.1` → `25.04.10.3.1` (same 25.04 series; superseded by 26.04.2.4.1 cutover above).
 - Dex image pin `v2.42.0` → `v2.45.1`. Recreated dex service only; static clients and connectors unchanged.
 
 - autoagents Redmine sync: completion notes wrap Autoagents body in Textile `{{collapse(tasks/<CLOSED-file>)}}` (*Posted by* stays outside).

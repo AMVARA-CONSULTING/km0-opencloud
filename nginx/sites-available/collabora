@@ -1,5 +1,9 @@
 # Collabora Online CODE — TLS termination + reverse proxy to 127.0.0.1:9980
 # Production: https://collabora.km0digital.com
+#
+# CODE 26.04 uses a compact WebSocket URL (/cool/ws?WOPISrc=...) and documents
+# /co/collab. Explicit locations keep Upgrade headers even if a future more
+# specific rule is added; catch-all / still covers the rest (discovery, browser/).
 
 server {
     listen 80;
@@ -31,6 +35,17 @@ server {
 
     include /etc/nginx/snippets/collabora-proxy.conf;
 
+    # Compact WS (CODE 26.04+); WOPISrc is a query param, not path segment.
+    location ^~ /cool/ws {
+        proxy_pass http://127.0.0.1:9980;
+    }
+
+    # Documented collab WS/HTTP endpoint (CODE 26.04+).
+    location ^~ /co/collab {
+        proxy_pass http://127.0.0.1:9980;
+    }
+
+    # Legacy WS and remaining Collabora paths (browser, hosting, cool/, loleaflet, …).
     location / {
         proxy_pass http://127.0.0.1:9980;
     }
