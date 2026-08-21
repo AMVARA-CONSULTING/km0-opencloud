@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- Nginx: dedicated `^~ /dav/` location proxies WebDAV / desktop sync without SSO body rewrite so `OC-Checksum` on `.html` uploads is preserved.
+
 ### Changed
 
 - Collabora external-proxy `.env` example includes `storage/decomposeds3.yml` and commented Hetzner Object Storage (`DECOMPOSEDS3_*`) placeholders; set real values only in gitignored `opencloud-compose/.env`.
