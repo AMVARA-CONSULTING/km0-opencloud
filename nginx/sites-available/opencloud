@@ -1,5 +1,10 @@
 # OpenCloud — Dex OIDC (/dex) + OpenCloud (127.0.0.1:9200)
 # Production: https://cloud.km0digital.com
+#
+# HTTP/2 disabled on TLS frontends: OpenCloud Desktop 3.x multiplexes too many
+# parallel DAV streams over h2 and triggers ENHANCE_YOUR_CALM / client sign-out
+# during large initial syncs (opencloud-eu/desktop#734). HTTP/1.1 avoids this;
+# desktop clients auto-negotiate down on reconnect — no client-side change needed.
 
 server {
     listen 80;
@@ -20,7 +25,6 @@ server {
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    http2 on;
 
     server_name cloud.km0digital.com;
 
@@ -48,7 +52,6 @@ server {
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    http2 on;
 
     server_name cloud.km0.amvara.de;
 
