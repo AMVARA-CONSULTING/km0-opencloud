@@ -148,7 +148,7 @@ Key Nginx directives and why they matter:
 | `Upgrade` / `Connection` | passthrough | Required for WebSocket connections (used by the web UI) |
 | `proxy_read_timeout` / `proxy_send_timeout` | 3600s | Long-running uploads and sync sessions |
 | `client_max_body_size` | 10G | Maximum single upload size |
-| `http2 on` | on | HTTP/2 multiplexing (nginx ≥ 1.25 syntax; this server runs 1.26.3) |
+| `http2` | off | Disabled on TLS frontends: Desktop 3.x h2 sync triggers ENHANCE_YOUR_CALM (#734); clients auto-use HTTP/1.1 |
 
 `PROXY_TLS=false` in the container environment tells OpenCloud's internal proxy service that the **external** Nginx handles TLS, so OpenCloud does not attempt to wrap its own HTTP listener in TLS.
 
