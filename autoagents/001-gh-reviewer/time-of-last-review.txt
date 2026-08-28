@@ -18699,3 +18699,4 @@
   NEW created: 0
   gh comment/label: none (nothing to plan)
   Note: replace/remove invalid GH_TOKEN in autoagents/.env so loop preflight stops G001_GH_AUTH_FAILED
+2026-08-28T08:59:55Z UTC | 001 cursor-agent | FEAT: 0 | NEW: 0 | G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt | note: preflight gh 401 (invalid GH_TOKEN in autoagents/.env); sweep via env -u GH_TOKEN + issue_checker — 0 open issues; no pending FEAT/NEW/WIP in tasks/; Docker reviewed — recurring warn "core access token not set" (unauth probes, 0 errors/24h); dex failed-login/LDAP bind attempts + km0-web healthy — not standing incidents
