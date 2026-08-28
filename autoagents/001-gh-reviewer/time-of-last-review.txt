@@ -18545,3 +18545,13 @@
   FEAT created: 0 | NEW created: 0
   Note: preflight G001_GH_AUTH_FAILED; this run listed issues successfully after sourcing autoagents/.env
 
+
+2026-08-28T07:35:19Z UTC | 001 GitHub reviewer (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub: recovered via unset GH_TOKEN + gh auth switch Luipy56 (hosts.yml); open issues: 0; issue_checker: No open GitHub issues. FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 6d restart=0; 0× non-auth error/fatal/panic (6h); digest /.env probes = access-log info 200 only
+    - opencloud-dex: Up 7d restart=0; 0× non-auth ERROR (6h); digest failed-login/LDAP-miss/refresh-token-expired = auth noise; 2× LDAP Operations Error (24h) for one user — not fleet-wide
+    - km0-web: Up 9h healthy restart=0; no heuristic matches; 0× ERROR (6h)
+  FEAT created: 0 | NEW created: 0
+  Note: loop preflight G001_GH_AUTH_FAILED from stale GH_TOKEN in env/autoagents/.env overriding hosts.yml — refresh or remove that token
