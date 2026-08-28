@@ -18745,3 +18745,14 @@
   NEW created: 0
   gh comment/label: none (nothing to plan)
   Note: replace/remove invalid GH_TOKEN in autoagents/.env so loop preflight stops G001_GH_AUTH_FAILED
+2026-08-28T09:30:08Z UTC | 001 cursor-agent | FEAT: 0 | NEW: 0 | G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt | note: preflight gh 401 (invalid GH_TOKEN in autoagents/.env); sweep via env -u GH_TOKEN + issue_checker — 0 open issues; no pending FEAT/NEW/WIP in tasks/; Docker reviewed — opencloud 79× "core access token not set" warn (2h); 4× error (2h); 1× missing-blob download (single file @ 09:11Z, 24h) + cascade 500s = one-off not standing; dex 0× ERROR (2h); older dex failed-login/LDAP-miss in preflight = auth noise; km0-web 0 matches (2h) healthy — not standing incidents; containers up restart=0 (opencloud 7d, dex 7d+, km0-web 11h healthy)
+2026-08-28T09:30:08Z — Run 001 (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub sweep: OK after unset GH_TOKEN (stale GH_TOKEN in autoagents/.env overrides valid Luipy56 login). Open issues: 0. Active FEAT/WIP/UNTESTED in tasks/: 0. FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 7d restart=0; 79× "core access token not set" (warn, 2h); 4× error (2h); 1× missing-blob (one-off download, 24h)
+    - opencloud-dex: Up 7d+ restart=0; 0× ERROR (2h); older failed-login / LDAP-miss = auth noise
+    - km0-web: Up 11h healthy restart=0; 0 matches (2h)
+  NEW created: 0
+  gh comment/label: none (nothing to plan)
+  Note: replace/remove invalid GH_TOKEN in autoagents/.env so loop preflight stops G001_GH_AUTH_FAILED
