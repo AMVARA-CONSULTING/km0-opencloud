@@ -19072,3 +19072,14 @@
   NEW created: 0
   gh comment/label: none (nothing to plan)
   Note: loop preflight still reports G001_GH_AUTH_FAILED=1 — GH_TOKEN in loop env is invalid; working auth is Luipy56 in gh hosts.yml
+2026-08-28T12:30:56Z UTC | 001 cursor-agent | FEAT: 0 | NEW: 0 | G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt | note: preflight gh 401 (loop GH_TOKEN invalid); sweep OK via env -u GH_TOKEN + Luipy56 hosts.yml + issue_checker — 0 open issues; tasks/ queue empty (no FEAT/NEW/WIP/UNTESTED); Docker reviewed — opencloud 25× error (2h) = 1× missing-blob same one file (@ 11:16Z; 0× last 15m; 4×/24h @ 09:11/09:44/10:13/11:16) + cascade 500s = user retry not standing; PermissionDenied/malformed-link/Createhome @ 11:25Z = invalid public-share client noise; dex 0× ERROR (2h); older dex failed-login/LDAP-miss in preflight = auth noise; km0-web healthy 0× 5xx (2h) scanner 404 only — not standing incidents; containers up restart=0 (opencloud 7d, dex 7d, km0-web 14h healthy)
+2026-08-28T12:30:56Z — Run 001 (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub sweep: OK after env -u GH_TOKEN (Luipy56). Open issues: 0. Active FEAT/WIP/UNTESTED in tasks/: 0. FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 7d restart=0; 25× error (2h); missing-blob same one file (1× in 2h; 0× last 15m; 4×/24h)
+    - opencloud-dex: Up 7d restart=0; 0× ERROR (2h); older failed-login / LDAP-miss = auth noise
+    - km0-web: Up 14h healthy restart=0; 0× 5xx (2h); scanner 404 probes only
+  NEW created: 0
+  gh comment/label: none (nothing to plan)
+  Note: loop preflight still reports G001_GH_AUTH_FAILED=1 — GH_TOKEN in loop env is invalid; working auth is Luipy56 in gh hosts.yml
