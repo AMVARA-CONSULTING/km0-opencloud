@@ -18319,3 +18319,11 @@
     - opencloud-dex: Up 7d restart=0; 0× level=ERROR (6h); digest failed-login/LDAP-miss/refresh-token-expired are auth noise, not standing
     - km0-web: Up ~6h healthy restart=0; no heuristic matches; 0× ERROR (6h)
   FEAT created: 0 | NEW created: 0
+2026-08-28T04:57:48Z UTC | 001 cursor-agent | FEAT: 0 | NEW: 0 | G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt
+  Preflight gh 401 (invalid GH_TOKEN in loop env); after unset GH_TOKEN — gh auth OK, 0 open issues; no pending FEAT/NEW in tasks/.
+  GitHub sweep: FEAT created: 0; no comment/label (0 open issues; issue_checker confirms).
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 6d restart=0; 0× level=error (6h); digest scanner /joomla/.env probes are access-log info 200 only
+    - opencloud-dex: Up 7d restart=0; 0× level=ERROR (6h); digest failed-login/LDAP-miss/refresh-token-expired are auth noise, not standing
+    - km0-web: Up ~7h healthy restart=0; no heuristic matches; 0× ERROR (6h)
+  FEAT created: 0 | NEW created: 0
