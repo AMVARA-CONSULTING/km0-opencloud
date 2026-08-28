@@ -18495,3 +18495,13 @@
     - opencloud-dex: Up 7d restart=0; 0× ERROR (6h); digest failed-login/LDAP-miss/refresh-token-expired = auth noise
     - km0-web: Up 9h healthy restart=0; no heuristic matches; 0× ERROR (6h)
   FEAT created: 0 | NEW created: 0
+2026-08-28T07:05:42Z UTC | 001 GitHub reviewer (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub: recovered via gh auth switch Luipy56 (hosts.yml); unset invalid GH_TOKEN for this shell. Open issues: 0. FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 6d; access-log only (incl. scanner GET /joomla/.env → 200 landing); 0× ERROR last 6h
+    - opencloud-dex: Up 7d; digest errors = failed-login / LDAP no-results / refresh-token-expired (auth noise); 0× non-auth ERROR last 6h
+    - km0-web: Up 9h healthy; no heuristic matches; 0× ERROR last 6h
+  FEAT created: 0 | NEW created: 0
+  Note: loop preflight G001_GH_AUTH_FAILED from stale GH_TOKEN in autoagents/.env overriding hosts.yml — operators should refresh/remove that token
+
