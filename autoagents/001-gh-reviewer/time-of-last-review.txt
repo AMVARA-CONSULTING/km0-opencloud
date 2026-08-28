@@ -19369,3 +19369,14 @@
   gh comment/label: none (nothing to plan)
   Note: loop preflight G001_GH_AUTH_FAILED=1 — invalid GH_TOKEN in loop env overrides hosts.yml; use env -u GH_TOKEN or refresh via ./scripts/setup-autoagents-gh.sh
 
+2026-08-28T15:08:24Z — Run 001 (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub sweep: OK via env -u GH_TOKEN + gh auth Luipy56 + issue_checker — 0 open issues; no pending FEAT/NEW in tasks/
+  FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 7d restart=0; digest expired OIDC client token only — not standing
+    - opencloud-dex: Up 7d restart=0; historical failed-login/LDAP-miss = auth noise
+    - km0-web: Up 17h healthy restart=0; scanner 404 (joomla.xml) — not standing
+  NEW created: 0
+  gh comment/label: none (nothing to plan)
+  Note: loop preflight G001_GH_AUTH_FAILED=1 — invalid GH_TOKEN in loop env overrides hosts.yml; use env -u GH_TOKEN or refresh via ./scripts/setup-autoagents-gh.sh
