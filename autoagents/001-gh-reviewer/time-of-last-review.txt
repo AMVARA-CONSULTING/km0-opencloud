@@ -18700,3 +18700,14 @@
   gh comment/label: none (nothing to plan)
   Note: replace/remove invalid GH_TOKEN in autoagents/.env so loop preflight stops G001_GH_AUTH_FAILED
 2026-08-28T08:59:55Z UTC | 001 cursor-agent | FEAT: 0 | NEW: 0 | G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt | note: preflight gh 401 (invalid GH_TOKEN in autoagents/.env); sweep via env -u GH_TOKEN + issue_checker — 0 open issues; no pending FEAT/NEW/WIP in tasks/; Docker reviewed — recurring warn "core access token not set" (unauth probes, 0 errors/24h); dex failed-login/LDAP bind attempts + km0-web healthy — not standing incidents
+2026-08-28T09:05:51Z UTC | 001 cursor-agent | FEAT: 0 | NEW: 0 | G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1 | digest: /opt/opencloud/autoagents/var/loop/001-latest-context.txt | note: preflight gh 401 (invalid GH_TOKEN in autoagents/.env); sweep via env -u GH_TOKEN + gh auth switch Luipy56 + issue_checker — 0 open issues; no pending FEAT/NEW/WIP in tasks/; Docker reviewed — opencloud 29× "core access token not set" warn (2h) + 0× ERROR/malformed/missing-blob; dex 0× ERROR (2h); older dex failed-login/LDAP-miss in preflight window = auth noise; km0-web healthy (206 size=500 false-positive) — not standing incidents; containers up restart=0 (opencloud 7d, dex 7d, km0-web 11h healthy)
+2026-08-28T09:05:51Z — Run 001 (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub sweep: OK after unset GH_TOKEN + hosts.yml Luipy56 (stale GH_TOKEN in autoagents/.env overrides valid login). Open issues: 0. Active FEAT/WIP/UNTESTED in tasks/: 0. FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 7d restart=0; 29× "core access token not set" (warn, 2h); 0× ERROR/malformed/missing-blob (2h)
+    - opencloud-dex: Up 7d+ restart=0; 0× ERROR (2h); older failed-login / LDAP-miss = auth noise
+    - km0-web: Up 11h healthy restart=0; no real 5xx (206 size=500 false positive)
+  NEW created: 0
+  gh comment/label: none (nothing to plan)
+  Note: replace/remove invalid GH_TOKEN in autoagents/.env so loop preflight stops G001_GH_AUTH_FAILED
