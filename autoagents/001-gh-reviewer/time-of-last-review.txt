@@ -18575,3 +18575,13 @@
     - km0-web: Up 9h healthy restart=0; no heuristic matches; 0× ERROR (6h)
   FEAT created: 0 | NEW created: 0
   Note: preflight G001_GH_AUTH_FAILED — stale GH_TOKEN in env/autoagents/.env overrides hosts.yml; unset + Luipy56 hosts.yml works
+2026-08-28T07:53:41Z — Run 001 (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub sweep: OK after env -u GH_TOKEN (stale GH_TOKEN in autoagents/.env overrides hosts.yml Luipy56). Open issues: 0. Active FEAT/WIP/UNTESTED in tasks/: 0. FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 6d restart=0; 0× error/fatal (6h); digest /.env probe = access-log info 200 only
+    - opencloud-dex: Up 7d restart=0; failed-login / LDAP-miss / refresh-token-expired = auth noise; 2× LDAP Operations Error (single user, ~2026-08-27T10:57Z) not fleet-wide
+    - km0-web: Up ~10h healthy restart=0; no heuristic matches
+  NEW created: 0
+  gh comment/label: none (nothing to plan)
+  Note: replace/remove invalid GH_TOKEN in autoagents/.env so loop preflight stops G001_GH_AUTH_FAILED
