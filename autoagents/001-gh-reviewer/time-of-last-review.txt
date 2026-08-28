@@ -18565,3 +18565,13 @@
     - km0-web: Up 9h healthy restart=0; no heuristic matches; 0× ERROR (6h)
   FEAT created: 0 | NEW created: 0
   Note: preflight G001_GH_AUTH_FAILED — loop must source autoagents/.env (or refresh GH_TOKEN) before gh; hosts.yml Luipy56 works when token is valid
+
+2026-08-28T07:47:23Z UTC | 001 GitHub reviewer (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub: OK after unset GH_TOKEN + gh auth switch Luipy56 (hosts.yml); open issues: 0; issue_checker: No open GitHub issues. FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 6d restart=0; 0× error/fatal (6h); digest /.env probes = access-log info 200 only
+    - opencloud-dex: Up 7d restart=0; 0× ERROR (6h); digest failed-login/LDAP-miss/refresh-token-expired = auth noise (older window)
+    - km0-web: Up 9h healthy restart=0; no heuristic matches; 0× ERROR (6h)
+  FEAT created: 0 | NEW created: 0
+  Note: preflight G001_GH_AUTH_FAILED — stale GH_TOKEN in env/autoagents/.env overrides hosts.yml; unset + Luipy56 hosts.yml works
