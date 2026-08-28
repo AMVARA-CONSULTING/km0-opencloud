@@ -18626,3 +18626,14 @@
   NEW created: 0
   gh comment/label: none (nothing to plan)
   Note: loop preflight should source autoagents/.env before gh; token in .env works when exported
+2026-08-28T08:23:30Z — Run 001 (cursor-agent)
+  Preflight: autoagents/var/loop/001-latest-context.txt (G001_GH_OK=0 G001_GH_AUTH_FAILED=1 G001_UNTRACKED_ISSUES=0 G001_LOG_SIGNALS=1)
+  GitHub sweep: OK with GH_TOKEN from autoagents/.env (preflight 401 without sourced env). Open issues: 0. Active FEAT/WIP/UNTESTED in tasks/: 0. FEAT created: 0
+  Docker → NEW: SKIPPED — no standing production incidents
+    - opencloud-opencloud-1: Up 7d restart=0; ~14× OIDC "token is malformed" on /notifications/sse (2h, single-client pattern); 1× missing blob download 500 (one file); /.env probe = access-log info only
+    - opencloud-dex: Up 7d+ restart=0; failed-login / LDAP-miss / invalid-password = auth noise; 2× LDAP Operations Error (24h) not fleet-wide
+    - km0-web: running restart=0; no heuristic matches
+  NEW created: 0
+  gh comment/label: none (nothing to plan)
+  Note: loop preflight should source autoagents/.env before gh so G001_GH_AUTH_FAILED clears
+
