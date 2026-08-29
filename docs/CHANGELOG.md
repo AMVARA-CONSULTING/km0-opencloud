@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
+- autoagents: stop committing noop `VERSION` / 001 reviewer stamp every loop cycle; bump VERSION only when a new FEAT is created; stamp-only dirty trees are skipped (VERSION restored to HEAD).
 - Nginx: dedicated `^~ /dav/` location proxies WebDAV / desktop sync without SSO body rewrite so `OC-Checksum` on `.html` uploads is preserved.
 
 ### Changed
