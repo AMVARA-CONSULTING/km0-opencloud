@@ -263,4 +263,4 @@ curl -s https://cloud.km0digital.com/login.html | grep -i register
 - Minimal diff; match existing conventions in `host-www/`, `nginx/`, `dex/web/themes/km0/`.
 - Do not edit `opencloud-compose/` upstream directly — use `overrides/` if OpenCloud env changes are needed.
 - Do not commit `.env`, app tokens, or Graph service credentials.
-- Bump `autoagents/VERSION` per loop policy when committing.
+- Include `autoagents/VERSION` only when already bumped with real work; never commit VERSION/stamp-only changes.
