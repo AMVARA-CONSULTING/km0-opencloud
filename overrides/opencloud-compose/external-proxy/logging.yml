@@ -1,0 +1,21 @@
+# KM0: retain more json-file logs for incident debugging (X-Request-Id, COPY/MOVE).
+# Does not affect user data volumes.
+services:
+  opencloud:
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+  collaboration:
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+  collabora:
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"

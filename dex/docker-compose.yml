@@ -32,6 +32,11 @@ services:
       - opencloud_opencloud-data:/opencloud-data:ro
     ports:
       - "127.0.0.1:5556:5556"
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
     networks:
       - default
       - opencloud-net

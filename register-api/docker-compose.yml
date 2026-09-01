@@ -21,6 +21,11 @@ services:
       - "host.docker.internal:host-gateway"
     ports:
       - "127.0.0.1:8091:8091"
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
     networks:
       - opencloud-net
       - mailnet

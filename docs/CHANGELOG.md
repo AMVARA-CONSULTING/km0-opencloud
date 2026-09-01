@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Docker json-file log retention (`50m` × `5`) via `external-proxy/logging.yml` for `opencloud` / `collaboration` / `collabora`; same options on Dex and register-api compose; wired into env examples, `apply-opencloud-compose-overrides.sh`, and runbook. Does not touch user data volumes.
+
 ### Fixed
 
 - autoagents: stop committing noop `VERSION` / 001 reviewer stamp every loop cycle; bump VERSION only when a new FEAT is created; stamp-only dirty trees are skipped (VERSION restored to HEAD).

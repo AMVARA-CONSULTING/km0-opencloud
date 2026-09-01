@@ -34,6 +34,11 @@ No PostgreSQL — the standard core stack uses embedded storage (Decomposed FS +
 
 ## Day-to-day operations
 
+### Container logs (json-file)
+
+OpenCloud stack logging retention is `50m` x `5` files via `external-proxy/logging.yml` (also Dex + register-api compose). Host default in `/etc/docker/daemon.json` matches; changing the daemon file alone does **not** alter running containers until recreate. Do not delete Docker volumes when recreating containers.
+
+
 ### Working directory
 
 All `docker compose` commands must run from:

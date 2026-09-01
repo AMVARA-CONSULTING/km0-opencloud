@@ -36,3 +36,8 @@ Con Collabora, además:
 /opt/opencloud/scripts/issue-collabora-wopi-certs.sh   # DNS + Let's Encrypt + nginx
 /opt/opencloud/scripts/enable-collabora-compose.sh     # overrides + docker compose up -d
 ```
+
+
+## Logging
+
+`external-proxy/logging.yml` raises json-file retention (`50m` x `5` files) for `opencloud`, `collaboration`, and `collabora`. Include it in `COMPOSE_FILE` (see env examples). User data volumes are untouched.
