@@ -1,5 +1,6 @@
 ## 2026-09-07
 
+- Collabora CODE pin `26.04.2.4.1` → `26.04.3.2.1` (Sunday stack update; live pin in gitignored `opencloud-compose/weboffice/collabora.yml`; collaboration recreated on rolling 7.5.0).
 - OpenCloud rolling `7.4.0` → `7.5.0` (Sunday stack update; volumes backed up under `/var/backups/opencloud/20260907-182130`).
 
 # Changelog
