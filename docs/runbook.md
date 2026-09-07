@@ -13,7 +13,7 @@ Official docs: <https://docs.opencloud.eu/>
 | Debian | 13.5 (Trixie) | `/etc/` | Running |
 | Docker CE | 29.5.2 | `/etc/docker/daemon.json` | `systemctl status docker` |
 | Docker Compose plugin | v5.1.4 | — | bundled with Docker CE |
-| OpenCloud | rolling:7.4.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
+| OpenCloud | rolling:7.5.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
 | Collabora CODE | 26.04.2.4.1 | `opencloud-compose/weboffice/collabora.yml` | `docker compose ps collabora` |
 | WOPI (collaboration) | same as OpenCloud image | `opencloud-compose/.env` (`WOPISERVER_DOMAIN`) | `docker compose ps collaboration` |
 | Nginx (web) | 1.26.3 | `/etc/nginx/sites-available/km0` | `km0.amvara.de` → :9180 |
@@ -112,7 +112,7 @@ The upstream template with all available options is:
 | `COLLABORA_ADMIN_PASSWORD` | *(in `.env` only)* | Collabora admin UI at `/browser/dist/admin/admin.html` |
 | `COMPOSE_PROJECT_NAME` | `opencloud` | Prefixes Docker resource names: volumes become `opencloud_opencloud-data`, etc. |
 | `OC_DOMAIN` | `cloud.km0digital.com` | Hostname público de OpenCloud (no usar `km0.amvara.de`, que es la web). |
-| `OC_DOCKER_IMAGE` / `OC_DOCKER_TAG` | `opencloudeu/opencloud-rolling` / `7.4.0` | Pinned image. Change `OC_DOCKER_TAG` to upgrade. |
+| `OC_DOCKER_IMAGE` / `OC_DOCKER_TAG` | `opencloudeu/opencloud-rolling` / `7.5.0` | Pinned image. Change `OC_DOCKER_TAG` to upgrade. |
 | `INSECURE` | `false` | TLS validation enabled. Use `true` only with self-signed certs during lab setup. |
 | `INITIAL_ADMIN_PASSWORD` | *(ver `opencloud-compose/.env`)* | Solo en **primer arranque**. Después, cambiar en la UI (no en `.env`). |
 | `LOG_DRIVER` | `json-file` | Matches `/etc/docker/daemon.json`; limits log size to 10 MB × 3 files. |
@@ -414,6 +414,7 @@ apt update && apt upgrade -y
 | 2026-05-22 | Upgraded OpenCloud | `6.2.0` → `7.0.0`; added `sharing.service_account` in `opencloud.yaml` (7.x requirement) |
 | 2026-07-18 | Upgraded OpenCloud | `7.0.0` → `7.3.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-08-18 | Upgraded OpenCloud | `7.3.0` → `7.4.0` (volumes backed up first; Dex/nginx login unchanged) |
+| 2026-09-07 | Upgraded OpenCloud | `7.4.0` → `7.5.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-08-18 | Upgraded Collabora CODE | `25.04.10.3.1` → `26.04.2.4.1` (distroless + proof-key volume; nginx compact `/cool/ws` + `/co/collab`; skipped red `26.04.3.1.1`) |
 | 2026-08-18 | Upgraded Collabora CODE | `25.04.9.4.1` → `25.04.10.3.1` (same 25.04; later jumped to 26.04.2.4.1) |
 | 2026-08-18 | Upgraded Dex | `v2.42.0` → `v2.45.1` (dex service only; OIDC clients unchanged) |

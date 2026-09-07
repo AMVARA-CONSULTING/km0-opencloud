@@ -1,3 +1,7 @@
+## 2026-09-07
+
+- OpenCloud rolling `7.4.0` → `7.5.0` (Sunday stack update; volumes backed up under `/var/backups/opencloud/20260907-182130`).
+
 # Changelog
 
 All notable changes to this project are documented in this file.
