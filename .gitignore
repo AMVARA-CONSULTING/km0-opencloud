@@ -39,3 +39,6 @@ __pycache__/
 # Credenciales en /opt (referenciadas por Dex)
 google-client-secret.json
 apple-signin-credentials.json
+
+# Append-only reviewer stamp log (stays on the host; do not commit stamps)
+autoagents/001-gh-reviewer/time-of-last-review.txt
