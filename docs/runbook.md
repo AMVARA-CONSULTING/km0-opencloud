@@ -683,6 +683,19 @@ docker compose logs collabora collaboration | tail -50
 
 Verify `WOPISERVER_DOMAIN`, Nginx `server_name` on the wopi vhost, and `aliasgroup1` in the collabora container env.
 
+### WOPI GetFile 500 / socket closed when opening DOCX
+
+Symptom: browser shows Collabora proxy/socket error; collaboration logs `GetFile: Get request to the download endpoint failed` with `dial tcp [::1]:9158: connect: connection refused`.
+
+Cause: storage-users data server defaults to `127.0.0.1:9158` and advertises `http://localhost:9158/data`. The collaboration container cannot reach that loopback.
+
+Fix (KM0 overlay `overrides/opencloud-compose/external-proxy/collabora.yml`):
+
+- `STORAGE_USERS_HTTP_ADDR=0.0.0.0:9158`
+- `STORAGE_USERS_DATA_SERVER_URL=http://opencloud:9158/data`
+
+Do not publish port 9158 on the host. Recreate `opencloud` then `collaboration` after changing env.
+
 ### WOPI / collaboration NATS after OpenCloud 7.3.0 upgrade
 
 Symptom: `https://wopi.km0digital.com/` returns **502**, collaboration logs show `error connecting to nats at 127.0.0.1:9233` even though `MICRO_REGISTRY_ADDRESS=opencloud:9233` is set.

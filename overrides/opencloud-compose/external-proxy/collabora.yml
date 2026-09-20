@@ -1,5 +1,14 @@
 ---
 services:
+  opencloud:
+    environment:
+      # WOPI GetFile (collaboration container) follows CS3 download URLs.
+      # Default bind is 127.0.0.1:9158 inside opencloud, so collaboration gets
+      # connection refused on http://localhost:9158/data/spaces/...
+      # Bind on the Docker network and advertise that URL. Do not publish 9158
+      # on the host (opencloud still maps only 127.0.0.1:9200).
+      STORAGE_USERS_HTTP_ADDR: 0.0.0.0:9158
+      STORAGE_USERS_DATA_SERVER_URL: http://opencloud:9158/data
   collaboration:
     ports:
       # expose the wopi server on localhost
