@@ -132,3 +132,5 @@ All notable changes to this project are documented in this file.
 - Compose env template `.env.debian-collabora-external-proxy.example` and enable scripts (`issue-collabora-wopi-certs.sh`, `enable-collabora-compose.sh`).
 - Runbook and README updates for Collabora/WOPI deployment, TLS, smoke checks, and troubleshooting.
 - Runbook and `dex/README.md` documentation for native sync client IDs, redirect URIs, deploy steps, and smoke checks.
+
+- 2026-09-21: bump Collabora CODE 26.04.3.2.1 → 26.04.4.1.1 (Sunday catch-up; container only).
