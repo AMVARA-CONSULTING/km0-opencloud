@@ -133,6 +133,8 @@ All notable changes to this project are documented in this file.
 - Runbook and README updates for Collabora/WOPI deployment, TLS, smoke checks, and troubleshooting.
 - Runbook and `dex/README.md` documentation for native sync client IDs, redirect URIs, deploy steps, and smoke checks.
 
+- 2026-09-26: bump Collabora CODE 26.04.4.1.1 → 26.04.4.2.1 (Sunday catch-up; container only; backup /var/backups/opencloud/20260926-171133).
+
 - 2026-09-21: bump Collabora CODE 26.04.3.2.1 → 26.04.4.1.1 (Sunday catch-up; container only).
 
 - 2026-09-21: bump OpenCloud rolling 7.5.0 → 8.0.1 (Sunday catch-up; backup /var/backups/opencloud/20260921-021920; search index --all-spaces).
