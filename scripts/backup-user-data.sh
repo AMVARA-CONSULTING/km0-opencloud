@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Backup OpenCloud user data (opencloud-data Docker volume) to /data with rotation.
+# Backup OpenCloud user data (opencloud-data Docker volume) with rotation.
 #
 # - Runs every 5 days via /etc/cron.d/opencloud-user-backup
 # - Keeps MAX_BACKUPS archives; deletes the oldest only after a new backup succeeds
@@ -10,14 +10,14 @@
 #   sudo /opt/opencloud/scripts/backup-user-data.sh
 #
 # Environment overrides:
-#   BACKUP_ROOT=/data/opencloud-backup/user-data
+#   BACKUP_ROOT=/unmount/opencloud-backup/user-data
 #   MAX_BACKUPS=5
 #   VOLUME_NAME=opencloud_opencloud-data
 #   SPACE_MARGIN_PERCENT=10
 set -euo pipefail
 
 COMPOSE_DIR="${COMPOSE_DIR:-/opt/opencloud/opencloud-compose}"
-BACKUP_ROOT="${BACKUP_ROOT:-/data/opencloud-backup/user-data}"
+BACKUP_ROOT="${BACKUP_ROOT:-/unmount/opencloud-backup/user-data}"
 MAX_BACKUPS="${MAX_BACKUPS:-5}"
 SPACE_MARGIN_PERCENT="${SPACE_MARGIN_PERCENT:-10}"
 ALPINE_IMAGE="${ALPINE_IMAGE:-alpine:3.19}"
