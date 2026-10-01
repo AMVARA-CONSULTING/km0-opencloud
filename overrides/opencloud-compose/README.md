@@ -41,3 +41,11 @@ Con Collabora, además:
 ## Logging
 
 `external-proxy/logging.yml` raises json-file retention (`50m` x `5` files) for `opencloud`, `collaboration`, and `collabora`. Include it in `COMPOSE_FILE` (see env examples). User data volumes are untouched.
+
+## Web theming
+
+Custom OpenCloud Web theme lives in `config/opencloud/themes/` (copied into the compose clone by the apply script).
+
+`external-proxy/opencloud.yml` sets `WEB_ASSET_THEMES_PATH` / `WEB_UI_THEME_PATH` and bind-mounts `${OC_THEMES_DIR:-./config/opencloud/themes}`.
+
+Rollback: remove the themes volume/env from the override (or empty the themes dir) and recreate the `opencloud` service. User data volumes are untouched.

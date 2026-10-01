@@ -27,6 +27,13 @@ install -D -m 0644 "${OVERRIDES}/external-proxy/collabora.yml" \
 install -D -m 0644 "${OVERRIDES}/external-proxy/logging.yml" \
   "${COMPOSE_DIR}/external-proxy/logging.yml"
 
+# Custom Web themes (host bind target under compose tree)
+mkdir -p "${COMPOSE_DIR}/config/opencloud/themes"
+if [[ -d "${OVERRIDES}/config/opencloud/themes" ]]; then
+  cp -a "${OVERRIDES}/config/opencloud/themes/." "${COMPOSE_DIR}/config/opencloud/themes/"
+  echo "Temas Web copiados a ${COMPOSE_DIR}/config/opencloud/themes"
+fi
+
 cd "${COMPOSE_DIR}"
 if patch -p1 --forward --dry-run < "${PATCH}" >/dev/null 2>&1; then
   patch -p1 --forward < "${PATCH}"

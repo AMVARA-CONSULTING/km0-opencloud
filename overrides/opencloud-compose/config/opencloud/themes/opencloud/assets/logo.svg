@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none" role="img" aria-label="KM0 Digital">
+  <rect x="0" y="4" width="32" height="32" rx="5" fill="#0F766E"/>
+  <rect x="2" y="7" width="6.5" height="26" fill="#EEF0F2"/>
+  <path fill="#EEF0F2" d="M7.5 19 15 7.5h3.2L10.2 20.2z"/>
+  <path fill="#EEF0F2" d="M7.5 21 10.2 19.8 18.2 32.5H15z"/>
+  <path fill="#EEF0F2" fill-rule="evenodd" d="M17.5 9.5h12.5v21H17.5v-21zm3.7 4.7h5.1v11.6h-5.1V14.2z"/>
+  <text x="42" y="26" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="600" fill="#0F766E">KM0 Digital</text>
+</svg>
