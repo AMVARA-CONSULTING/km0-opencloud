@@ -26,7 +26,7 @@ oauth2:
 # Longer Cloud sessions: short-lived ID tokens + refresh tokens (offline_access).
 # Web client requests offline_access via WEB_OIDC_SCOPE / config-dex.json / dex-auth.js.
 expiry:
-  idTokens: "24h"
+  idTokens: "168h"  # 7 days
   refreshTokens:
     validIfNotUsedFor: "720h"    # 30 days idle
     absoluteLifetime: "2160h"    # 90 days absolute

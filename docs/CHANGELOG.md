@@ -1,5 +1,7 @@
 ## 2026-09-07
 
+- Session gate: honor refresh_token after access/id token expiry (was forcing auth-hub redirect after ~24h despite offline_access).
+- Dex ID token lifetime: 24h → 168h (7 days); refresh tokens unchanged (30d idle / 90d absolute).
 - Collabora CODE pin `26.04.2.4.1` → `26.04.3.2.1` (Sunday stack update; live pin in gitignored `opencloud-compose/weboffice/collabora.yml`; collaboration recreated on rolling 7.5.0).
 - OpenCloud rolling `7.4.0` → `7.5.0` (Sunday stack update; volumes backed up under `/var/backups/opencloud/20260907-182130`).
 

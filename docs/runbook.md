@@ -440,7 +440,7 @@ Authentication uses **Dex** as the sole OIDC issuer. **All** tokens (Google, App
 
 **Single login landing:** https://auth.km0digital.com/login (hub). Cloud entry points (`/`, `/login.html`, `/login`) serve **`/km0-session-gate.html`**. With an OpenCloud OIDC session in browser storage and no in-flight OIDC resume: `service=cloud` (or empty) → `/files`; `service=mail` → hub `/sso-continue` (Roundcube OAuth `prompt=none`). Without a session → hub login (`session_checked=1`). CA | ES | EN | DE via hub `/i18n.js` and Dex `/dex/theme/i18n.js`.
 
-**Session lifetime:** Dex issues ID tokens for **24h** and refresh tokens valid **30 days idle / 90 days absolute**. Web OIDC scope includes `offline_access` (`WEB_OIDC_SCOPE` / `config-dex.json`) so OpenCloud Web can refresh without re-prompting.
+**Session lifetime:** Dex issues ID tokens for **168h (7 days)** and refresh tokens valid **30 days idle / 90 days absolute**. Web OIDC scope includes `offline_access` (`WEB_OIDC_SCOPE` / `config-dex.json`) so OpenCloud Web can refresh without re-prompting.
 
 | Action on landing | Sets cookie | Redirect target |
 |-------------------|-------------|-----------------|
