@@ -7,6 +7,12 @@
 
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Live Cloud OIDC issuer is Keycloak realm `km0digital` (`https://sso.km0digital.com/realms/km0digital`) since 2026-10-05. Dex is leftover. Runbook and README updated 2026-10-06.
+
 All notable changes to this project are documented in this file.
 
 ## [Unreleased]

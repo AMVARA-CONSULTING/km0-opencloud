@@ -222,8 +222,9 @@ See [`docs/agent-loop.md`](docs/agent-loop.md) and [`.cursor/skills/autoagents/S
 ## Current deployment notes
 
 - **Web:** https://km0.amvara.de (Nginx `km0` → port 9180)
-- **OpenCloud:** https://cloud.km0digital.com (Nginx `opencloud` → port 9200; Dex OIDC at `/dex/`)
-- **Login landing:** https://cloud.km0digital.com/login.html (hybrid Google / Apple / local LDAP via Dex)
+- **OpenCloud:** https://cloud.km0digital.com (Nginx `opencloud` → port 9200)
+- **OIDC (live since 2026-10-05):** Keycloak realm `km0digital` at https://sso.km0digital.com (catalog `km0-sso` on amvara3). Dex at `/dex/` may still run; it is **not** the Cloud issuer.
+- **Login landing:** https://auth.km0digital.com/login (hub). Cloud `/login.html` is the session gate.
 - **Collabora:** https://collabora.km0digital.com (Nginx `collabora` → port 9980)
 - **WOPI:** https://wopi.km0digital.com (Nginx `wopi` → port 9300)
 - **TLS:** Let's Encrypt on all public hostnames (`certbot.timer`; ACME contact in `opencloud-compose/.env` comments).

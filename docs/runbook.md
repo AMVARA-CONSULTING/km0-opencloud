@@ -368,14 +368,16 @@ nano .env
 docker compose pull
 docker compose up -d
 
-# 5. Verify product version + no fatal errors; Dex/nginx login must still work
+# 5. Verify product version + no fatal errors; Keycloak login must still work
 curl -s http://127.0.0.1:9200/status.php   # productversion matches OC_DOCKER_TAG
 docker compose ps
 docker compose logs --tail=80 opencloud | grep -E '"level":"(error|fatal)"' || true
+curl -sI https://sso.km0digital.com/realms/km0digital/.well-known/openid-configuration | head -3
+# leftover Dex (not the Cloud issuer):
 curl -sI https://cloud.km0digital.com/dex/.well-known/openid-configuration | head -3
 ```
 
-Custom auth (nginx → Dex → OpenCloud `OC_OIDC_ISSUER`) is outside the OpenCloud image; do not change Dex/nginx for a routine tag bump unless release notes require it.
+Custom auth (nginx → Keycloak `OC_OIDC_ISSUER` → OpenCloud) is outside the OpenCloud image. Do not change Keycloak, Dex, or nginx for a routine tag bump unless release notes require it.
 
 > Already on 7.x: `sharing.service_account` in the config volume is required (applied at the 6→7 upgrade). Re-run `opencloud init --diff` only if upgrading from pre-7.0.
 
@@ -422,40 +424,53 @@ apt update && apt upgrade -y
 | 2026-08-18 | Upgraded Collabora CODE | `25.04.10.3.1` → `26.04.2.4.1` (distroless + proof-key volume; nginx compact `/cool/ws` + `/co/collab`; skipped red `26.04.3.1.1`) |
 | 2026-08-18 | Upgraded Collabora CODE | `25.04.9.4.1` → `25.04.10.3.1` (same 25.04; later jumped to 26.04.2.4.1) |
 | 2026-08-18 | Upgraded Dex | `v2.42.0` → `v2.45.1` (dex service only; OIDC clients unchanged) |
+| 2026-10-05 | Cloud OIDC cutover | `OC_OIDC_ISSUER` → Keycloak `https://sso.km0digital.com/realms/km0digital`; Dex leftover |
+| 2026-10-06 | Keycloak image | bcrypt SPI + `km0-mail-access` on amvara3; Git/Redmine OIDC still realm `amvara` |
 
 ---
 
-## Multi-provider OIDC (Google + Apple, no Keycloak)
+## OIDC (Keycloak live, Dex leftover)
 
-Authentication uses **Dex** as the sole OIDC issuer. **All** tokens (Google, Apple, local password) are Dex-issued so the OpenCloud proxy can verify them via Dex’s JWKS. The built-in `idp` stays running for internal service-to-service use but is no longer the end-user auth path.
+**Since 2026-10-05** the live Cloud issuer is **Keycloak** on amvara3, realm **`km0digital`**.
 
-**Why all auth must go through Dex:** `OC_OIDC_ISSUER=Dex` means the proxy verifies access tokens against Dex’s JWKS only. Tokens issued directly by the built-in idp (LibreGraph Connect) have a different `kid` and are rejected with `"key not found in JWKS"`, causing an infinite re-auth loop. Dex’s **LDAP** connector (`connector_id=ldap`) validates username/password against OpenCloud’s built-in IDM (port 9235) and still issues Dex tokens.
+| Field | Value |
+|-------|--------|
+| Issuer | `https://sso.km0digital.com/realms/km0digital` |
+| Catalog | `km0-sso` (`/data/keycloak/app` on amvara3) |
+| Ticket | [#8249](https://redmine.amvara.de/issues/8249) |
+| Browser client | `opencloud-web` |
+| Desktop / mobile | `OpenCloudDesktop`, `OpenCloudAndroid`, `OpenCloudIOS` |
+| Lookup | `PROXY_USER_OIDC_CLAIM=preferred_username` (email), `PROXY_USER_CS3_CLAIM=username`, `PROXY_AUTOPROVISION_ACCOUNTS=true` |
+| Desktop server URL | `https://cloud.km0digital.com` (not the Keycloak URL) |
+
+The proxy verifies tokens against **Keycloak JWKS**. Personal space id stays OpenCloud IDM `openCloudUUID`. Keycloak `sub` is `user_entity.id` (random at import) and is not that UUID. Desktop `opencloud.cfg` binds the folder with `spaceId` (`storageId$openCloudUUID`).
+
+Google is a **Keycloak broker** on realm `km0digital`, not a Dex connector on the live path.
+
+**Dex leftover:** compose under `/opt/opencloud/dex` and nginx `/dex/` may still run. Do not treat Dex as the Cloud issuer. Old Dex `sub` was LDAP `openCloudUUID`.
+
+Built-in OpenCloud `idp` stays for internal service-to-service use. It is not the end-user path.
 
 | Component | Role |
 |-----------|------|
-| nginx `cloud.km0digital.com` | TLS, `/dex/` → Dex, `/` → OpenCloud |
-| Dex (`127.0.0.1:5556`) | Unified issuer; connectors: Google, Apple (optional) |
-| OpenCloud built-in `idp` | Local LDAP users (admin, manually created accounts) |
-| OpenCloud | `OC_OIDC_ISSUER=https://cloud.km0digital.com/dex`, `WEB_OIDC_CLIENT_ID=opencloud-web` |
+| nginx `cloud.km0digital.com` | TLS, `/` → OpenCloud; `/dex/` leftover |
+| Keycloak | Live issuer; Google broker; password users |
+| Dex (`127.0.0.1:5556`) | Leftover; do not point `OC_OIDC_ISSUER` here |
+| OpenCloud | `OC_OIDC_ISSUER=https://sso.km0digital.com/realms/km0digital`, `WEB_OIDC_CLIENT_ID=opencloud-web` |
 
-**Single login landing:** https://auth.km0digital.com/login (hub). Cloud entry points (`/`, `/login.html`, `/login`) serve **`/km0-session-gate.html`**. With an OpenCloud OIDC session in browser storage and no in-flight OIDC resume: `service=cloud` (or empty) → `/files`; `service=mail` → hub `/sso-continue` (Roundcube OAuth `prompt=none`). Without a session → hub login (`session_checked=1`). CA | ES | EN | DE via hub `/i18n.js` and Dex `/dex/theme/i18n.js`.
+**Single login landing:** https://auth.km0digital.com/login (hub JS issuer = Keycloak). Cloud entry points (`/`, `/login.html`, `/login`) serve **`/km0-session-gate.html`**. With an OpenCloud OIDC session and no in-flight resume: `service=cloud` (or empty) → `/files`; `service=mail` → hub `/sso-continue`. Without a session → hub login. CA | ES | EN | DE via hub `/i18n.js`.
 
-**Session lifetime:** Dex issues ID tokens for **168h (7 days)** and refresh tokens valid **30 days idle / 90 days absolute**. Web OIDC scope includes `offline_access` (`WEB_OIDC_SCOPE` / `config-dex.json`) so OpenCloud Web can refresh without re-prompting.
+**Open (2026-10-06):** Cloud and Mail login still separate. Logout is not symmetric. KM0 theme is not on Keycloak. Git and Redmine OIDC still use Keycloak realm `amvara`, so usual KM0 users have no Git/Redmine access.
 
-| Action on landing | Sets cookie | Redirect target |
-|-------------------|-------------|-----------------|
-| Google / Apple | `oc_auth_mode=dex` | `/dex/auth?connector_id=google` or `apple` → provider → `/?code=…` |
-| Local username/password | `oc_auth_mode=dex` | `/dex/auth?connector_id=ldap` → Dex password form → `/oidc-callback.html?code=…` |
+Legacy Dex landing cookies (`oc_auth_mode=dex`, `/dex/auth?connector_id=...`) are **not** the live path. Do not restore them without an explicit ask.
 
-Legacy `/?oidc=1` still passes nginx to OpenCloud (bookmarks) but is not linked from the landing page.
-
-**Local users:** any account in OpenCloud IDM (`ou=users,o=libregraph-idm`) — same username/password as the built-in login. Sign in with **uid** (e.g. `admin`, `luipy`) or full email when uid is an address. Dex maps `openCloudUUID` and `mail` into OIDC claims (`PROXY_USER_OIDC_CLAIM=email`).
+**Local users:** IDM accounts (`ou=users,o=libregraph-idm`) still own files. Sign-in is Keycloak (email / Google). Do not remove/re-add a desktop account to "fix" Incorrect user (creates `OpenCloud (2)`).
 
 ### Public self-registration (email + password)
 
 New users can register at https://cloud.km0digital.com/register.html. The page posts to `POST /api/register`, proxied by nginx to **register-api** (`127.0.0.1:8091`), which creates the account via OpenCloud Graph `POST /graph/v1.0/users`. Email is used as `onPremisesSamAccountName` and `mail` (aligns with Google autoprov by email).
 
-After registration, the user signs in via the existing Dex LDAP flow (`connector_id=ldap`) on `/login.html`.
+After registration, the user signs in via the **auth hub / Keycloak** (not Dex LDAP).
 
 **Optional KM0 Mail:** check **Create KM0 Mail account** on the register form (or use `mail.km0digital.com/register`). register-api provisions the mailbox via km0-mail when `create_mail=true`. Freemail domains (Gmail, Outlook, …) are rejected as mailbox addresses but allowed as contact email.
 
@@ -472,13 +487,13 @@ After registration, the user signs in via the existing Dex LDAP flow (`connector
 
 Hub CTA (km0-mail #14) should deep-link to that URL when `service=mail` and the user has Cloud OIDC but no mailbox yet — **Google or Apple** (when Apple connector is live). Do **not** open unauthenticated activate. Session-gate `?service=mail` → hub `/sso-continue` (#22) stays for LDAP-capable mail SSO; wizard is the no-mailbox path.
 
-**Activate Mail + OIDC rematch (#24 / #26):** OpenCloud matches OIDC `email` to CS3 `username` (`PROXY_USER_OIDC_CLAIM=email`, `PROXY_USER_CS3_CLAIM=username`). OIDC-first accounts use IdP email as `onPremisesSamAccountName`. `activate-mail` must **not** rewrite Graph `mail` to the KM0 mailbox (that also fights OpenCloud `UpdateUserIfNeeded` on the next Google **or Apple** login). Mailbox address is stored only in km0-mail. If Graph `mail` was already patched to `@km0` by an older activate, re-run with `contact_email=<idp-email>` to restore freemail on Graph. Rejected alternatives: B (custom account-link bridge), C (upstream multi-email linking — not available). Roundcube LDAP OAuth needing token `email`=mailbox is km0-mail #9/#12.
+**Activate Mail + OIDC rematch (#24 / #26):** OpenCloud matches OIDC email to CS3 username (`PROXY_USER_OIDC_CLAIM=preferred_username`, `PROXY_USER_CS3_CLAIM=username`). Older Dex-era docs said `email`; live env is `preferred_username`. OIDC-first accounts use IdP email as `onPremisesSamAccountName`. `activate-mail` must **not** rewrite Graph `mail` to the KM0 mailbox (that also fights OpenCloud `UpdateUserIfNeeded` on the next Google **or Apple** login). Mailbox address is stored only in km0-mail. If Graph `mail` was already patched to `@km0` by an older activate, re-run with `contact_email=<idp-email>` to restore freemail on Graph. Rejected alternatives: B (custom account-link bridge), C (upstream multi-email linking — not available). Roundcube LDAP OAuth needing token `email`=mailbox is km0-mail #9/#12.
 
 **Provider parity (activate-mail / Cloud login):**
 
 | Path | Google | Apple (optional) | LDAP (local) |
 |------|--------|------------------|--------------|
-| Cloud sign-in | Dex `connector_id=google` | Dex `connector_id=apple` when `APPLE_CLIENT_*` set; CTA hidden otherwise (`probeDexConnector`) | Dex `connector_id=ldap` |
+| Cloud sign-in | Keycloak Google broker | Not live on Keycloak as of 2026-10-06 | Keycloak password (IDM user still exists) |
 | Rematch after activate | IdP email stays Graph `mail` / SAM (#24) | Same uuid guarantee (#26) | Username/password; mailbox password for Roundcube |
 | Activate wizard deep-link | `https://cloud.km0digital.com/activate-mail.html` | Same URL | Same URL (after Cloud session) |
 | Hub `service=mail` intent | Deep-link wizard or `/sso-continue` (#22) | Same | Prefer `/sso-continue` when mailbox exists |

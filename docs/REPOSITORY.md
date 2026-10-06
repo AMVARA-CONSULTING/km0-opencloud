@@ -1,3 +1,5 @@
+**Current (2026-10-05):** live Cloud OIDC is Keycloak realm `km0digital` (`https://sso.km0digital.com`, catalog `km0-sso` on amvara3). The `dex/` tree in this repo is leftover. See `docs/runbook.md`.
+
 # Repositorio km0-opencloud
 
 **Remote:** `git@github.com:AMVARA-CONSULTING/km0-opencloud.git`
