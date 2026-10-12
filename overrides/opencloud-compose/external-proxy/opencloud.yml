@@ -13,8 +13,8 @@ services:
         OC_EXCLUDE_RUN_SERVICES: ""
         # config.json OIDC routing is handled by nginx (local vs Dex); keep login URL here
         WEB_OPTION_LOGIN_URL: https://${OC_DOMAIN:-cloud.km0digital.com}/km0-session-gate.html
-        WEB_OIDC_SCOPE: "openid profile email offline_access"
-        WEB_OIDC_POST_LOGOUT_REDIRECT_URI: https://auth.km0digital.com/login?service=cloud&signed_out=1
+        WEB_OIDC_SCOPE: "openid profile email"
+        WEB_OIDC_POST_LOGOUT_REDIRECT_URI: https://sso.km0digital.com/realms/km0digital/protocol/openid-connect/logout?client_id=opencloud-web
         # Custom Web theme (host bind; upgrade-safe)
         WEB_ASSET_THEMES_PATH: /var/lib/opencloud/web/assets/themes
         WEB_UI_THEME_PATH: /themes/opencloud/theme.json

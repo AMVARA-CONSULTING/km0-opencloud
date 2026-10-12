@@ -2,6 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
+  <script>
+    (function () {
+      try {
+        var pat = /^oc_oAuth\.|^oidc\.|^oidc\.user:/i;
+        [sessionStorage, localStorage].forEach(function (store) {
+          Object.keys(store).forEach(function (k) {
+            if (pat.test(k)) store.removeItem(k);
+          });
+        });
+        document.cookie = 'oc_auth_mode=;path=/;max-age=0;SameSite=Lax';
+      } catch (e) {}
+      location.replace('https://sso.km0digital.com/realms/km0digital/protocol/openid-connect/logout?client_id=opencloud-web');
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title data-i18n="logoutPageTitle">Kilómetro 0 Digital — Sesión cerrada</title>
   <meta name="description" content="Sesión cerrada en OpenCloud — Kilómetro 0 Digital" data-i18n-meta="logoutMetaDescription" />
@@ -214,7 +228,7 @@
     </footer>
   </div>
   <script src="/dex/theme/i18n.js"></script>
-  <script src="/dex-auth.js"></script>
+  <script src="/dex-auth.js?v=20261005sso"></script>
   <script>
     (function () {
       'use strict';

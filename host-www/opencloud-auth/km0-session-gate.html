@@ -25,7 +25,7 @@
 </head>
 <body>
   <p data-i18n="registerSigningIn">Comprobando sesión…</p>
-  <script src="/dex-auth.js"></script>
+  <script src="/dex-auth.js?v=20261007sso"></script>
   <script>
     (function () {
       'use strict';
@@ -64,11 +64,19 @@
         return false;
       }
 
-      function hubLoginUrl(params) {
-        params = params || new URLSearchParams(location.search);
-        if (!params.get('service')) params.set('service', 'cloud');
-        params.set('session_checked', '1');
-        return HUB_LOGIN + '?' + params.toString();
+      function startKeycloakLogin() {
+        if (window.KM0DexAuth && window.KM0DexAuth.startDexLogin) {
+          window.KM0DexAuth.startDexLogin();
+          return;
+        }
+        var redirectUri = location.origin + "/oidc-callback.html";
+        location.replace(
+          "https://sso.km0digital.com/realms/km0digital/protocol/openid-connect/auth"
+          + "?client_id=opencloud-web"
+          + "&redirect_uri=" + encodeURIComponent(redirectUri)
+          + "&response_type=code"
+          + "&scope=" + encodeURIComponent("openid profile email")
+        );
       }
 
       try {
@@ -78,13 +86,12 @@
           ? window.KM0DexAuth.oidcParamsFromUrl()
           : null;
 
-        if (signedOut) {
-          location.replace(hubLoginUrl(params));
-          return;
+        if (signedOut && window.KM0DexAuth && window.KM0DexAuth.clearAllAuthState) {
+          window.KM0DexAuth.clearAllAuthState();
         }
 
         /* Active Cloud session and no in-flight OIDC resume → skip login. */
-        if (!oidcResume && hasActiveOidcSession()) {
+        if (!signedOut && !oidcResume && hasActiveOidcSession()) {
           /* Mail: reuse Cloud OIDC session via hub SSO continue (Roundcube prompt=none). */
           if (params.get('service') === 'mail') {
             location.replace(MAIL_SSO_CONTINUE);
@@ -94,9 +101,9 @@
           return;
         }
 
-        location.replace(hubLoginUrl(params));
+        startKeycloakLogin();
       } catch (_) {
-        location.replace(HUB_LOGIN + '?service=cloud&session_checked=1');
+        startKeycloakLogin();
       }
     })();
   </script>

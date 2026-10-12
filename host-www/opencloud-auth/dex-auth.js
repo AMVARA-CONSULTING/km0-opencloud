@@ -1,7 +1,8 @@
 (function (global) {
   'use strict';
 
-  var OIDC_SCOPE = 'openid profile email offline_access';
+  var OIDC_SCOPE = 'openid profile email';
+  var KEYCLOAK_ISSUER = 'https://sso.km0digital.com/realms/km0digital';
   var AUTH_COOKIE_MAX_AGE = 600;
   var PENDING_LOGIN_KEY = 'km0_pending_login';
   var PENDING_LOGIN_TTL_MS = 120000;
@@ -79,25 +80,10 @@
     return user && user.access_token ? user.access_token : null;
   }
 
-  function postLogoutLoginUri() {
-    return 'https://auth.km0digital.com/login?service=cloud&signed_out=1&from_dex=1';
-  }
-
   function completeLogoutIfNeeded() {
     try {
-      var params = new URLSearchParams(location.search);
-      if (params.get('from_dex')) {
-        clearAllAuthState();
-        if (location.pathname === '/logout' || location.pathname === '/logout.html') {
-          location.replace('https://auth.km0digital.com/login?service=cloud&signed_out=1');
-        }
-        return false;
-      }
-      var idToken = getStoredIdToken();
-      var postLogout = postLogoutLoginUri();
-      var qs = new URLSearchParams({ post_logout_redirect_uri: postLogout });
-      if (idToken) qs.set('id_token_hint', idToken);
-      location.assign('/dex/logout?' + qs.toString());
+      clearAllAuthState();
+      location.replace(KEYCLOAK_ISSUER + '/protocol/openid-connect/logout?client_id=opencloud-web');
       return true;
     } catch (_) {
       clearAllAuthState();
@@ -173,36 +159,40 @@
   function startDexLogin(connectorId, extraParams) {
     var resumed = oidcParamsFromUrl();
     if (!resumed) clearOidcBrowserState();
-    setAuthModeCookie('dex');
+    setAuthModeCookie('keycloak');
+
+    function withHint(params) {
+      var next = Object.assign({}, params || {});
+      delete next.connector_id;
+      if (connectorId === 'google') next.kc_idp_hint = 'google';
+      if (extraParams) {
+        Object.keys(extraParams).forEach(function (k) {
+          if (extraParams[k] && k !== 'connector_id') next[k] = extraParams[k];
+        });
+      }
+      return next;
+    }
 
     if (resumed) {
-      var resumeParams = Object.assign({}, resumed, { connector_id: connectorId }, extraParams || {});
-      location.assign('/dex/auth?' + new URLSearchParams(resumeParams).toString());
+      location.assign(KEYCLOAK_ISSUER + '/protocol/openid-connect/auth?' + new URLSearchParams(withHint(resumed)).toString());
       return;
     }
 
     var redirectUri = location.origin + '/oidc-callback.html';
-    var authority   = location.origin + '/dex';
 
     generatePKCE().then(function (pkce) {
       var state = randomHex(16);
-      storeSigninState(state, authority, 'opencloud-web', redirectUri, pkce.verifier);
-      var authParams = {
+      storeSigninState(state, KEYCLOAK_ISSUER, 'opencloud-web', redirectUri, pkce.verifier);
+      var authParams = withHint({
         client_id:             'opencloud-web',
         redirect_uri:          redirectUri,
         response_type:         'code',
         scope:                 OIDC_SCOPE,
-        connector_id:          connectorId,
         state:                 state,
         code_challenge:        pkce.challenge,
         code_challenge_method: 'S256'
-      };
-      if (extraParams) {
-        Object.keys(extraParams).forEach(function (k) {
-          if (extraParams[k]) authParams[k] = extraParams[k];
-        });
-      }
-      location.assign('/dex/auth?' + new URLSearchParams(authParams).toString());
+      });
+      location.assign(KEYCLOAK_ISSUER + '/protocol/openid-connect/auth?' + new URLSearchParams(authParams).toString());
     });
   }
 

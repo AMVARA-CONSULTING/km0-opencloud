@@ -13,6 +13,7 @@ directives:
     - 'https://accounts.google.com'
     - 'https://oauth2.googleapis.com/token'
     - 'https://cloud.km0digital.com/dex'
+    - 'https://sso.km0digital.com'
     - 'https://appleid.apple.com'
   default-src:
     - '''none'''
@@ -31,6 +32,7 @@ directives:
     - 'https://accounts.google.com'
     - 'https://oauth2.googleapis.com/token'
     - 'https://cloud.km0digital.com/dex'
+    - 'https://sso.km0digital.com'
     - 'https://appleid.apple.com'
   img-src:
     - '''self'''
@@ -52,6 +54,7 @@ directives:
     - '''self'''
     - '''unsafe-inline'''
     - 'https://${IDP_DOMAIN|keycloak.opencloud.test}${TRAEFIK_PORT_HTTPS}/'
+    - 'https://sso.km0digital.com'
   style-src:
     - '''self'''
     - '''unsafe-inline'''

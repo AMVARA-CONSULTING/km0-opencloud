@@ -70,3 +70,14 @@ Create labels in the repo if missing.
 Preflight digest: `autoagents/var/loop/001-latest-context.txt`
 
 **Version counter:** `autoagents/VERSION` (semver). Patch increments when a new FEAT task is created. Commit it only alongside real work — never VERSION or 001 reviewer stamp alone.
+
+## Cursor token / usage alerts
+
+When `cursor-agent` exits non-zero and the log matches usage/token exhaustion (same signals as Maestro `token_alert`), the loop calls host helper:
+
+`/opt/amvara/scripts/cursor-token-alert.sh`
+
+- Discord webhook (same family as disk/econs alerts) with `@everyone`
+- Host-wide cooldown default **1800s** (`/etc/amvara/cursor-token-alert.env`)
+- Smoke: `cursor-token-alert.sh --smoke --project <id>`
+
