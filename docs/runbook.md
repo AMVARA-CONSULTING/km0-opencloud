@@ -836,5 +836,10 @@ Current site entry: **Mail** → `https://mail.km0digital.com` (`target: externa
 2. Remove `opencloud-compose/config/opencloud/apps/external-sites/`.
 3. Restart OpenCloud if needed. Compose volume list unchanged for this feature (only the env overlay for `WEB_ASSET_APPS_PATH`).
 
-Do **not** add file bind mounts for this feature. Production-style `apps.yaml` is tracked in #8295.
+Do **not** add file bind mounts for this feature.
+
+### Status
+
+* **#8294** — done (provisional `config.json` + static nginx `external_apps`).
+* **#8295** (`apps.yaml` directory mount) — **parked / sleep**. With the current nginx rewrite of `/config.json` to `config-dex.json` / `config-local.json`, `apps.yaml` alone is **not** the menu source of truth; you would keep two configs for the same waffle entry. Revisit #8295 only when more apps need managing **or** nginx is switched to live OpenCloud `/config.json`. Dex cleanup stays out of scope.
 
