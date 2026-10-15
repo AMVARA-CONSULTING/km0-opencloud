@@ -18,6 +18,7 @@ All notable changes to this project are documented in this file.
 ## [Unreleased]
 
 ### Added
+- External Sites **2.1.0** (provisional): waffle **Mail** → `https://mail.km0digital.com`. App under `apps/external-sites/` + `config.json` (restore via overrides + apply script). Set `WEB_ASSET_APPS_PATH` beside themes in external-proxy overlay. Also register the app in static `host-www/opencloud-auth/config-dex.json` / `config-local.json` (nginx serves those as `/config.json`). Tickets #8294 / phase-2 #8295.
 
 - Docker json-file log retention (`50m` × `5`) via `external-proxy/logging.yml` for `opencloud` / `collaboration` / `collabora`; same options on Dex and register-api compose; wired into env examples, `apply-opencloud-compose-overrides.sh`, and runbook. Does not touch user data volumes.
 

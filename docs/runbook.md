@@ -802,3 +802,39 @@ Draft text for filing upstream (no live tokens): `docs/issue-public-share-folder
 - [OpenCloud release notes](https://docs.opencloud.eu/opencloud_release_notes.html)
 - [Changelog](https://github.com/opencloud-eu/opencloud/tree/main/changelog)
 - [Upstream compose repo](https://github.com/opencloud-eu/opencloud-compose)
+
+## External Sites — Mail shortcut (provisional)
+
+Ticket: #8294. Phase-2 apps.yaml: #8295.
+
+OpenCloud **8.0.1** uses the **External Sites** web app **2.1.0** so the waffle menu can open Roundcube.
+
+| What | Path |
+|------|------|
+| App (host, directory mount) | `opencloud-compose/config/opencloud/apps/external-sites/` |
+| Container mount | `/var/lib/opencloud/web/assets/apps` |
+| Required env | `WEB_ASSET_APPS_PATH=/var/lib/opencloud/web/assets/apps` in `overrides/.../external-proxy/opencloud.yml` (same pattern as themes) |
+| App config (provisional) | `…/external-sites/config.json` + restore copy under `overrides/.../apps/external-sites/config.json` |
+| Public Web config | Nginx serves **static** `host-www/opencloud-auth/config-dex.json` (and `config-local.json`) as `/config.json` — not the live OpenCloud `/config.json`. Mail must be listed under `external_apps` there too. Deploy copy: `/var/www/opencloud-auth/`. |
+
+Without `WEB_ASSET_APPS_PATH`, OpenCloud looks under `~/.opencloud/web/assets/apps` and never registers host apps (only embedded maps).
+
+Current site entry: **Mail** → `https://mail.km0digital.com` (`target: external`). The extension does not perform Roundcube SSO.
+
+### Update External Sites without losing Mail
+
+1. Backup `opencloud-compose/config/opencloud/apps/` and `host-www/opencloud-auth/config-*.json`.
+2. Download a compatible zip from [web-extensions releases](https://github.com/opencloud-eu/web-extensions/releases) (tag `external-sites-v*`).
+3. Replace the `external-sites/` app files **but keep** `config.json` (or run `./scripts/apply-opencloud-compose-overrides.sh` to restore it from overrides). Keep ownership `opencloud-user` (uid 1000).
+4. Keep `external_apps` entry in `config-dex.json` / `config-local.json` (sync to `/var/www/opencloud-auth/`).
+5. `cd opencloud-compose && docker compose up -d --no-deps opencloud` if the overlay env changed; otherwise `docker compose restart opencloud`.
+6. Confirm public `https://cloud.km0digital.com/config.json` lists `external-sites`, then waffle menu → Mail opens Roundcube.
+
+### Rollback
+
+1. Remove `external-sites` from `external_apps` in `config-dex.json` / `config-local.json` (and `/var/www/opencloud-auth/`).
+2. Remove `opencloud-compose/config/opencloud/apps/external-sites/`.
+3. Restart OpenCloud if needed. Compose volume list unchanged for this feature (only the env overlay for `WEB_ASSET_APPS_PATH`).
+
+Do **not** add file bind mounts for this feature. Production-style `apps.yaml` is tracked in #8295.
+

@@ -21,6 +21,23 @@
   ],
   "external_apps": [
     {
+      "id": "external-sites",
+      "path": "/assets/apps/external-sites/js/remoteEntry-BRYrbEG2.mjs",
+      "version": "2.1.0",
+      "config": {
+        "sites": [
+          {
+            "name": "Mail",
+            "url": "https://mail.km0digital.com",
+            "target": "external",
+            "color": "#4A90D9",
+            "icon": "mail",
+            "priority": 50
+          }
+        ]
+      }
+    },
+    {
       "id": "maps",
       "path": "/assets/apps/maps/js/remoteEntry-lxWu31Tr.mjs"
     }

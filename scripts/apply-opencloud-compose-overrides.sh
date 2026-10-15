@@ -34,6 +34,15 @@ if [[ -d "${OVERRIDES}/config/opencloud/themes" ]]; then
   echo "Temas Web copiados a ${COMPOSE_DIR}/config/opencloud/themes"
 fi
 
+# External Sites KM0 config (provisional config.json; keep out of extension zip updates)
+ES_CFG_SRC="${OVERRIDES}/config/opencloud/apps/external-sites/config.json"
+ES_CFG_DST="${COMPOSE_DIR}/config/opencloud/apps/external-sites/config.json"
+if [[ -f "${ES_CFG_SRC}" ]]; then
+  mkdir -p "$(dirname "${ES_CFG_DST}")"
+  install -D -m 0644 "${ES_CFG_SRC}" "${ES_CFG_DST}"
+  echo "External Sites config.json restored to ${ES_CFG_DST}"
+fi
+
 cd "${COMPOSE_DIR}"
 if patch -p1 --forward --dry-run < "${PATCH}" >/dev/null 2>&1; then
   patch -p1 --forward < "${PATCH}"

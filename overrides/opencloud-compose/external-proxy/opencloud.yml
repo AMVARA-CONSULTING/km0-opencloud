@@ -17,6 +17,7 @@ services:
         WEB_OIDC_POST_LOGOUT_REDIRECT_URI: https://sso.km0digital.com/realms/km0digital/protocol/openid-connect/logout?client_id=opencloud-web
         # Custom Web theme (host bind; upgrade-safe)
         WEB_ASSET_THEMES_PATH: /var/lib/opencloud/web/assets/themes
+        WEB_ASSET_APPS_PATH: /var/lib/opencloud/web/assets/apps
         WEB_UI_THEME_PATH: /themes/opencloud/theme.json
       # Docker embedded DNS often fails to resolve the public hostname from inside the container
       extra_hosts:

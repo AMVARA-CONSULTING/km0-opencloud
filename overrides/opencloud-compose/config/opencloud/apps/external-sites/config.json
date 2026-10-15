@@ -1,0 +1,14 @@
+{
+  "config": {
+    "sites": [
+      {
+        "name": "Mail",
+        "url": "https://mail.km0digital.com",
+        "target": "external",
+        "color": "#4A90D9",
+        "icon": "mail",
+        "priority": 50
+      }
+    ]
+  }
+}
