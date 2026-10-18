@@ -14,7 +14,7 @@ Official docs: <https://docs.opencloud.eu/>
 | Docker CE | 29.5.2 | `/etc/docker/daemon.json` | `systemctl status docker` |
 | Docker Compose plugin | v5.1.4 | — | bundled with Docker CE |
 | OpenCloud | rolling:8.1.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
-| Collabora CODE | 26.04.4.2.1 | `opencloud-compose/weboffice/collabora.yml` | `docker compose ps collabora` |
+| Collabora CODE | 26.04.5.1.1 | `opencloud-compose/weboffice/collabora.yml` | `docker compose ps collabora` |
 | WOPI (collaboration) | same as OpenCloud image | `opencloud-compose/.env` (`WOPISERVER_DOMAIN`) | `docker compose ps collaboration` |
 | Nginx (web) | 1.26.3 | `/etc/nginx/sites-available/km0` | `km0.amvara.de` → :9180 |
 | Nginx (OpenCloud) | 1.26.3 | `/etc/nginx/sites-available/opencloud` | `cloud.km0digital.com` → :9200 |
@@ -417,6 +417,7 @@ apt update && apt upgrade -y
 | 2026-07-18 | Upgraded OpenCloud | `7.0.0` → `7.3.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-08-18 | Upgraded OpenCloud | `7.3.0` → `7.4.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-09-07 | Upgraded OpenCloud | `7.4.0` → `7.5.0` (volumes backed up first; Dex/nginx login unchanged) |
+| 2026-10-18 | Upgraded Collabora CODE | `26.04.4.2.1` → `26.04.5.1.1` (same 26.04 series; health 200 local+public; WOPI 404) |
 | 2026-10-18 | Upgraded OpenCloud rolling | `8.0.1` → `8.1.0` (volume backup `/var/backups/opencloud/20261018-170108`; WOPI/Collabora OK; auth gates PASS; `/logout` verify pre-existing Keycloak-cutover miss) |
 | 2026-09-21 | Upgraded OpenCloud rolling | `7.5.0` → `8.0.1` (volume backup + search reindex; auth smoke PASS) |
 | 2026-09-26 | Upgraded Collabora CODE | `26.04.4.1.1` → `26.04.4.2.1` (same 26.04 series; health 200 local+public; WOPI 404) |
