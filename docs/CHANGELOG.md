@@ -11,6 +11,7 @@
 
 ### Changed
 
+- Dex image pin `v2.45.1` → `v2.46.0` (Sunday stack update; added upstream `totp_verify.html` / `webauthn_verify.html` / `home.html` / `logout.html` to `dex/web/templates` so custom frontend dir starts; static clients unchanged).
 - Collabora CODE pin `26.04.4.2.1` → `26.04.5.1.1` (Sunday stack update; same 26.04 series; live pin in gitignored `opencloud-compose/weboffice/collabora.yml`).
 - OpenCloud rolling pin `8.0.1` → `8.1.0` (Sunday stack update; volumes backed up under `/var/backups/opencloud/20261018-170108`). KM0 NATS (`opencloud:9233`) and IDM LDAPS overrides kept.
 - Live Cloud OIDC issuer is Keycloak realm `km0digital` (`https://sso.km0digital.com/realms/km0digital`) since 2026-10-05. Dex is leftover. Runbook and README updated 2026-10-06.

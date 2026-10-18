@@ -417,6 +417,7 @@ apt update && apt upgrade -y
 | 2026-07-18 | Upgraded OpenCloud | `7.0.0` → `7.3.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-08-18 | Upgraded OpenCloud | `7.3.0` → `7.4.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-09-07 | Upgraded OpenCloud | `7.4.0` → `7.5.0` (volumes backed up first; Dex/nginx login unchanged) |
+| 2026-10-18 | Upgraded Dex | `v2.45.1` → `v2.46.0` (added upstream totp/webauthn/home/logout templates to KM0 web dir; clients unchanged) |
 | 2026-10-18 | Upgraded Collabora CODE | `26.04.4.2.1` → `26.04.5.1.1` (same 26.04 series; health 200 local+public; WOPI 404) |
 | 2026-10-18 | Upgraded OpenCloud rolling | `8.0.1` → `8.1.0` (volume backup `/var/backups/opencloud/20261018-170108`; WOPI/Collabora OK; auth gates PASS; `/logout` verify pre-existing Keycloak-cutover miss) |
 | 2026-09-21 | Upgraded OpenCloud rolling | `7.5.0` → `8.0.1` (volume backup + search reindex; auth smoke PASS) |

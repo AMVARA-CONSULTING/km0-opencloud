@@ -1,6 +1,6 @@
 services:
   dex:
-    image: ghcr.io/dexidp/dex:v2.45.1
+    image: ghcr.io/dexidp/dex:v2.46.0
     container_name: opencloud-dex
     # Root for entrypoint: read IDM ldap.crt from opencloud-data (dir mode 0700)
     user: "0:0"
