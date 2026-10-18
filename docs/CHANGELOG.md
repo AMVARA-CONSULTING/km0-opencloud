@@ -11,6 +11,7 @@
 
 ### Changed
 
+- OpenCloud rolling pin `8.0.1` → `8.1.0` (Sunday stack update; volumes backed up under `/var/backups/opencloud/20261018-170108`). KM0 NATS (`opencloud:9233`) and IDM LDAPS overrides kept.
 - Live Cloud OIDC issuer is Keycloak realm `km0digital` (`https://sso.km0digital.com/realms/km0digital`) since 2026-10-05. Dex is leftover. Runbook and README updated 2026-10-06.
 
 All notable changes to this project are documented in this file.
