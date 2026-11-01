@@ -11,6 +11,7 @@
 
 ### Changed
 
+- OpenCloud rolling pin `8.1.0` → `9.0.0` (Sunday stack update; quick upgrade path; guest links left disabled; volumes backed up under `/unmount/opencloud-backup/install-snapshots/20261101-170315`). KM0 NATS (`opencloud:9233`), IDM LDAPS, and `proxy.role_assignment.driver: default` kept (did not apply interactive `init --diff` guest patch).
 - Dex image pin `v2.46.0` → `v2.46.1` (Sunday stack update; distrust compromised eMudhra intermediates; static clients unchanged).
 - Collabora CODE pin `26.04.5.1.1` → `26.04.5.2.1` (Sunday stack update; same 26.04 series; live pin in gitignored `opencloud-compose/weboffice/collabora.yml`; backup `/var/backups/opencloud/20261025-170118`).
 - Dex image pin `v2.45.1` → `v2.46.0` (Sunday stack update; added upstream `totp_verify.html` / `webauthn_verify.html` / `home.html` / `logout.html` to `dex/web/templates` so custom frontend dir starts; static clients unchanged).

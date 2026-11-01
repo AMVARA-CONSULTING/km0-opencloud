@@ -13,7 +13,7 @@ Official docs: <https://docs.opencloud.eu/>
 | Debian | 13.5 (Trixie) | `/etc/` | Running |
 | Docker CE | 29.5.2 | `/etc/docker/daemon.json` | `systemctl status docker` |
 | Docker Compose plugin | v5.1.4 | — | bundled with Docker CE |
-| OpenCloud | rolling:8.1.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
+| OpenCloud | rolling:9.0.0 | `/opt/opencloud/opencloud-compose/.env` | `docker compose ps` |
 | Collabora CODE | 26.04.5.2.1 | `opencloud-compose/weboffice/collabora.yml` | `docker compose ps collabora` |
 | WOPI (collaboration) | same as OpenCloud image | `opencloud-compose/.env` (`WOPISERVER_DOMAIN`) | `docker compose ps collaboration` |
 | Nginx (web) | 1.26.3 | `/etc/nginx/sites-available/km0` | `km0.amvara.de` → :9180 |
@@ -112,7 +112,7 @@ The upstream template with all available options is:
 | `COLLABORA_ADMIN_PASSWORD` | *(in `.env` only)* | Collabora admin UI at `/browser/dist/admin/admin.html` |
 | `COMPOSE_PROJECT_NAME` | `opencloud` | Prefixes Docker resource names: volumes become `opencloud_opencloud-data`, etc. |
 | `OC_DOMAIN` | `cloud.km0digital.com` | Hostname público de OpenCloud (no usar `km0.amvara.de`, que es la web). |
-| `OC_DOCKER_IMAGE` / `OC_DOCKER_TAG` | `opencloudeu/opencloud-rolling` / `7.5.0` | Pinned image. Change `OC_DOCKER_TAG` to upgrade. |
+| `OC_DOCKER_IMAGE` / `OC_DOCKER_TAG` | `opencloudeu/opencloud-rolling` / `9.0.0` | Pinned image. Change `OC_DOCKER_TAG` to upgrade. |
 | `INSECURE` | `false` | TLS validation enabled. Use `true` only with self-signed certs during lab setup. |
 | `INITIAL_ADMIN_PASSWORD` | *(ver `opencloud-compose/.env`)* | Solo en **primer arranque**. Después, cambiar en la UI (no en `.env`). |
 | `LOG_DRIVER` | `json-file` | Matches `/etc/docker/daemon.json`; limits log size to 10 MB × 3 files. |
@@ -421,6 +421,7 @@ apt update && apt upgrade -y
 | 2026-10-25 | Upgraded Collabora CODE | `26.04.5.1.1` → `26.04.5.2.1` (same 26.04 series; health 200 local+public; WOPI 404; backup `/var/backups/opencloud/20261025-170118`) |
 | 2026-10-18 | Upgraded Dex | `v2.45.1` → `v2.46.0` (added upstream totp/webauthn/home/logout templates to KM0 web dir; clients unchanged) |
 | 2026-10-18 | Upgraded Collabora CODE | `26.04.4.2.1` → `26.04.5.1.1` (same 26.04 series; health 200 local+public; WOPI 404) |
+| 2026-11-01 | Upgraded OpenCloud rolling | `8.1.0` → `9.0.0` (quick upgrade; guest links left disabled; backup `/unmount/opencloud-backup/install-snapshots/20261101-170315`; KM0 NATS/`role_assignment` kept) |
 | 2026-10-18 | Upgraded OpenCloud rolling | `8.0.1` → `8.1.0` (volume backup `/var/backups/opencloud/20261018-170108`; WOPI/Collabora OK; auth gates PASS; `/logout` verify pre-existing Keycloak-cutover miss) |
 | 2026-09-21 | Upgraded OpenCloud rolling | `7.5.0` → `8.0.1` (volume backup + search reindex; auth smoke PASS) |
 | 2026-09-26 | Upgraded Collabora CODE | `26.04.4.1.1` → `26.04.4.2.1` (same 26.04 series; health 200 local+public; WOPI 404) |
