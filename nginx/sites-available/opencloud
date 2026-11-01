@@ -28,6 +28,10 @@ server {
 
     server_name cloud.km0digital.com;
 
+    # Dedicated logs for HTTP 4xx/5xx Discord alert (#8381)
+    access_log /var/log/nginx/opencloud.access.log;
+    error_log  /var/log/nginx/opencloud.error.log warn;
+
     ssl_certificate     /etc/letsencrypt/live/cloud.km0digital.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/cloud.km0digital.com/privkey.pem;
     ssl_protocols TLSv1.2 TLSv1.3;
