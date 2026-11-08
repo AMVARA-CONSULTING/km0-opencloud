@@ -300,46 +300,68 @@ Fail2ban complements UFW: UFW allows SSH from the Internet; Fail2ban blocks repe
 
 ## Backups
 
-### Automated script
+Default root on amvara10: **`/unmount/opencloud-backup/`** (not `/var/backups/opencloud`).
+
+| Kind | Path | Script / cron |
+|------|------|----------------|
+| Install snapshots (compose Docker volumes) | `/unmount/opencloud-backup/install-snapshots/<stamp>/` | `scripts/backup-volumes.sh` (keeps `MAX_SNAPSHOTS=2`; free-space check + Discord on fail) |
+| User-data archives (rotated) | `/unmount/opencloud-backup/user-data/` | `scripts/backup-user-data.sh` via `/etc/cron.d/opencloud-user-backup` (every 5 days 03:00; `MAX_BACKUPS=5`; space check + Discord) |
+
+### Automated install-snapshot script
 
 ```bash
-BACKUP_ROOT=/var/backups/opencloud /opt/opencloud/scripts/backup-volumes.sh
+# Default BACKUP_ROOT is already /unmount/opencloud-backup/install-snapshots
+/opt/opencloud/scripts/backup-volumes.sh
+# or explicit:
+BACKUP_ROOT=/unmount/opencloud-backup/install-snapshots /opt/opencloud/scripts/backup-volumes.sh
 ```
 
 The script:
 1. Reads `COMPOSE_PROJECT_NAME` from `.env` to determine volume names.
 2. Lists volumes via `docker compose config --volumes`.
-3. For each volume, runs an Alpine container to create a `.tar.gz` archive.
-4. Outputs archives to `/var/backups/opencloud/<YYYYMMDD-HHMMSS>/`.
+3. Checks free space on the destination mount; aborts and alerts Discord if insufficient.
+4. For each volume, runs an Alpine container to create a `.tar.gz` archive.
+5. Outputs archives to `/unmount/opencloud-backup/install-snapshots/<YYYYMMDD-HHMMSS>/`.
+6. Rotates old stamp dirs (default keep 2).
 
-**Volumes backed up:** `opencloud-data` (user files, IDM, search) and `opencloud-config` (secrets, config).
+**Volumes backed up:** typically `opencloud-data`, `opencloud-config`, and `collabora-proof-key` (local volume metadata/config; primary user blobs live in S3).
 
-### Schedule with cron (recommended)
+### User-data backup (cron)
 
 ```bash
-# Daily backup at 02:00
-echo '0 2 * * * root BACKUP_ROOT=/var/backups/opencloud /opt/opencloud/scripts/backup-volumes.sh >> /var/log/opencloud-backup.log 2>&1' \
+# Already installed as /etc/cron.d/opencloud-user-backup
+# Manual run:
+BACKUP_ROOT=/unmount/opencloud-backup/user-data /opt/opencloud/scripts/backup-user-data.sh
+```
+
+### Optional extra install-snapshot cron
+
+Sunday stack updates already call `backup-volumes.sh` with `BACKUP_ROOT=/unmount/opencloud-backup/install-snapshots`. A separate daily cron is optional:
+
+```bash
+# Example daily install-snapshot at 02:00 (optional; sunday-updates also backs up before OC upgrades)
+echo '0 2 * * * root BACKUP_ROOT=/unmount/opencloud-backup/install-snapshots /opt/opencloud/scripts/backup-volumes.sh >> /var/log/opencloud-backup.log 2>&1' \
   > /etc/cron.d/opencloud-backup
 ```
 
-### Restore procedure
+### Restore procedure (install-snapshot)
 
 ```bash
 # 1. Stop the stack
 cd /opt/opencloud/opencloud-compose
 docker compose down
 
-# 2. Restore data volume (adjust timestamp)
+# 2. Restore data volume (adjust stamp under install-snapshots)
 docker run --rm \
   -v opencloud_opencloud-data:/to \
-  -v /var/backups/opencloud/20260101-020000:/backup:ro \
+  -v /unmount/opencloud-backup/install-snapshots/20260101-020000:/backup:ro \
   alpine:3.19 \
   sh -c 'rm -rf /to/* /to/.[!.]* /to/..?* 2>/dev/null; tar xzf /backup/opencloud-data-20260101-020000.tar.gz -C /to'
 
 # 3. Restore config volume (same pattern)
 docker run --rm \
   -v opencloud_opencloud-config:/to \
-  -v /var/backups/opencloud/20260101-020000:/backup:ro \
+  -v /unmount/opencloud-backup/install-snapshots/20260101-020000:/backup:ro \
   alpine:3.19 \
   sh -c 'rm -rf /to/* /to/.[!.]* /to/..?* 2>/dev/null; tar xzf /backup/opencloud-config-20260101-020000.tar.gz -C /to'
 
@@ -360,7 +382,7 @@ cd /opt/opencloud/opencloud-compose
 
 # 1. Review changelog: https://github.com/opencloud-eu/opencloud/releases
 # 2. Backup volumes (required — preserves data + config)
-BACKUP_ROOT=/var/backups/opencloud /opt/opencloud/scripts/backup-volumes.sh
+BACKUP_ROOT=/unmount/opencloud-backup/install-snapshots /opt/opencloud/scripts/backup-volumes.sh
 # 3. Update OC_DOCKER_TAG in .env (e.g. 7.4.0) and in overrides/.env.*.example
 nano .env
 
@@ -418,11 +440,11 @@ apt update && apt upgrade -y
 | 2026-08-18 | Upgraded OpenCloud | `7.3.0` → `7.4.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-09-07 | Upgraded OpenCloud | `7.4.0` → `7.5.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-10-25 | Upgraded Dex | `v2.46.0` → `v2.46.1` (image CA distrust patch; clients unchanged; auth gates PASS; `/logout` pre-existing Keycloak-cutover miss) |
-| 2026-10-25 | Upgraded Collabora CODE | `26.04.5.1.1` → `26.04.5.2.1` (same 26.04 series; health 200 local+public; WOPI 404; backup `/var/backups/opencloud/20261025-170118`) |
+| 2026-10-25 | Upgraded Collabora CODE | `26.04.5.1.1` → `26.04.5.2.1` (same 26.04 series; health 200 local+public; WOPI 404; backup `/unmount/opencloud-backup/install-snapshots/20261025-170118`) |
 | 2026-10-18 | Upgraded Dex | `v2.45.1` → `v2.46.0` (added upstream totp/webauthn/home/logout templates to KM0 web dir; clients unchanged) |
 | 2026-10-18 | Upgraded Collabora CODE | `26.04.4.2.1` → `26.04.5.1.1` (same 26.04 series; health 200 local+public; WOPI 404) |
 | 2026-11-01 | Upgraded OpenCloud rolling | `8.1.0` → `9.0.0` (quick upgrade; guest links left disabled; backup `/unmount/opencloud-backup/install-snapshots/20261101-170315`; KM0 NATS/`role_assignment` kept) |
-| 2026-10-18 | Upgraded OpenCloud rolling | `8.0.1` → `8.1.0` (volume backup `/var/backups/opencloud/20261018-170108`; WOPI/Collabora OK; auth gates PASS; `/logout` verify pre-existing Keycloak-cutover miss) |
+| 2026-10-18 | Upgraded OpenCloud rolling | `8.0.1` → `8.1.0` (volume backup `/unmount/opencloud-backup/install-snapshots/20261018-170108`; WOPI/Collabora OK; auth gates PASS; `/logout` verify pre-existing Keycloak-cutover miss) |
 | 2026-09-21 | Upgraded OpenCloud rolling | `7.5.0` → `8.0.1` (volume backup + search reindex; auth smoke PASS) |
 | 2026-09-26 | Upgraded Collabora CODE | `26.04.4.1.1` → `26.04.4.2.1` (same 26.04 series; health 200 local+public; WOPI 404) |
 | 2026-09-21 | Upgraded Collabora CODE | `26.04.3.2.1` → `26.04.4.1.1` (same 26.04 series; health 200 local+public) |
