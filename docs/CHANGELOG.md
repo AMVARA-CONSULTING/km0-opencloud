@@ -11,6 +11,7 @@
 
 ### Changed
 
+- OpenCloud rolling pin `9.1.0` → `9.2.0` (Sunday stack update; volumes backed up under `/unmount/opencloud-backup/install-snapshots/20261118-190049`). KM0 NATS (`opencloud:9233`), IDM LDAPS, and `proxy.role_assignment.driver: default` kept.
 - OpenCloud rolling pin `9.0.0` → `9.1.0` (Sunday stack update; volumes backed up under `/unmount/opencloud-backup/install-snapshots/20261115-170045`). KM0 NATS (`opencloud:9233`), IDM LDAPS, and `proxy.role_assignment.driver: default` kept.
 - Collabora CODE pin `26.04.5.2.1` → `26.04.6.1.1` (Sunday stack update; same 26.04 series; live pin in gitignored `opencloud-compose/weboffice/collabora.yml`; backup `/unmount/opencloud-backup/install-snapshots/20261108-170054`).
 - OpenCloud rolling pin `8.1.0` → `9.0.0` (Sunday stack update; quick upgrade path; guest links left disabled; volumes backed up under `/unmount/opencloud-backup/install-snapshots/20261101-170315`). KM0 NATS (`opencloud:9233`), IDM LDAPS, and `proxy.role_assignment.driver: default` kept (did not apply interactive `init --diff` guest patch).
