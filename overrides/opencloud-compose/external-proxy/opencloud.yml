@@ -13,6 +13,9 @@ services:
         OC_EXCLUDE_RUN_SERVICES: ""
         # config.json OIDC routing is handled by nginx (local vs Dex); keep login URL here
         WEB_OPTION_LOGIN_URL: https://${OC_DOMAIN:-cloud.km0digital.com}/km0-session-gate.html
+        # Keycloak holds login passwords; point Account edit away from broken Graph/IDM changePassword
+        WEB_OPTION_ACCOUNT_EDIT_LINK_HREF: https://sso.km0digital.com/realms/km0digital/account
+        FRONTEND_READONLY_USER_ATTRIBUTES: user.passwordProfile
         WEB_OIDC_SCOPE: "openid profile email"
         WEB_OIDC_POST_LOGOUT_REDIRECT_URI: https://sso.km0digital.com/realms/km0digital/protocol/openid-connect/logout?client_id=opencloud-web
         # Custom Web theme (host bind; upgrade-safe)
