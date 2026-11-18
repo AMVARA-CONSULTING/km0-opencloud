@@ -50,6 +50,9 @@
     "embed": {},
     "concurrentRequests": {
       "shares": {}
+    },
+    "accountEditLink": {
+      "href": "https://sso.km0digital.com/realms/km0digital/account"
     }
   }
 }
