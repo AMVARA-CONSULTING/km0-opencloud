@@ -440,6 +440,7 @@ apt update && apt upgrade -y
 | 2026-08-18 | Upgraded OpenCloud | `7.3.0` → `7.4.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-09-07 | Upgraded OpenCloud | `7.4.0` → `7.5.0` (volumes backed up first; Dex/nginx login unchanged) |
 | 2026-10-25 | Upgraded Dex | `v2.46.0` → `v2.46.1` (image CA distrust patch; clients unchanged; auth gates PASS; `/logout` pre-existing Keycloak-cutover miss) |
+| 2026-11-20 | Keycloak empty-email login loop | Realm `km0digital` User Profile: email view/edit for `user` (was admin-only). OpenCloud needs claim `email` (`PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME=email`). Orphan `nageshn` disabled. Hub #7530. |
 | 2026-11-18 | Upgraded OpenCloud rolling | `9.1.0` → `9.2.0` (volumes backed up first; Dex/nginx login unchanged; backup `/unmount/opencloud-backup/install-snapshots/20261118-190049`; KM0 NATS/`role_assignment` kept) |
 | 2026-11-15 | Upgraded OpenCloud rolling | `9.0.0` → `9.1.0` (volumes backed up first; Dex/nginx login unchanged; backup `/unmount/opencloud-backup/install-snapshots/20261115-170045`; KM0 NATS/`role_assignment` kept) |
 | 2026-11-08 | Upgraded Collabora CODE | `26.04.5.2.1` → `26.04.6.1.1` (same 26.04 series; health 200 local+public; WOPI 404; backup `/unmount/opencloud-backup/install-snapshots/20261108-170054`) |
@@ -496,6 +497,16 @@ Built-in OpenCloud `idp` stays for internal service-to-service use. It is not th
 Legacy Dex landing cookies (`oc_auth_mode=dex`, `/dex/auth?connector_id=...`) are **not** the live path. Do not restore them without an explicit ask.
 
 **Local users:** IDM accounts (`ou=users,o=libregraph-idm`) still own files. Sign-in is Keycloak (email / Google). Do not remove/re-add a desktop account to "fix" Incorrect user (creates `OpenCloud (2)`).
+
+### Email claim required (OpenCloud <-> Keycloak)
+
+OpenCloud autoprovision uses `PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME=email`. A Keycloak access token **without** an `email` claim fails with proxy `missing claim 'email' (displayName)` and looks like a login / redirect loop.
+
+**Realm `km0digital` User Profile (amvara3):** attribute `email` must be **required** for role `user` and **view/edit** for both `admin` and `user`. If edit is admin-only, native Keycloak registration hides the email field and can create username-only accounts with empty email.
+
+**KM0 mailbox accounts** (`foo@km0digital.com`) still register at https://auth.km0digital.com/register (register-api). That path already sets email; the User Profile fix does not block `@km0digital.com`.
+
+**Incident 2026-11-20:** user `nageshn` created via Keycloak register with empty email -> Cloud loop; working account `amvara.nagesh@gmail.com` (Google). Fixed User Profile permissions; disabled orphan `nageshn`. Backup: `amvara3:/data/keycloak/app/backups/kc-user-profile-km0digital-backup-20261120T122651Z.json`. Notes on hub #7530. Cross-ref Keycloak hub #8249.
 
 ### Public self-registration (email + password)
 
@@ -781,7 +792,10 @@ docker compose logs opencloud # Any startup errors?
 
 ### Cannot log in (redirect loop)
 
-`OC_DOMAIN` does not match the browser's address bar hostname. They must be identical.
+Typical causes:
+
+1. **`OC_DOMAIN` mismatch** — does not match the browser hostname. They must be identical.
+2. **Missing Keycloak `email` claim** — proxy log `missing claim 'email' (displayName)` / `Error creating user from claims`. User Profile on realm `km0digital` must let end users edit `email` on registration (see **Email claim required** above). Prefer hub register for KM0 mailbox accounts. Do not re-enable empty-email orphan accounts.
 
 ### Google login OK but “inactive or not yet authorized” (`/access-denied`)
 
